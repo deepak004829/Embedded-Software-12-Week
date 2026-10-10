@@ -2,9 +2,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#e8eee8;--sf:#f6f9f5;--sf2:#dde7de;--ln:#c2d1c5;--ink:#11251e;--mu:#51665b;--pri:#0e5a45;--onp:#fff;--cu:#b3601a;--cu2:#f4e0c9;--ok:#1b8858;--wn:#a96d12;--bd:#c0392b;--dot:#c6d4c9;--sh:0 1px 0 rgba(17,37,30,.05),0 10px 26px -14px rgba(17,37,30,.3);color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1915;--sf:#12261f;--sf2:#183329;--ln:#27473b;--ink:#e3eee7;--mu:#94ada1;--pri:#46c797;--onp:#05231a;--cu:#f0a35a;--cu2:#3b2a18;--ok:#52d6a2;--wn:#e9b24d;--bd:#f2705f;--dot:#1b342b;--sh:0 10px 26px -14px rgba(0,0,0,.6);color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#0b1915;--sf:#12261f;--sf2:#183329;--ln:#27473b;--ink:#e3eee7;--mu:#94ada1;--pri:#46c797;--onp:#05231a;--cu:#f0a35a;--cu2:#3b2a18;--ok:#52d6a2;--wn:#e9b24d;--bd:#f2705f;--dot:#1b342b;--sh:0 10px 26px -14px rgba(0,0,0,.6);color-scheme:dark}
+:root{--bg:#e8eee8;--sf:#f6f9f5;--sf2:#dde7de;--ln:#c2d1c5;--ink:#11251e;--mu:#51665b;--pri:#0e5a45;--onp:#fff;--cu:#b3601a;--cu2:#f4e0c9;--yl:#9a7200;--ok:#1b8858;--wn:#a96d12;--bd:#c0392b;--dot:#c6d4c9;--sh:0 1px 0 rgba(17,37,30,.05),0 10px 26px -14px rgba(17,37,30,.3);color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1915;--sf:#12261f;--sf2:#183329;--ln:#27473b;--ink:#e3eee7;--mu:#94ada1;--pri:#46c797;--onp:#05231a;--cu:#f0a35a;--cu2:#3b2a18;--yl:#e0b030;--ok:#52d6a2;--wn:#e9b24d;--bd:#f2705f;--dot:#1b342b;--sh:0 10px 26px -14px rgba(0,0,0,.6);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0b1915;--sf:#12261f;--sf2:#183329;--ln:#27473b;--ink:#e3eee7;--mu:#94ada1;--pri:#46c797;--onp:#05231a;--cu:#f0a35a;--cu2:#3b2a18;--yl:#e0b030;--ok:#52d6a2;--wn:#e9b24d;--bd:#f2705f;--dot:#1b342b;--sh:0 10px 26px -14px rgba(0,0,0,.6);color-scheme:dark}
 html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
 *{box-sizing:border-box}
 body{margin:0;min-height:100%;background:var(--bg);background-image:radial-gradient(var(--dot) 1.3px,transparent 1.5px);background-size:24px 24px;color:var(--ink);font:15px/1.55 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
@@ -103,6 +103,27 @@ details{border:1px solid var(--ln);border-radius:14px;background:var(--sf);margi
 .gut{margin:0;padding:12px 8px;text-align:right;color:var(--mu);font:13px/1.5 var(--mono);overflow:hidden;min-width:40px;user-select:none;border-right:1px solid var(--ln)}
 .ed{flex:1;min-width:0;border:0;border-radius:0;background:transparent;font:13px/1.5 var(--mono);height:380px;resize:vertical;white-space:pre;overflow:auto;tab-size:4;padding:12px}
 .out{background:var(--sf2);border-radius:10px;padding:10px 12px;font:13px/1.5 var(--mono);white-space:pre-wrap;overflow:auto;max-height:320px;margin:6px 0}.out.bad{color:var(--bd)}
+.wlstep{align-items:flex-start;padding:9px 0;border-top:1px solid var(--ln)}.wlstep input{margin-top:3px;flex:none}
+
+.pad.s-ok{background:var(--ok);border-color:var(--ok);color:var(--onp)}.pad.s-part{background:var(--yl);border-color:var(--yl);color:var(--onp)}.pad.s-miss{background:var(--bd);border-color:var(--bd);color:var(--onp)}
+.dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--cu);flex:none}.dot.s-ok{background:var(--ok);border-color:var(--ok)}.dot.s-part{background:var(--yl);border-color:var(--yl)}.dot.s-miss{background:var(--bd);border-color:var(--bd)}
+.leg{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--mu);margin-top:10px}.leg i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:5px;border:2px solid var(--cu);vertical-align:-1px}.leg i.s-ok{background:var(--ok);border-color:var(--ok)}.leg i.s-part{background:var(--yl);border-color:var(--yl)}.leg i.s-miss{background:var(--bd);border-color:var(--bd)}
+.hc.s-ok{background:var(--ok);border-color:var(--ok)}.hc.s-part{background:var(--yl);border-color:var(--yl)}.hc.s-miss{background:var(--bd);border-color:var(--bd)}
+.segs i{background:linear-gradient(90deg,var(--cu2) var(--f,0%),rgba(255,255,255,.25) var(--f,0%))}
+.pill.sts-ok{color:var(--ok)}.pill.sts-part{color:var(--yl)}.pill.sts-miss{color:var(--bd)}
+.bar.big{height:12px}.bar i.b-ok{background:var(--ok)}.bar i.b-part{background:var(--yl)}.bar i.b-miss{background:var(--bd)}.bar i.b-new{background:var(--cu)}
+.note.bad{border-color:var(--bd);background:color-mix(in srgb,var(--bd) 12%,var(--sf))}
+.qs{width:24px;height:24px;border-radius:50%;border:2px solid var(--ln);display:grid;place-items:center;font-size:14px;font-weight:700;flex:none}.qs.on{background:var(--ok);border-color:var(--ok);color:var(--onp)}
+.si{width:20px;text-align:center;font-weight:700;color:var(--mu);flex:none}.si.on{color:var(--ok)}
+.lcl .pr:nth-child(odd){background:color-mix(in srgb,var(--sf2) 55%,transparent)}.lcl .pr{padding:9px 8px;border-radius:8px;border-top:0}
+.qc{padding:12px 0;border-top:1px solid var(--ln)}.qc:first-of-type{border-top:0}.qc.acc{box-shadow:inset 3px 0 0 var(--ok);padding-left:12px}
+.qa{margin:8px 0;min-height:76px}.ac{background:var(--ok);color:var(--onp);border-color:var(--ok);font-weight:700}.ac:hover{background:var(--ok);filter:brightness(1.08)}
+.verdict{margin-top:10px;font:700 20px "Bricolage Grotesque",sans-serif}.verdict span{font-size:14px;color:var(--cu);margin-left:8px}.verdict.ac{color:var(--ok);background:none;border:0}.verdict.pa{color:var(--yl)}.verdict.wa{color:var(--bd)}
+.kws{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.kw{font-size:12px;border-radius:6px;padding:1px 8px;border:1px solid currentColor}.kw.ok{color:var(--ok)}.kw.bad{color:var(--bd)}
+.lc{display:flex;gap:24px;align-items:center;flex-wrap:wrap}.rg{width:132px;height:132px;border-radius:50%;display:grid;place-items:center;position:relative;flex:none}.rg:before{content:"";position:absolute;inset:11px;border-radius:50%;background:var(--sf)}
+.rg>div{position:relative;text-align:center;line-height:1.1}.rg b{font:800 30px "Bricolage Grotesque",sans-serif}.rg span{color:var(--mu)}.rg small{display:block;color:var(--mu);font-size:12px;margin-top:2px}
+.lcr{flex:1;min-width:200px;display:grid;gap:8px}.lrow{display:grid;grid-template-columns:70px 70px 1fr;align-items:center;gap:8px}.lrow small{color:var(--mu);font-weight:400}
+.Easyb{background:var(--ok)!important}.Mediumb{background:var(--wn)!important}.Hardb{background:var(--bd)!important}
 </style></head><body><div id="app"></div><div id="toasts" aria-live="polite"></div><canvas id="cf"></canvas><script>
 const PH=[["Boot","C, C++ and the build chain"],["Kernel","OS, Linux and memory"],["I/O","Networking, threads and hardware buses"],["Firmware","Embedded Linux, RTOS and design"],["Ship","Mocks, resume and offers"]];
 const WK=[
@@ -327,6 +348,190 @@ const PJ=[
 {n:"Kernel module and char driver",d:"Hello module, then a char device with read and write, tested in QEMU.",days:[66,67,68],m:["Hello module","Char device registration","read and write with copy_to_user","Deferred work","README"]},
 {n:"FreeRTOS sensor demo",d:"Tasks, a queue and a mutex simulating a sensor pipeline.",days:[69],m:["Two tasks","Queue between tasks","Mutex for shared data","Heartbeat and watchdog"]},
 {n:"Design docs (five systems)",d:"Temperature monitor, vehicle health monitor, crash-safe logger, OTA update and a failure-mode table.",days:[72,73,74,75,76],m:["Temperature monitor","Vehicle health monitor","Crash-safe logger","OTA update","Failure-mode tables"]}
+];
+// Weekend labs: one per week. steps = [title, how-to detail]; ok / more are ;-separated lists.
+const WL=[
+{w:1,n:"Hexdump tool and bit toolkit",t:"C, 4-5 h",goal:"Build hd, a hexdump command-line tool, plus a reusable bits.h library. You finish with a tested C project that touches pointers, arrays, bit operations, structs and endianness.",
+why:"Week 1 is memory layout, pointers and bit manipulation. A hexdump forces you to treat memory as raw bytes, and the bit library is the code you would write for hardware registers.",
+steps:[["Set up the project","Create hd/ with hd.c, bits.h, test_bits.c and a Makefile. Compile everything with gcc -Wall -Wextra -g -fsanitize=address,undefined so mistakes are caught immediately."],
+["Write bits.h","Add SET_BIT, CLEAR_BIT, TOGGLE_BIT, TEST_BIT, extract_field(x, pos, width), popcount (Kernighan), reverse_bits and bswap32 as macros or static inline functions. Use unsigned types everywhere."],
+["Test every bit helper","In test_bits.c use assert() with known answers, for example reverse_bits(1) == 0x80000000 and bswap32(0x11223344) == 0x44332211. Include edge cases: 0, all ones, bit 31."],
+["Detect endianness two ways","Write is_little_endian() once with a char pointer to a uint32_t and once with a union. Print both and confirm they agree."],
+["Read a file in 16-byte rows","Use fopen and fread into an unsigned char buffer[16]. Loop until fread returns 0, and handle a short last row correctly."],
+["Format each row","Print the offset as %08zx, the hex bytes in two groups of 8, then an ASCII column where non-printable bytes show as a dot. Pad the last short row so columns stay aligned."],
+["Add options and compare with the real tool","Support -n LENGTH and -s OFFSET (parse argv by hand, then try getopt). Compare your output with hexdump -C on a text file, a binary file and an empty file, and fix every difference."]],
+ok:"Output matches hexdump -C on three test files;ASan and UBSan report nothing;All bit tests pass;An empty file and a missing file are handled without crashing",
+more:"Add a --bits mode that prints each byte in binary;Print a struct with padding using offsetof and see the gaps;Add a -c COLUMNS option",
+say:"I wrote a hexdump tool and a bit-manipulation library in C. I handled endianness explicitly, tested every helper with asserts, and ran it under ASan and UBSan.",
+res:[["fread man page","https://man7.org/linux/man-pages/man3/fread.3.html"],["Bit Twiddling Hacks","https://graphics.stanford.edu/~seander/bithacks.html"],["Beej's Guide to C","https://beej.us/guide/bgc/"]]},
+
+{w:2,n:"Generic vector in C and String class in C++",t:"C and C++, 5 h",goal:"Implement a growable generic vector in C and a String class in C++ that follows the rule of five. Prove both are leak-free.",
+why:"Week 2 is dynamic memory and C++ OOP. The C vector teaches ownership and realloc; the C++ String shows what constructors, destructors and move semantics actually do.",
+steps:[["Design the C vector API","struct vec { void *data; size_t len, cap, elem; }. Functions: vec_init(v, elem_size), vec_push(v, &item), vec_get(v, i), vec_pop(v), vec_reserve(v, n), vec_free(v)."],
+["Implement push with doubling growth","When len == cap, double cap (start at 4). Call realloc into a temporary pointer, check for NULL, then assign. Use memcpy with elem size to store items."],
+["Test it hard","Push 1,000,000 ints, then a struct type, then pop everything. Check vec_get bounds. Make vec_free set data to NULL so a second free is harmless."],
+["Catch a leak on purpose","Comment out vec_free in one test, run under ASan and under valgrind --leak-check=full, and read both reports. Restore the free."],
+["Write the C++ String","Members: char *data_, size_t len_. Implement constructor from const char*, destructor, copy constructor, copy assignment (copy-and-swap), move constructor, move assignment, operator[], operator+=, c_str()."],
+["Watch the special members run","Print a line inside each special member. In main, pass a String by value, return one from a function and use std::move. Predict what prints before running."],
+["Refactor to rule of zero","Replace the raw pointer with std::unique_ptr<char[]> and delete what you no longer need. Note which special members the compiler now writes for you."]],
+ok:"No leaks in ASan or Valgrind;1,000,000 pushes work and cost amortised O(1);You can explain each line printed by the special members;Self-assignment of String is safe",
+more:"Add small-string optimisation to String;Add iterators and a range-for loop;Benchmark push_back against std::vector and std::string",
+say:"I built a generic vector in C with amortised O(1) push and a C++ String that implements the rule of five. I verified both with ASan and Valgrind.",
+res:[["learncpp: move semantics","https://www.learncpp.com/cpp-tutorial/introduction-to-smart-pointers-move-semantics/"],["realloc man page","https://man7.org/linux/man-pages/man3/malloc.3.html"],["Valgrind quick start","https://valgrind.org/docs/manual/quick-start.html"]]},
+
+{w:3,n:"Bug hunt: build system and debugging lab",t:"C, GDB, Make, CMake, 4-5 h",goal:"Build a small library with Make and CMake, then diagnose eight deliberately seeded bugs with GDB, sanitizers and Valgrind. You produce your own debugging cheat sheet.",
+why:"Week 3 is the toolchain and debugging. Interviewers love asking how you find a crash. After this lab you will have done it for real, for every common bug class.",
+steps:[["Create the project layout","src/, include/, tests/. Write mathlib.c and mathlib.h with a few functions, plus a demo main that calls them."],
+["Write a Makefile","Build libmath.a (ar rcs) and libmath.so (-fPIC -shared), then link the demo against each. Run the shared version with LD_LIBRARY_PATH and read ldd output."],
+["Port it to CMake","add_library(math STATIC ...), add_executable(demo ...), target_link_libraries. Build out of source in build/."],
+["Seed eight bugs in bugs.c","One function each: NULL dereference, stack buffer overflow, heap overflow, use-after-free, double free, uninitialised read, signed integer overflow, memory leak. Select the bug with argv[1]."],
+["Diagnose each bug with three tools","Run it plain, then in gdb (run, bt, frame, print, watch), then with ASan, UBSan and Valgrind. Write one line per bug: which tool found it fastest and why."],
+["Debug a core dump","ulimit -c unlimited, trigger a crash, then gdb ./bugs core and use bt. Also inspect a binary with nm, objdump -d and readelf -S."],
+["Write DEBUG.md","A one-page cheat sheet: ten GDB commands, ten sanitizer and Valgrind flags, and a flowchart for 'my program crashed, what now?'."]],
+ok:"Both library builds work with Make and CMake;Every seeded bug is found by at least one tool and explained;You can open a core dump and print a backtrace;DEBUG.md exists",
+more:"Add Unity or CMocka unit tests to the project;Add a GitHub Actions workflow that builds with sanitizers;Add -Wall -Wextra -Werror and fix every warning",
+say:"I can debug crashes with GDB, core dumps, ASan, UBSan and Valgrind, and I know which tool catches which bug class.",
+res:[["Makefile tutorial","https://makefiletutorial.com/"],["CMake tutorial","https://cmake.org/cmake/help/latest/guide/tutorial/index.html"],["GDB tutorial (CMU)","https://www.cs.cmu.edu/~gilpin/tutorial/"]]},
+
+{w:4,n:"Job runner and CPU scheduler simulator",t:"C, 5 h",goal:"Part A: a program that forks, execs and reaps child processes. Part B: a simulator that runs FCFS, SJF, Round Robin and Priority scheduling and prints Gantt charts and metrics.",
+why:"Week 4 is processes, threads and scheduling. Part A makes fork, exec and wait concrete; Part B lets you see convoy effect and starvation with numbers.",
+steps:[["Part A: fork three children","Fork three children. Each execs a different command (sleep 1, echo hi, ls /nonexistent). The parent waitpid()s each one and prints pid and exit status using WIFEXITED, WEXITSTATUS and WIFSIGNALED."],
+["Create a zombie on purpose","Skip waitpid for one child, sleep 30, and look at it in ps aux with state Z. Then fix it by reaping."],
+["Part B: define the input","A text file with lines pid arrival burst priority. Parse into an array of structs."],
+["Implement FCFS and SJF","FCFS sorts by arrival. Non-preemptive SJF picks the shortest ready job. Track start time, finish time and compute waiting, turnaround and response time per process."],
+["Implement Round Robin","Use a queue and a quantum argument. Be careful about processes that arrive during a time slice."],
+["Implement preemptive Priority","Lower number means higher priority. Re-evaluate every time unit. Add optional aging: every 5 units waiting, boost priority by 1."],
+["Print Gantt charts and compare","Draw a text Gantt chart like |P1|P1|P2|P3|. Print average waiting and turnaround for each algorithm. Make a workload that shows the convoy effect and one that starves a low-priority process."]],
+ok:"Your results match a hand-worked textbook example;Zombie appears and disappears as expected;Aging fixes the starvation workload;You can explain convoy effect aloud",
+more:"Add Multi-Level Feedback Queue;Add a context-switch cost parameter;Compare your output with the real Linux CFS behaviour using nice values",
+say:"I simulated FCFS, SJF, Round Robin and priority scheduling with aging, measured waiting and turnaround times, and showed the convoy effect and starvation.",
+res:[["fork man page","https://man7.org/linux/man-pages/man2/fork.2.html"],["sched(7)","https://man7.org/linux/man-pages/man7/sched.7.html"],["OSTEP scheduling chapters","https://pages.cs.wisc.edu/~remzi/OSTEP/"]]},
+
+{w:5,n:"Mini top: a /proc process monitor",t:"C, 4-5 h",goal:"Write a small top clone that reads /proc, shows the busiest processes by CPU and memory, and can show a memory map summary for one process.",
+why:"Week 5 is virtual memory and Linux tools. /proc is how the kernel exposes processes and memory, so parsing it teaches you what those numbers really mean.",
+steps:[["Explore /proc by hand","Run cat /proc/self/status, /proc/self/stat, /proc/self/maps, /proc/meminfo. Read man 5 proc for the fields. Write down what each line means."],
+["List processes","Use opendir and readdir on /proc and keep entries whose names are all digits."],
+["Parse /proc/PID/stat carefully","The command name is in parentheses and may contain spaces, so find the last ')' and parse fields after it. Extract state, utime, stime and rss."],
+["Compute CPU percentage","Sample total ticks (utime + stime) twice, one second apart. CPU% = (delta ticks / sysconf(_SC_CLK_TCK)) / delta seconds * 100."],
+["Sort and display","Collect into an array of structs, qsort by CPU or by RSS, and print the top 15 as a table. Redraw every second with the ANSI clear-screen sequence."],
+["Add a memory map view","With --maps PID, parse /proc/PID/maps and sum sizes of heap, stack, anonymous mappings and shared libraries. Print the result in KB."],
+["Handle races and errors","Processes vanish between readdir and fopen. Skip them silently. Never trust a field to exist."]],
+ok:"Top 5 processes match what top shows (roughly);No crashes when processes exit mid-scan;--maps totals look plausible for a known process;ASan clean",
+more:"Add a keystroke to kill a PID with a chosen signal;Show per-thread rows from /proc/PID/task;Filter by user",
+say:"I wrote a process monitor from /proc: I parsed stat fields, computed CPU% from tick deltas, and summarised memory maps, so I understand RSS, VSZ and mappings.",
+res:[["proc(5) man page","https://man7.org/linux/man-pages/man5/proc.5.html"],["The Missing Semester","https://missing.csail.mit.edu/"],["Linux kernel docs: proc","https://docs.kernel.org/filesystems/proc.html"]]},
+
+{w:6,n:"IPC shootout and false-sharing benchmark",t:"C, 5 h",goal:"Measure round-trip latency of pipes, POSIX message queues, shared memory with semaphores and Unix sockets. Then show false sharing with a benchmark and fix it.",
+why:"Week 6 is IPC and caches. Instead of memorising which IPC is fastest you will measure it, and you will see the cache-line effect with real numbers.",
+steps:[["Write the harness","A ping-pong test: parent sends a small message, child echoes it back, repeat 100,000 times. Time with clock_gettime(CLOCK_MONOTONIC). Report average round trip in microseconds."],
+["Pipe version","Two pipes (parent to child, child to parent). Remember to close the unused ends in each process."],
+["Message queue version","mq_open, mq_send, mq_receive with two queues. Link with -lrt. Remember mq_unlink at the end."],
+["Shared memory plus semaphores","shm_open, ftruncate, mmap a struct holding the message, and two semaphores for ping and pong. Clean up with shm_unlink."],
+["Unix socket version","socketpair(AF_UNIX, SOCK_STREAM, 0, fds) then fork. Same ping-pong loop."],
+["Record and explain the ranking","Put results in a table in RESULTS.md and explain why each mechanism is faster or slower (copies, syscalls, context switches). Pin both processes with taskset -c 0,1 for stable numbers."],
+["False sharing experiment","Two threads increment two counters 100 million times each. First counters are adjacent in one struct, then padded with alignas(64). Time both and explain the difference using cache lines."]],
+ok:"All four IPC versions work and clean up their IPC objects;Results table with a sensible explanation;Padded counters are measurably faster;Numbers are stable across runs",
+more:"Use perf stat to compare cache misses;Replace the counters with C11 atomics and measure;Add a futex-based version",
+say:"I benchmarked pipes, message queues, shared memory and sockets and found shared memory fastest because it avoids per-message kernel copies. I also demonstrated false sharing and fixed it with cache-line padding.",
+res:[["mq_overview(7)","https://man7.org/linux/man-pages/man7/mq_overview.7.html"],["shm_overview(7)","https://man7.org/linux/man-pages/man7/shm_overview.7.html"],["sem_overview(7)","https://man7.org/linux/man-pages/man7/sem_overview.7.html"],["pipe(7)","https://man7.org/linux/man-pages/man7/pipe.7.html"]]},
+
+{w:7,n:"Tiny HTTP server with epoll",t:"C, 5-6 h",goal:"Build an HTTP/1.0 static file server, first with blocking sockets, then upgrade it to a non-blocking epoll event loop and benchmark both.",
+why:"Week 7 is networking. A real server makes TCP, sockets, partial reads and I/O multiplexing unforgettable, and 'how would you build a server that handles 10,000 clients' is a classic question.",
+steps:[["Blocking hello server","socket, setsockopt(SO_REUSEADDR), bind, listen, accept in a loop. Reply to every request with a fixed HTTP/1.0 200 response. Test with curl -v http://localhost:8080/."],
+["Parse the request","Read until you see the blank line (\\r\\n\\r\\n). Handle partial reads. Extract method, path and version from the first line."],
+["Serve static files","Map the path into ./www, set Content-Type from the extension, return 404 for missing files and 400 for bad requests. Reject any path containing .. to block traversal."],
+["Thread-per-connection baseline","Spawn a thread per accepted client. Keep this version; you will benchmark it later."],
+["Convert to epoll","Make sockets non-blocking. Add the listen fd to epoll, accept in a loop until EAGAIN, and keep a per-connection struct with state, buffer and bytes sent. Handle EPOLLIN and EPOLLOUT."],
+["Handle the hard cases","Partial writes, client disconnects (read returns 0), EPOLLHUP and errors. Close fds and free state every time. Check for leaks with Valgrind."],
+["Benchmark and inspect","Run ab -n 20000 -c 200 (or wrk or hey) against both versions and record requests per second. Capture one request in Wireshark and mark the TCP handshake, HTTP request and FIN."]],
+ok:"curl and a browser both load pages from your server;Path traversal attempts get a 4xx;The epoll version handles 1,000 concurrent connections;No leaks or fd leaks (check ls /proc/PID/fd)",
+more:"Add keep-alive;Use sendfile() for file bodies;Try edge-triggered epoll;Add basic access logging",
+say:"I built an HTTP server from sockets, moved it from thread-per-connection to an epoll event loop, and benchmarked the difference. I handled partial reads and writes and path traversal.",
+res:[["epoll(7)","https://man7.org/linux/man-pages/man7/epoll.7.html"],["Beej's Network Guide","https://beej.us/guide/bgnet/"],["HTTP/1.0 (RFC 1945)","https://www.rfc-editor.org/rfc/rfc1945"]]},
+
+{w:8,n:"Parallel grep with a thread pool",t:"C or C++, 5 h",goal:"Search a directory tree for a substring using a pool of worker threads fed by a bounded queue, then measure speedup with 1, 2, 4 and 8 threads.",
+why:"Week 8 is multithreading. The bounded queue with condition variables is the single most asked concurrency design, and measuring speedup teaches you about Amdahl's law and I/O limits.",
+steps:[["Write a single-threaded version","pgrep PATTERN DIR walks the tree and prints file:line:text for every match. Record the time on a large directory. This is your baseline."],
+["Design the pipeline","The main thread walks directories and pushes file paths into a bounded queue (producer). N worker threads pop paths and search them (consumers). Output goes through one mutex so lines do not interleave."],
+["Build the bounded queue","Array or linked list plus a mutex, two condition variables (not_empty, not_full) and a closed flag. Always wait in a while loop that rechecks the predicate."],
+["Write the worker loop","Pop a path; if the queue is closed and empty, exit. Otherwise search the file, collecting matches, then print under the output lock."],
+["Shut down cleanly","After the walk, close the queue (set flag and broadcast). Join every worker. Free everything."],
+["Benchmark","Run with 1, 2, 4, 8 threads and record wall time. Plot or tabulate the speedup and explain why it flattens (disk I/O, lock contention, core count)."],
+["Break it on purpose with ThreadSanitizer","Compile with -fsanitize=thread. First confirm it is clean. Then remove the output lock and read the data race report."]],
+ok:"Output is identical to the single-threaded version (sorted);TSan clean;Speedup table with an explanation;Program exits without hanging or leaking threads",
+more:"Add a work-stealing deque;Write the C++ version with std::thread and std::condition_variable;Replace the queue with a lock-free SPSC ring buffer for one worker",
+say:"I built a parallel search with a bounded producer-consumer queue using mutexes and condition variables, validated it with ThreadSanitizer, and measured speedup against thread count.",
+res:[["POSIX threads tutorial","https://hpc-tutorials.llnl.gov/posix/"],["pthreads(7)","https://man7.org/linux/man-pages/man7/pthreads.7.html"],["Preshing on Programming","https://preshing.com/"]]},
+
+{w:9,n:"Wokwi firmware lab: button, PWM, ADC, UART",t:"C/C++ on a simulated board, 4-5 h",goal:"Build a small firmware on the Wokwi simulator: debounced button, potentiometer-controlled PWM LED, a sensor ring buffer, and a serial command parser, all without blocking delay() calls.",
+why:"Week 9 covers GPIO, timers, ADC, PWM and UART. This is the closest you can get to real firmware without buying hardware, and it matches common embedded interview exercises.",
+steps:[["Create the board","Open wokwi.com, create an Arduino Uno or ESP32 project, and wire an LED with a resistor, a push button and a potentiometer. Save the project."],
+["Blink without delay()","Use millis() timestamps so the loop never blocks. Blink at 1 Hz and check it still reacts to other events."],
+["Debounce the button","Implement a small state machine: the reading must be stable for 20 ms before the press counts. Detect short press and long press (over 1 s). Count presses on Serial."],
+["ADC to PWM","Read the potentiometer, map it to a PWM duty cycle for the LED (analogWrite or ledcWrite) and print the ADC value and duty percentage on Serial."],
+["Add a ring buffer","A timer-driven function (the 'ISR') writes a sample into a fixed ring buffer every 100 ms. The main loop drains it and prints timestamped lines. Keep a counter of overflows."],
+["Add a command parser","Read Serial lines such as set 50, get, mode auto. Parse with a small state machine or strtok and respond with OK or an error."],
+["Write the README","Wiring list, behaviour, a screenshot and the shareable Wokwi link. Explain which parts correspond to timers, interrupts and UART on real hardware."]],
+ok:"No delay() calls anywhere in the main loop;One press equals exactly one count, even with simulated bounce;PWM tracks the potentiometer smoothly;The overflow counter increments when you slow the consumer",
+more:"Add an I2C sensor (for example a simulated MPU6050 or DHT22);Use a hardware timer interrupt instead of millis();Add a watchdog and simulate a hang",
+say:"I wrote non-blocking firmware: a debounce state machine, ADC-to-PWM control, an ISR-fed ring buffer and a UART command parser. I can map each part to real hardware peripherals.",
+res:[["Wokwi docs","https://docs.wokwi.com/"],["Arduino reference","https://www.arduino.cc/reference/en/"],["Embedded Artistry","https://embeddedartistry.com/"]]},
+
+{w:10,n:"Mini embedded Linux image in QEMU",t:"Buildroot, QEMU, C, 6 h",goal:"Build a tiny Linux image with Buildroot, boot it in QEMU, run your own application at boot, and load a kernel module you wrote.",
+why:"Week 10 is embedded Linux. Building the whole stack (toolchain, kernel, root filesystem, init) once makes every boot-flow and driver question easy to answer.",
+steps:[["Get Buildroot and choose a target","Download Buildroot from buildroot.org, then run make qemu_x86_64_defconfig (or qemu_aarch64_virt_defconfig). Install the host packages the manual lists."],
+["Customise and build","make menuconfig: set a hostname and enable one extra package. Run make -j$(nproc). The first build takes 30 to 60 minutes. Read the output folder: images/ has the kernel and root filesystem."],
+["Boot and explore","Run output/images/start-qemu.sh. Log in as root. Inspect uname -a, dmesg, /proc, /sys and ps. Note the boot messages in order."],
+["Add your own application","Write a small C program (for example a heartbeat logger). Add it to the image with a rootfs overlay, or a custom Buildroot package, and start it from an init script such as /etc/init.d/S99myapp."],
+["Write and load a kernel module","Create hello.ko (module_init, module_exit, printk) built against the Buildroot kernel headers. Copy it into the image, insmod it, check dmesg, then rmmod."],
+["Extend to a char device","Register a character device with file_operations (read and write) and test it with echo and cat from user space. Use copy_to_user and copy_from_user."],
+["Document the boot flow","In BOOT.md list the stages with dmesg timestamps: firmware, bootloader, kernel, init, your application. Draw the flow."]],
+ok:"The image boots in QEMU and your app starts automatically;insmod and rmmod produce the expected dmesg lines;The char device echo and cat round trip works;BOOT.md matches the real logs",
+more:"Add a device tree overlay for a fake peripheral;Compare BusyBox init with systemd;Run FreeRTOS on QEMU (lm3s6965evb) alongside",
+say:"I built an embedded Linux image with Buildroot, booted it under QEMU, launched my own service at boot, and wrote a kernel module and character driver for it.",
+res:[["Buildroot manual","https://buildroot.org/docs.html"],["Bootlin training materials","https://bootlin.com/training/"],["Linux Kernel Labs","https://linux-kernel-labs.github.io/refs/heads/master/"]]},
+
+{w:11,n:"Layered firmware on your laptop: HAL, state machine, tests",t:"C, 5-6 h",goal:"Design and implement a small sensor firmware with a hardware abstraction layer, a fixed-point filter, a state machine and a CRC-protected logger, fully unit tested on your host machine with a mock HAL.",
+why:"Week 11 is embedded system design. This lab is a miniature version of what design interviews ask for: layers, interfaces, failure modes and testability.",
+steps:[["Sketch the architecture first","Draw sensor driver, HAL, application state machine and logger with arrows for data flow. Write the requirements in five bullet points before any code."],
+["Define the HAL interface","hal.h declares hal_adc_read(), hal_gpio_write(), hal_time_ms() and hal_uart_write(). Write hal_host.c (simulated values) and hal_mock.c (scripted values for tests)."],
+["Write the sensor driver","Convert raw ADC counts to temperature using integer math only (milli-degrees). Add a 4-sample moving average and a stuck-sensor detector."],
+["Build the state machine","States INIT, IDLE, SAMPLING, ALARM, FAULT. Use a transition table of (state, event) to next state and action. Add hysteresis so the alarm does not flicker around the threshold."],
+["Add the logger","A ring buffer of fixed-size records, each with timestamp, value and a CRC8. Provide log_write, log_read and log_verify."],
+["Write unit tests with the mock HAL","Test threshold crossing, hysteresis, stuck-sensor fault, ring buffer wraparound and CRC corruption detection. Use Unity, CMocka or plain assert()."],
+["Write DESIGN.md","Block diagram, data flow, state diagram, and a failure-mode table (sensor stuck, buffer full, power loss) with detection and recovery for each."]],
+ok:"All tests pass on the host with sanitizers on;The application code has zero direct hardware calls;DESIGN.md has a failure-mode table;You can walk through the design in 5 minutes",
+more:"Port hal_host.c to the Wokwi project from week 9;Add a software watchdog and fault injection tests;Add a power-fail safe flash log simulation",
+say:"I designed a layered firmware with a HAL and a mock for host testing, a table-driven state machine with hysteresis, fixed-point filtering and a CRC-protected log. I documented failure modes.",
+res:[["Unity test framework","https://github.com/ThrowTheSwitch/Unity"],["CMocka","https://cmocka.org/"],["Memfault Interrupt blog","https://interrupt.memfault.com/"]]},
+
+{w:12,n:"Capstone polish and portfolio",t:"Any, 4-5 h",goal:"Turn your best project into a portfolio piece an interviewer will actually read: clean code, CI, a demo and a rehearsed walk-through.",
+why:"Week 12 is project, patterns and behavioural. Many interviews are won by how clearly you can explain one thing you built.",
+steps:[["Close the gaps","Finish remaining capstone features. Run ASan, UBSan, TSan and Valgrind and fix every report."],
+["Write the README","What it does and why, an architecture diagram, build and run steps, example output, design decisions, limitations and what you would do next."],
+["Add tests and CI","Add a GitHub Actions workflow at .github/workflows/ci.yml that builds, runs tests and runs at least one sanitizer on every push. Add the status badge to the README."],
+["Record a demo","A 2-minute screen recording (or asciinema) showing the build, the run and one interesting behaviour. Link it from the README."],
+["Write resume bullets","Three bullets using the formula 'Built X using Y, which achieved Z' with real numbers: throughput, latency, tests, size of data."],
+["Prepare a 5-minute walk-through","Problem, architecture, one hard bug you fixed, one trade-off you made, what you would change. Write ten questions an interviewer might ask and answer them out loud."],
+["Rehearse with another person","Present it to a friend or record yourself. Fix unclear parts and note questions you could not answer, then add them to the Mistake Log."]],
+ok:"CI is green on GitHub;A stranger can build and run it from the README alone;You can explain it in 2 and in 5 minutes without notes;Three resume bullets are written",
+more:"Add benchmark graphs;Add a Dockerfile;Write a short blog post about the hardest bug",
+say:"Walk through the capstone: the problem, the architecture, a hard concurrency or memory bug, and the trade-offs you chose.",
+res:[["GitHub Actions docs","https://docs.github.com/actions"],["Pramp mock interviews","https://www.pramp.com/"],["interviewing.io","https://interviewing.io/"]]},
+
+{w:13,n:"Launch weekend: applications sprint",t:"No code, 3-4 h",goal:"Convert your preparation into interviews: a polished resume, a target list, referral requests, cheat sheets and a 30-day plan after Day 90.",
+why:"Preparation without applications does not produce offers. This weekend turns your work into actual pipeline.",
+steps:[["Finalise the resume","One page. Skills, three projects with metrics, education. Ask one person to review it. Export to PDF."],
+["Refresh LinkedIn and GitHub","Photo, headline with your target role, about section, pinned repositories with clear READMEs."],
+["Build a target list","15 companies across tiers (dream, strong, safe) with direct links to role pages. Track them in a simple table: company, role, link, contact, date, status."],
+["Ask for referrals","Message 5 people (former colleagues, seniors, alumni) with a short note: who you are, the role link, your resume attached. Send 5 direct applications today."],
+["Make four one-page cheat sheets","C and C++, OS and Linux, networking and concurrency, embedded and RTOS. Include the questions you missed most in the Mistake Log."],
+["Schedule mock interviews","Book 3 mocks for the coming two weeks on Pramp, interviewing.io or with friends. Put them in your calendar now."],
+["Write your 30-day plan","Daily: 2 DSA problems and 5 questions. Weekly: 1 mock and 5 applications. Review the Mistake Log every Sunday."]],
+ok:"Resume PDF is ready;10 applications or referral requests are sent;Four cheat sheets exist;Three mocks are scheduled",
+more:"Write a short intro message template for recruiters;Join one embedded or Linux community and attend an event;Set up job alerts for target roles",
+say:"I treated the search like a project: a tracked pipeline, referrals first, weekly mocks and a feedback loop from the Mistake Log.",
+res:[["LeetCode problem set","https://leetcode.com/problemset/"],["NeetCode 150","https://neetcode.io/practice"],["System Design Primer","https://github.com/donnemartin/system-design-primer"]]}
 ];
 const LAB={lang:'c',res:null,busy:false,live:false,ids:{},w:null,tm:0,esc:false};
 const LN={c:'C',cpp:'C++',py:'Python',js:'JavaScript'};
@@ -607,7 +812,7 @@ const lc=p=>p.u||'https://leetcode.com/problems/'+slug(p.n)+'/';
 const yt=q=>'https://www.youtube.com/results?search_query='+encodeURIComponent(q);
 const gg=q=>'https://www.google.com/search?q='+encodeURIComponent(q);
 const DIFF={E:'Easy',M:'Medium',H:'Hard'},XPD={Easy:10,Medium:25,Hard:50};
-const PS=['Not Started','Attempted','Solved'],QST=['New','Learning','Confident'];
+const PS=['Not Started','Attempted','Solved','Skipped'],QST=['New','Learning','Confident'],QXP={Easy:8,Medium:12,Hard:20};
 const TT=['Power-On','Reset Vector','Bootloader','Kernel Init','Userspace','Daemon','Driver Dev','Kernel Hacker','Firmware Lead','Systems Architect','Principal Engineer'];
 const title=l=>TT[Math.min(l-1,TT.length-1)];
 const CH={jac:['Jacob Sorber','https://www.youtube.com/@JacobSorber'],nes:['Neso Academy','https://www.youtube.com/@nesoacademy'],che:['The Cherno','https://www.youtube.com/@TheCherno'],gs:['Gate Smashers','https://www.youtube.com/@GateSmashers'],pn:['Practical Networking','https://www.youtube.com/@PracticalNetworking'],cpp:['CppCon','https://www.youtube.com/@CppCon'],phil:["Phil's Lab",'https://www.youtube.com/@PhilsLab'],boot:['Bootlin','https://www.youtube.com/@bootlin'],ll:['Low Level Learning','https://www.youtube.com/@LowLevelLearning'],nc:['NeetCode','https://www.youtube.com/@NeetCode'],tuf:['take U forward','https://www.youtube.com/@takeUforward'],iio:['interviewing.io','https://www.youtube.com/@interviewingio']};
@@ -615,6 +820,35 @@ const VC=[['jac','nes','che'],['jac','che','nes'],['jac','che','ll'],['nes','gs'
 const PL=[];
 DAYS.forEach((d,i)=>{let c='Arrays & Hashing';(d[3]||'').split('|').forEach(t=>{if(!t)return;if(t[0]=='@'){c=t.slice(1);return}const k=t.lastIndexOf(':'),n=t.slice(0,k);PL.push({id:slug(n),n,c,d:DIFF[t.slice(k+1)],day:i+1})})});
 const QB=QD.map((x,i)=>({id:'q'+i,day:x[0],c:x[1],q:x[2],a:x[3]}));
+const PBD=Array.from({length:N+1},()=>[]);PL.forEach(p=>PBD[p.day].push(p));
+const STOP=new Set('a an the and or of to in on for is are was be been it its as at by with from that this these those can could may might do does did if then than so not no but into out up over per via each any all one two when which while where both more most other such only same also use used using you your they their there here will would should must have has had about between because make makes made need needs like very just usually often always never let get gets give gives take takes keep keeps without within across against after before during under above below again once what who how why own ever'.split(' '));
+const toks=t=>String(t).toLowerCase().match(/[a-z][a-z0-9_]*/g)||[];
+const stem=w=>w.length>5?w.replace(/(ations?|ation|ments?|ness|ing|ed|es|s)$/,''):w.replace(/s$/,'');
+function qkeys(x){const qt=new Set(toks(x.q).map(stem)),seen=new Set(),out=[];toks(x.a||'').forEach(w=>{if(w.length<3||STOP.has(w))return;const k=stem(w);if(k.length<2||qt.has(k)||seen.has(k))return;seen.add(k);out.push([k,w])});return out}
+const QDC={},qdiff=x=>QDC[x.id]||(QDC[x.id]=(k=>k<=9?'Easy':k<=12?'Medium':'Hard')(qkeys(x).length));
+function grade(x,ans){const keys=qkeys(x),tk=toks(ans),u=new Set(tk.map(stem)),ul=[...u],hit=k=>u.has(k)||(k.length>=4&&ul.some(w=>w.length>=4&&w.startsWith(k.slice(0,5))));
+ const m=keys.filter(k=>hit(k[0])).map(k=>k[1]),miss=keys.filter(k=>!hit(k[0])).map(k=>k[1]),need=Math.max(2,Math.ceil(Math.min(keys.length*.5,6)));
+ let v;if(tk.length<4)v='Too short';else if(!keys.length)v=tk.length>=8?'Accepted':'Too short';else v=m.length>=need?'Accepted':m.length>=Math.ceil(need/2)?'Partially correct':'Wrong answer';return{v,m,miss}}
+function ownQs(n){if(n>84){if(n==90)return QB.filter((_,i)=>i%8==0);return QB.filter((_,i)=>i%9==n-85)}
+ if(isBoss(n))return allQ().filter(x=>x.day>n-7&&x.day<=n);return allQ().filter(x=>x.day==n)}
+const pdone=p=>{const s=ps(p.id).st;return s=='Solved'||s=='Skipped'},qdone=x=>{const s=qs(x.id);return s.st=='Confident'||!!s.sk};
+function dprog(n){const d=g(n),P=PBD[n],Q=ownQs(n),L=d.core?1:0,B=d.pr?1:0,D=P.length?P.filter(pdone).length/P.length:(d.dsa?1:0),I=Q.length?Q.filter(qdone).length/Q.length:(d.iq?1:0);return{L,D,I,B,p:(L+D+I+B)/4,P,Q}}
+function dstat(n){const p=dprog(n).p;if(p>=1)return'ok';if(p>.5)return'part';return diffD(today(),dayDate(n))>0?'miss':'new'}
+function touchAll(){const nd=[];for(let n=1;n<=N;n++){const p=dprog(n).p,o=S.done[n];if(p>=1&&!(o&&o.c)){const z=dn(n);z.c=true;z.cd=today();nd.push(n)}else if(p<1&&o&&o.c){o.c=false;o.cd=''}}return nd}
+function qsub(id){const x=allQ().find(q=>q.id==id);if(!x)return;const s=qw(id);if(!(s.a||'').trim()){toast('Write an answer first');return}
+ const r=grade(x,s.a),before=s.xp||0;s.n=(s.n||0)+1;s.v=r.v;s.m=r.m.slice(0,8);s.miss=r.miss.slice(0,5);s.rv=today();delete s.sk;
+ const base=QXP[qdiff(x)],f=(s.n<=1?1:s.n==2?.75:.5)*(s.gave?.25:1),xp=r.v=='Accepted'?Math.round(base*f):r.v=='Partially correct'?Math.round(base*.35*f):0;
+ s.xp=Math.max(before,xp);s.lg=s.xp-before;if(r.v=='Accepted')s.st='Confident';else if(s.st!='Confident')s.st='Learning';toast('<b>'+r.v+'</b>')}
+const VCL={'Accepted':'ac','Partially correct':'pa','Wrong answer':'wa','Too short':'wa'};
+function qcard(x){const s=qs(x.id),d=qdiff(x),open=s.n>0||s.gave,lab=s.st=='Confident'?'Solved':s.sk?'Skipped':s.st=='Learning'?'Attempted':'Todo';
+ return `<div class="qc ${s.st=='Confident'?'acc':''}"><div class="row"><b class="grow">${e(x.q)}</b><span class="tag ${d}">${d}</span><span class="tag cat">${e(x.c)}</span><span class="xp s">+${QXP[d]}</span><span class="tag cat">${lab}</span></div>
+ <textarea class="qa" data-s="q:${x.id}:a" placeholder="Write your answer in your own words (2 to 4 sentences), then press Submit">${e(s.a||'')}</textarea>
+ <div class="row"><button class="ac" data-a="qsub" data-i="${x.id}">Submit</button><button class="sbtn" data-a="qskip" data-i="${x.id}">${s.sk?'Unskip':'Skip'}</button>${open?'':`<button class="sbtn" data-a="qgive" data-i="${x.id}">Give up, show answer</button>`}<span class="mu sm">${s.n?s.n+' submission'+(s.n>1?'s':''):'No submissions yet'}${s.xp?', '+s.xp+' XP earned':''}</span></div>
+ ${s.v?`<div class="verdict ${VCL[s.v]}"><b>${e(s.v)}</b>${s.lg?` <span>+${s.lg} XP</span>`:''}</div><div class="kws">${(s.m||[]).map(k=>`<span class="kw ok">${e(k)}</span>`).join('')}${s.v!='Accepted'?(s.miss||[]).map(k=>`<span class="kw bad">${e(k)}</span>`).join(''):''}</div>${s.v!='Accepted'?'<p class="mu sm">Green chips are ideas found in your answer. Red chips are ideas missing from it. XP drops with each extra attempt.</p>':''}`:''}
+ ${open?`<div class="ans"><b>Model answer:</b> ${e(x.a||'No model answer for your own question.')}</div>`:''}</div>`}
+function ring(){const A=allP(),T=A.length,s=d=>A.filter(p=>p.d==d&&ps(p.id).st=='Solved').length,a1=s('Easy'),m1=s('Medium'),h1=s('Hard'),sv=a1+m1+h1,pc=x=>T?x/T*100:0,a=pc(a1),b=a+pc(m1),c=b+pc(h1);
+ return `<div class="lc"><div class="rg" style="background:conic-gradient(var(--ok) 0 ${a}%,var(--wn) ${a}% ${b}%,var(--bd) ${b}% ${c}%,var(--sf2) ${c}% 100%)"><div><b>${sv}</b><span>/${T}</span><small>Solved</small></div></div><div class="lcr">${['Easy','Medium','Hard'].map(d=>{const t=A.filter(p=>p.d==d).length,x=s(d);return `<div class="lrow"><span class="${d}">${d}</span><b>${x}<small>/${t}</small></b><div class="bar"><i class="${d}b" style="width:${t?x/t*100:0}%"></i></div></div>`}).join('')}</div></div>`}
+const legend=()=>'<div class="leg"><span><i class="s-ok"></i>All done</span><span><i class="s-part"></i>Over 50%</span><span><i class="s-miss"></i>Missed</span><span><i class="s-new"></i>Upcoming</span></div>';
 const BG=[
 ['boot','🔌','First Boot','Complete your first day',k=>k.dd>=1],
 ['s3','⚡','3-Day Streak','Study 3 days in a row',k=>k.best>=3],
@@ -633,10 +867,13 @@ const BG=[
 ['fo','⏱️','Deep Work','10 focus sessions',k=>k.fs>=10],
 ['mk','🪲','Learns From Bugs','Log 5 mistakes',k=>k.mk>=5],
 ['run','💻','Compiler Hero','Run code successfully 25 times',k=>k.runs>=25],
+['wl1','🧪','Lab Rat','Finish your first weekend lab',k=>k.labs>=1],
+['wl6','🏗️','Weekend Builder','Finish 6 weekend labs',k=>k.labs>=6],
+['wl13','🧰','Full-Stack Firmware','Finish all 13 weekend labs',k=>k.labs>=13],
 ['xp','💎','1K Club','Earn 1,000 XP',k=>k.xp>=1000],
 ['fin','👑','Offer Ready','Complete all 90 days',k=>k.dd>=90]];
 
-function seed(){return{start:today(),done:{},p:{},cp:[],q:{},cq:[],pj:{},mk:[],rv:{},bd:{},fs:{},lv:1,theme:'',nid:1,focus:25,tab:'today',code:{},runs:{}}}
+function seed(){return{start:today(),done:{},p:{},cp:[],q:{},cq:[],pj:{},mk:[],rv:{},bd:{},fs:{},lv:1,theme:'',nid:1,focus:25,tab:'today',code:{},runs:{},wl:{}}}
 function load(){try{const x=JSON.parse(localStorage.getItem(KEY));if(x&&x.done&&x.p)return Object.assign(seed(),x)}catch(_){}return seed()}
 let S=load(),V=S.tab||'today',SEL=0,F={},OPEN=new Set(['g0']),K,PX=null,TOP=false,DR={id:null,show:false,skip:[]},TM=null;
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(_){}};
@@ -644,24 +881,28 @@ const g=n=>S.done[n]||{},dn=n=>S.done[n]||(S.done[n]={});
 const ps=id=>S.p[id]||{st:'Not Started'},pw=id=>S.p[id]||(S.p[id]={st:'Not Started',dt:'',note:'',star:0});
 const qs=id=>S.q[id]||{st:'New',a:'',rv:''},qw=id=>S.q[id]||(S.q[id]={st:'New',a:'',rv:''});
 const allP=()=>PL.concat(S.cp),allQ=()=>QB.concat(S.cq);
-const cur=()=>Math.max(1,Math.min(N,diffD(today(),S.start)+1));
+const cal=()=>Math.max(1,diffD(today(),S.start)+1);
 const dayDate=n=>addD(S.start,n-1);
 const firstOpen=()=>{for(let n=1;n<=N;n++)if(!g(n).c)return n;return N+1};
+const cur=()=>Math.min(N,firstOpen());
 const nq=n=>['core','dsa','iq','pr'].filter(k=>g(n)[k]).length;
 const opts=(l,v)=>l.map(x=>`<option${x==v?' selected':''}>${e(x)}</option>`).join('');
 
 function calc(){
- const k={xp:0,dd:0,boss:0,solved:0,hard:0,qc:0,fs:0,runs:0,mk:S.mk.length,proj:0,perfect:0},act=new Set();
- for(let n=1;n<=N;n++){const d=g(n);k.xp+=(d.core?30:0)+(d.pr?30:0)+(d.iq?20:0)+(d.dsa?20:0);if(d.c){k.dd++;const b=isBoss(n);k.xp+=b?60:25;if(b)k.boss++;if(d.cd)act.add(d.cd)}}
+ const k={xp:0,dd:0,boss:0,solved:0,hard:0,qc:0,fs:0,runs:0,labs:0,mk:S.mk.length,proj:0,perfect:0},act=new Set();
+ for(let n=1;n<=N;n++){const d=g(n);k.xp+=(d.core?20:0)+(d.pr?30:0)+(!PBD[n].length&&d.dsa?30:0)+(!ownQs(n).length&&d.iq?20:0);if(d.c){k.dd++;const b=isBoss(n);k.xp+=b?75:25;if(b)k.boss++;if(d.cd)act.add(d.cd)}}
  for(let w=1;w<=13;w++)if(R7(w).every(n=>g(n).c))k.perfect++;
  allP().forEach(p=>{const s=S.p[p.id];if(s&&s.st=='Solved'){k.solved++;k.xp+=XPD[p.d]||15;if(p.d=='Hard')k.hard++;if(s.dt)act.add(s.dt)}});
- allQ().forEach(x=>{const s=S.q[x.id];if(s){if(s.st=='Confident'){k.qc++;k.xp+=5}if(s.rv)act.add(s.rv)}});
+ allQ().forEach(x=>{const s=S.q[x.id];if(s){if(s.st=='Confident')k.qc++;k.xp+=s.xp!==undefined?s.xp:(s.st=='Confident'?5:0);if(s.rv)act.add(s.rv)}});
  PJ.forEach((p,i)=>{const c=((S.pj[i]||{}).ms||[]).filter(Boolean).length;k.xp+=c*8;if(c==p.m.length){k.proj++;k.xp+=40}});
  S.mk.forEach(m=>{k.xp+=5;act.add(m.dt)});
  for(const dt in S.fs){const c=S.fs[dt]||0;k.fs+=c;k.xp+=Math.min(c,8)*10;if(c)act.add(dt)}
+ for(const w in (S.wl||{})){const L=WL[w-1];if(!L)continue;const c=((S.wl[w]||{}).s||[]).filter(Boolean).length;k.xp+=c*6;if(c==L.steps.length){k.labs++;k.xp+=60}}
  for(const dt in (S.runs||{})){const c=S.runs[dt]||0;k.runs+=c;k.xp+=Math.min(c,10)*2;if(c)act.add(dt)}
  let run=0,best=0,prev=null;[...act].sort().forEach(x=>{run=prev&&diffD(x,prev)==1?run+1:1;prev=x;best=Math.max(best,run);k.xp+=3*Math.min(run,10)});
  const t=today();let st=0,x=act.has(t)?t:addD(t,-1);while(act.has(x)){st++;x=addD(x,-1)}
+ const dts=[];for(let n=1;n<=N;n++){const d=g(n);if(d.c&&d.cd)dts.push(d.cd)}dts.sort();let pen=0,ms=0;for(let i=1;i<Math.min(cal(),N+1);i++){const D=addD(S.start,i-1);if(dts.filter(x=>x<=D).length<i){pen+=20;ms++}}
+ k.pen=pen;k.miss=ms;k.xp=Math.max(0,k.xp-pen);
  k.streak=st;k.best=best;k.act=act;k.lv=Math.floor(Math.sqrt(k.xp/60))+1;k.lo=60*(k.lv-1)**2;k.hi=60*k.lv**2;return k}
 
 function toast(h,big){const t=document.createElement('div');t.className='toast'+(big?' big':'');t.innerHTML=h;$('#toasts').appendChild(t);setTimeout(()=>t.remove(),big?5000:3000)}
@@ -684,89 +925,103 @@ function head(){const pc=Math.max(0,Math.min(100,Math.round((K.xp-K.lo)/(K.hi-K.
  const tabs=[['today','Today'],['road','Roadmap'],['dsa','DSA'],['lab','Code Lab'],['qa','Interview Q&A'],['build','Projects'],['guide','Guide'],['prog','Progress'],['mk','Mistakes'],['set','Settings']];
  return `<header class="top"><div class="brand"><svg viewBox="0 0 32 32" width="38" height="38" aria-hidden="true"><rect x="8" y="8" width="16" height="16" rx="3" fill="var(--pri)"/><path d="M12 4v4M16 4v4M20 4v4M12 24v4M16 24v4M20 24v4M4 12h4M4 16h4M4 20h4M24 12h4M24 16h4M24 20h4" stroke="var(--cu)" stroke-width="2" stroke-linecap="round"/><circle cx="16" cy="16" r="3" fill="var(--onp)"/></svg><div><h1>Firmware Quest</h1><span class="mu">90 days to embedded interview ready</span></div></div>
  <div class="lvl"><div class="lvt"><b>Level ${K.lv}: ${title(K.lv)}</b><span class="mu sm">${K.xp-K.lo} / ${K.hi-K.lo} XP to next level</span></div><div class="xpb" role="progressbar" aria-valuenow="${pc}" aria-valuemin="0" aria-valuemax="100"><i style="width:${pc}%"></i></div></div>
- <div class="chips"><span class="chip" title="Current streak">🔥 ${K.streak}</span><span class="chip" title="Total XP">${K.xp.toLocaleString()} XP</span><button data-a="theme" aria-label="Toggle light and dark theme">Theme</button></div></header>
+ <div class="chips"><span class="chip" title="Current streak">🔥 ${K.streak}</span><span class="chip" title="Total XP">${K.xp.toLocaleString()} XP</span>${K.pen?`<span class="chip" style="color:var(--bd)" title="Each missed day costs 20 XP">-${K.pen} XP</span>`:''}<button data-a="theme" aria-label="Toggle light and dark theme">Theme</button></div></header>
  <nav>${tabs.map(x=>`<button class="${V==x[0]?'on':''}" data-a="tab" data-i="${x[0]}">${x[1]}</button>`).join('')}</nav>`}
 
 function board(mini){let h='<div class="board'+(mini?' mini':'')+'">';const c=cur();
- for(let w=1;w<=13;w++){h+=`<div class="brow"><span class="wl">W${w}</span>`;R7(w).forEach(n=>{h+=`<button class="pad ${isBoss(n)?'boss':''} ${g(n).c?'done':''} ${n==c?'cur':''} ${n==(SEL||c)?'sel':''}" data-a="go" data-i="${n}" title="Day ${n}: ${e(DAYS[n-1][0])}">${g(n).c?'✓':n}</button>`});h+='</div>'}return h+'</div>'}
+ for(let w=1;w<=13;w++){h+=`<div class="brow"><span class="wl">W${w}</span>`;R7(w).forEach(n=>{h+=`<button class="pad ${isBoss(n)?'boss':''} s-${dstat(n)} ${n==c?'cur':''} ${n==(SEL||c)?'sel':''}" data-a="go" data-i="${n}" title="Day ${n}: ${e(DAYS[n-1][0])}">${dstat(n)=='ok'?'✓':n}</button>`});h+='</div>'}return h+'</div>'}
 
-function dueQ(cat){const t=today(),o={Learning:0,New:1,Confident:2},lim=Math.max(cur(),firstOpen());
- return allQ().filter(x=>(!cat||x.c==cat)&&x.day<=lim).filter(x=>{const s=qs(x.id);return s.st!='Confident'||(s.rv&&diffD(t,s.rv)>=7)})
+function dueQ(cat){const t=today(),o={Learning:0,New:1,Confident:2},lim=cur();
+ return allQ().filter(x=>(!cat||x.c==cat)&&x.day<=lim).filter(x=>{const s=qs(x.id);return !s.sk&&(s.st!='Confident'||(s.rv&&diffD(t,s.rv)>=7))})
  .sort((a,b)=>{const sa=qs(a.id),sb=qs(b.id);return (sa.rv==t)-(sb.rv==t)||o[sa.st]-o[sb.st]||(sa.rv||'').localeCompare(sb.rv||'')||a.day-b.day})}
-function dayQs(n){const A=allQ();let l;
- if(n>84)l=A.filter(x=>qs(x.id).st!='Confident').slice(0,10);
- else if(isBoss(n))l=A.filter(x=>x.day>n-7&&x.day<=n);
- else l=A.filter(x=>x.day==n);
- return l.length?l:dueQ().slice(0,4)}
 
 function vToday(){
- const n=SEL||cur(),d=g(n),t=DAYS[n-1],w=wk(n),W=WK[w-1],boss=isBoss(n),fi=firstOpen(),bh=cur()-fi;
- const pl=PL.filter(p=>p.day==n),qd=dayQs(n),pj=PJ.map((p,i)=>[p,i]).filter(x=>x[0].days.includes(n)),done4=nq(n);
+ const n=SEL||cur(),d=g(n),t=DAYS[n-1],w=wk(n),W=WK[w-1],boss=isBoss(n),pr=dprog(n),P=pr.P,Q=pr.Q,st=dstat(n),behind=cal()-cur();
  const res=W[3].slice(0,3).concat([...VC[w-1].map(c=>['▶ '+c[0],yt(t[0]+' '+c[0])]),['▶ Any channel',yt(t[0]+' explained')],['GeeksforGeeks',gg('site:geeksforgeeks.org '+t[0])],['Interview questions',gg(t[0]+' interview questions')]]);
  const link=r=>`<a target="_blank" rel="noopener" href="${e(r[1])}">${e(r[0])}</a>`;
- const prow=p=>{const s=ps(p.id);return `<div class="pr"><a class="pn" target="_blank" rel="noopener" href="${e(lc(p))}">${e(p.n)}</a><a class="sbtn tag cat" style="text-decoration:none" target="_blank" rel="noopener" href="${yt('NeetCode '+p.n+' leetcode')}" title="Watch a video explanation">▶ video</a><span class="tag ${p.d}">${p.d}</span><span class="xp s">+${XPD[p.d]}</span><select data-a="pst" data-i="${p.id}" aria-label="Status of ${e(p.n)}">${opts(PS,s.st)}</select><button class="star ${s.star?'on':''}" data-a="star" data-i="${p.id}" title="Star to revisit" aria-label="Star to revisit">★</button></div>`};
- const qrow=x=>{const s=qs(x.id);return `<div class="qr"><div class="row"><b class="grow">${e(x.q)}</b><span class="tag cat">${e(x.c)}</span><select data-a="qst" data-i="${x.id}" aria-label="Confidence">${opts(QST,s.st)}</select></div><details data-k="q${x.id}" ${OPEN.has('q'+x.id)?'open':''}><summary>Show model answer</summary><div class="in"><div class="ans">${e(x.a||'No model answer. Add your own in the Q&A tab.')}</div></div></details></div>`};
- const starred=allP().filter(p=>ps(p.id).star&&ps(p.id).st!='Not Started'||ps(p.id).star).slice(0,4);
- const dsaB=(pl.length?pl.map(prow).join(''):`<p class="mu">${boss||n>84?'Timed mock: pick 2 unseen medium problems on LeetCode and solve them in 60 minutes.':'No new problems today. Revisit starred problems or redo a weak pattern.'}</p>`+starred.map(prow).join(''))+`<div class="rs"><a target="_blank" rel="noopener" href="https://neetcode.io/practice">NeetCode 150</a><a target="_blank" rel="noopener" href="https://leetcode.com/problemset/">LeetCode problem set</a></div>`;
- const quest=(k,ttl,xp,body)=>`<section class="q ${d[k]?'done':''}"><div class="qh"><input type="checkbox" class="ck" data-a="chk" data-i="${k}" ${d[k]?'checked':''} aria-label="${ttl} complete"><h3>${ttl}</h3><span class="xp">+${xp} XP</span></div><div class="qb">${body}</div></section>`;
- const rq=starred.length?`<div class="card"><h3>Revisit queue</h3><p class="mu sm">Starred problems. Re-solve them cold.</p>${starred.map(p=>`<div class="pr"><a class="pn" target="_blank" rel="noopener" href="${e(lc(p))}">${e(p.n)}</a><span class="tag ${p.d}">${p.d}</span></div>`).join('')}</div>`:'';
- const nb=[7,14,21,28,35,42,49,56,63,70,77,84,90].find(x=>x>=cur());
- const ratio=(S.fs[today()]||0);
- return `${bh>0&&!SEL?`<div class="note">You are <b>${bh} day${bh>1?'s':''}</b> behind plan. Day ${fi} is your next unfinished day. <button class="sbtn" data-a="shift">Make Day ${fi} today</button></div>`:''}
- ${SEL&&SEL!=cur()?`<div class="note">Viewing Day ${n}. <button class="sbtn" data-a="now">Back to today</button></div>`:''}
+ const prow=p=>{const s=ps(p.id);return `<div class="pr"><span class="si ${s.st=='Solved'?'on':''}" aria-hidden="true">${s.st=='Solved'?'✓':s.st=='Skipped'?'↷':s.st=='Attempted'?'◐':''}</span><a class="pn" target="_blank" rel="noopener" href="${e(lc(p))}">${e(p.n)}</a><a class="tag cat" style="text-decoration:none" target="_blank" rel="noopener" href="${yt('NeetCode '+p.n+' leetcode')}" title="Watch a video explanation">▶ video</a><span class="tag ${p.d}">${p.d}</span><span class="xp s">+${XPD[p.d]}</span><select data-a="pst" data-i="${p.id}" aria-label="Status of ${e(p.n)}">${opts(PS,s.st)}</select><button class="star ${s.star?'on':''}" data-a="star" data-i="${p.id}" title="Star to revisit" aria-label="Star to revisit">★</button></div>`};
+ const starred=allP().filter(p=>(ps(p.id).star||ps(p.id).st=='Skipped')&&!P.includes(p)).slice(0,4);
+ const sol=P.filter(pdone).length,qd=Q.filter(qdone).length,pxp=P.reduce((a,p)=>a+XPD[p.d],0),qxp=Q.reduce((a,x)=>a+QXP[qdiff(x)],0);
+ const qh=(ttl,done,ck,right)=>`<div class="qh">${ck?`<input type="checkbox" class="ck" data-a="chk" data-i="${ck}" ${d[ck]?'checked':''} aria-label="${ttl} complete">`:`<span class="qs ${done?'on':''}" aria-hidden="true">${done?'✓':''}</span>`}<h3>${ttl}</h3>${right}</div>`;
+ const dsaB=(P.length?P.map(prow).join(''):`<p class="mu">${boss||n>84?'Timed mock: pick 2 unseen medium problems on LeetCode and solve them in 60 minutes, then tick this quest.':'No new problems today. Revisit starred or skipped problems below, then tick this quest.'}</p>`+starred.map(prow).join(''))+`<div class="rs"><a target="_blank" rel="noopener" href="https://neetcode.io/practice">NeetCode 150</a><a target="_blank" rel="noopener" href="https://leetcode.com/problemset/">LeetCode problem set</a></div>${P.length?'<p class="mu sm">Skipped problems count for the day but earn no XP. They go to your revisit queue.</p>':''}`;
+ const bonus=Q.length?[]:dueQ().slice(0,3);
+ const rq=allP().filter(p=>ps(p.id).star||ps(p.id).st=='Skipped').slice(0,5);
+ const nb=[7,14,21,28,35,42,49,56,63,70,77,84,90].find(x=>x>=n);
+ const todo=[];if(!d.core)todo.push('Learn');if(pr.D<1)todo.push(P.length?(P.length-sol)+' problem'+(P.length-sol>1?'s':''):'DSA practice');if(pr.I<1)todo.push(Q.length?(Q.length-qd)+' question'+(Q.length-qd>1?'s':''):'Drill');if(!d.pr)todo.push('Build');
+ const lbl={ok:'Complete',part:'In progress',miss:'Missed',new:'Not started'}[st],ratio=S.fs[today()]||0,ro=n==cur()&&dayDate(n)!=today();
+ return `${behind>0&&!SEL?`<div class="note bad"><b>You missed ${behind} day${behind>1?'s':''}: -${K.pen} XP so far.</b> Day ${cur()} is rolled over into today, so you pick up exactly where you stopped. Each missed day costs 20 XP and finishing the day turns it green.</div>`:''}
+ ${behind<0&&!SEL?`<div class="note"><b>You are ${-behind} day${behind<-1?'s':''} ahead of schedule.</b> Nice. Keep the streak going.</div>`:''}
+ ${SEL&&SEL!=cur()?`<div class="note">Viewing Day ${n}. <button class="sbtn" data-a="now">Back to today's work (Day ${cur()})</button></div>`:''}
  <div class="cols"><div>
  <section class="hero"><div class="row"><button data-a="nav" data-i="-1" aria-label="Previous day">&larr;</button><div class="grow"></div><button data-a="nav" data-i="1" aria-label="Next day">&rarr;</button></div>
- <span class="pill">${PH[W[0]][0]} phase</span><span class="pill">Week ${w}: ${e(W[1])}</span>${boss?'<span class="pill">Boss day</span>':''}
- <div class="dayn">Day ${n} <small>of ${N}</small></div><h2>${e(t[0])}</h2><div style="opacity:.85">${fmtD(dayDate(n))}${n==cur()?', today':''}. About 3 hours: Learn 60, DSA 60, Drill 20, Build 30.</div>
- <div class="segs">${['core','dsa','iq','pr'].map(k=>`<i class="${d[k]?'on':''}"></i>`).join('')}</div></section>
- ${quest('core','Learn',30,`<ul class="tl">${t[1].split(';').map(x=>`<li>${e(x)}</li>`).join('')}</ul><div class="rs">${res.map(link).join('')}</div>`)}
- ${quest('dsa','DSA',20,dsaB)}
- ${quest('iq','Interview drill',20,qd.map(qrow).join('')||'<p class="mu">Nothing to drill today.</p>')}
- ${quest('pr','Build',30,`<p>${e(t[2])}</p><button class="sbtn" data-a="tab" data-i="lab">Open Code Lab</button> ${pj.map(x=>`<button class="sbtn" data-a="tab" data-i="build">Project: ${e(x[0].n)}</button> `).join('')}`)}
+ <span class="pill">${PH[W[0]][0]} phase</span><span class="pill">Week ${w}: ${e(W[1])}</span>${boss?'<span class="pill">Boss day</span>':''}<span class="pill">${lbl}</span>
+ <div class="dayn">Day ${n} <small>of ${N}</small></div><h2>${e(t[0])}</h2><div style="opacity:.85">${ro?'Rolled over to today (planned '+fmtD(dayDate(n))+')':fmtD(dayDate(n))+(n==cur()?', today':'')}. About 3 hours: Learn 60, DSA 60, Drill 20, Build 30.</div>
+ <div class="segs">${[pr.L,pr.D,pr.I,pr.B].map(v=>`<i style="--f:${Math.round(v*100)}%"></i>`).join('')}</div></section>
+ <section class="q ${d.core?'done':''}">${qh('Learn',d.core,'core','<span class="xp">+20 XP</span>')}<div class="qb"><ul class="tl">${t[1].split(';').map(x=>`<li>${e(x)}</li>`).join('')}</ul><div class="rs">${res.map(link).join('')}</div></div></section>
+ <section class="q ${pr.D==1?'done':''}">${qh('DSA',pr.D==1,P.length?'':'dsa',P.length?`<span class="mu sm">${sol}/${P.length} done</span><span class="xp">up to +${pxp} XP</span>`:'<span class="xp">+30 XP</span>')}<div class="qb">${dsaB}</div></section>
+ <section class="q ${pr.I==1?'done':''}">${qh('Interview drill',pr.I==1,Q.length?'':'iq',Q.length?`<span class="mu sm">${qd}/${Q.length} done</span><span class="xp">up to +${qxp} XP</span>`:'<span class="xp">+20 XP</span>')}<div class="qb"><p class="mu sm" style="margin-top:0">Write each answer in your own words and press Submit. It is checked against the key ideas of the model answer, so write real sentences, not keywords.</p>${Q.length?Q.map(qcard).join(''):'<p class="mu">No new questions today. Optional review below, then tick this quest.</p>'+bonus.map(qcard).join('')}</div></section>
+ <section class="q ${d.pr?'done':''}">${qh('Build',d.pr,'pr','<span class="xp">+30 XP</span>')}<div class="qb"><p>${e(t[2])}</p><button class="sbtn" data-a="tab" data-i="lab">Open Code Lab</button> ${PJ.map((p,i)=>[p,i]).filter(x=>x[0].days.includes(n)).map(x=>`<button class="sbtn" data-a="tab" data-i="build">Project: ${e(x[0].n)}</button> `).join('')}</div></section>
+ ${(n%7>=5||n%7==0||n>84)?`<div class="card"><h3>Weekend lab: ${e(WL[Math.min(w,13)-1].n)}</h3><p class="mu">Week ${w} hands-on project, about ${e(WL[Math.min(w,13)-1].t)}. ${(((S.wl||{})[w]||{}).s||[]).filter(Boolean).length} of ${WL[Math.min(w,13)-1].steps.length} steps done.</p><button class="cu" data-a="openlab" data-i="${Math.min(w,13)}">Open the lab guide</button></div>`:''}
  <div class="card"><h3>Notes for day ${n}</h3><textarea data-s="done:${n}:notes" placeholder="What clicked? What confused you?">${e(d.notes||'')}</textarea></div>
- <div class="card finish"><button class="big ${d.c?'':'cu'}" data-a="comp">${d.c?'Day complete. Undo':'Complete day (+'+(boss?60:25)+' XP)'}</button><span class="mu">${done4}/4 quests done${done4==4&&!d.c?'. Nice, lock it in.':''}</span></div>
+ <div class="card"><div class="row"><h3 class="grow">Day progress: ${Math.round(pr.p*100)}%</h3><span class="pill sts-${st}">${lbl}</span></div><div class="bar big"><i class="b-${st}" style="width:${Math.round(pr.p*100)}%"></i></div><p>${todo.length?'Left to do: '+todo.join(', ')+'.':'Everything is done. This day is complete and the bonus XP is yours.'}</p><p class="mu sm">The day turns <b>green</b> when every item is done or skipped, <b>dark yellow</b> when you are over 50%, and <b>red</b> if its date has passed and it is not finished.</p></div>
  </div><aside class="aside">
  <div class="card"><h3>Focus timer</h3><div class="tmr" id="tm">${tmFmt(S.focus*60)}</div><div class="row"><button class="cu" data-a="tmgo">${TM?'Stop':'Start focus'}</button><select data-a="tmlen" aria-label="Minutes">${[15,25,45,50].map(m=>`<option value="${m}"${m==S.focus?' selected':''}>${m} min</option>`).join('')}</select></div><p class="mu sm">${ratio} session${ratio==1?'':'s'} today. Each one earns 10 XP.</p></div>
- <div class="card"><h3>Your board</h3><p class="mu sm">Round pads are study days, square pads are boss days. Next boss: Day ${nb||N}.</p>${board(1)}</div>${rq}
+ <div class="card"><h3>Your board</h3><p class="mu sm">Round pads are study days, square pads are boss days. Next boss: Day ${nb||N}.</p>${board(1)}${legend()}</div>
+ ${rq.length?`<div class="card"><h3>Revisit queue</h3><p class="mu sm">Starred or skipped problems. Re-solve them cold.</p>${rq.map(p=>`<div class="pr"><a class="pn" target="_blank" rel="noopener" href="${e(lc(p))}">${e(p.n)}</a><span class="tag ${p.d}">${p.d}</span></div>`).join('')}</div>`:''}
  </aside></div>`}
 
-function vRoad(){let h=`<div class="card"><h2>The board</h2><p class="mu">90 days, 13 weeks. Tap any pad to open that day. Copper pads are finished.</p>${board()}</div>`;
+function vRoad(){let h=`<div class="card"><h2>The board</h2><p class="mu">90 days, 13 weeks. Tap any pad to open that day.</p>${board()}${legend()}</div>`;
  h+='<div class="row" style="margin:6px 0">'+PH.map((p,i)=>`<span class="pill">${p[0]}: ${p[1]}</span>`).join('')+'</div>';
  for(let w=1;w<=13;w++){const W=WK[w-1],ds=R7(w),dc=ds.filter(n=>g(n).c).length,k='w'+w;
-  h+=`<details data-k="${k}" ${OPEN.has(k)?'open':''}><summary class="${dc==ds.length?'dn':''}">Week ${w}: ${e(W[1])} <span class="mu sm">(${PH[W[0]][0]} phase, ${dc}/${ds.length} days)</span></summary><div class="in"><p class="mu">DSA focus: ${e(W[2])}</p><div class="rs" style="margin-bottom:8px">${W[3].map(r=>`<a target="_blank" rel="noopener" href="${e(r[1])}">${e(r[0])}</a>`).join('')}</div>
-  ${ds.map(n=>`<div class="pr"><span class="${g(n).c?'dn':''}" style="width:18px">${g(n).c?'✓':''}</span><button class="sbtn" data-a="go" data-i="${n}">Day ${n}</button><span class="grow ${g(n).c?'dn':''}">${e(DAYS[n-1][0])}</span><span class="mu sm">${fmtD(dayDate(n))}, ${nq(n)*25}%</span></div>`).join('')}</div></details>`}
+  h+=`<details data-k="${k}" ${OPEN.has(k)?'open':''}><summary class="${dc==ds.length?'dn':''}">Week ${w}: ${e(W[1])} <span class="mu sm">(${PH[W[0]][0]} phase, ${dc}/${ds.length} days)</span></summary><div class="in"><p class="mu">DSA focus: ${e(W[2])}</p><p><button class="sbtn cu" data-a="openlab" data-i="${w}">Weekend lab: ${e(WL[w-1].n)}</button></p><div class="rs" style="margin-bottom:8px">${W[3].map(r=>`<a target="_blank" rel="noopener" href="${e(r[1])}">${e(r[0])}</a>`).join('')}</div>
+  ${ds.map(n=>{const s=dstat(n),p=Math.round(dprog(n).p*100);return `<div class="pr"><span class="dot s-${s}"></span><button class="sbtn" data-a="go" data-i="${n}">Day ${n}</button><span class="grow">${e(DAYS[n-1][0])}</span><span class="mu sm">${p}%, planned ${fmtD(dayDate(n))}</span></div>`}).join('')}</div></details>`}
  return h}
 
 const PAT=[['Hash map','Counting, lookups, complements','Two Sum, Group Anagrams'],['Two pointers','Sorted array or string, pairs, in-place edits','3Sum, Container With Most Water'],['Sliding window','Contiguous subarray or substring with a condition','Longest Substring Without Repeating Characters, Minimum Window Substring'],['Binary search','Sorted data or a monotonic answer space','Koko Eating Bananas, Search in Rotated Sorted Array'],['Monotonic stack','Next greater element, matching, nesting','Daily Temperatures, Valid Parentheses'],['Fast and slow pointers','Cycles, midpoints, reversing lists','Linked List Cycle, Reorder List'],['BFS and DFS','Trees, grids, graphs, shortest unweighted path','Number of Islands, Level Order Traversal'],['Heap','Top-K, streaming median, scheduling','Kth Largest Element, Merge k Sorted Lists'],['Backtracking','Enumerate combinations or permutations with pruning','Subsets, N-Queens'],['Dynamic programming','Overlapping subproblems: define state, transition, base case','Coin Change, Longest Common Subsequence'],['Bit tricks','Flags, parity, masks, XOR cancellation','Single Number, Counting Bits'],['Greedy and intervals','Sort first, then sweep','Merge Intervals, Jump Game']];
-function vDsa(){const A=allP(),q=(F.dq||'').toLowerCase(),cs=[...new Set(A.map(p=>p.c))],sv=A.filter(p=>ps(p.id).st=='Solved');
- const by=d=>[sv.filter(p=>p.d==d).length,A.filter(p=>p.d==d).length];
- let h=`<div class="stats">${['Easy','Medium','Hard'].map(d=>{const b=by(d);return `<div class="st"><span class="${d}">${d}</span><b>${b[0]} / ${b[1]}</b><div class="bar"><i style="width:${b[1]?b[0]/b[1]*100:0}%"></i></div></div>`}).join('')}<div class="st"><span>Starred to revisit</span><b>${A.filter(p=>ps(p.id).star).length}</b></div></div>
+function vDsa(){const A=allP(),q=(F.dq||'').toLowerCase(),cs=[...new Set(A.map(p=>p.c))];
+ let h=`<div class="card"><div class="row" style="gap:20px">${ring()}<div class="grow"><div class="stats" style="margin:0"><div class="st"><span>Attempting</span><b>${A.filter(p=>ps(p.id).st=='Attempted').length}</b></div><div class="st"><span>Skipped</span><b>${A.filter(p=>ps(p.id).st=='Skipped').length}</b></div><div class="st"><span>Starred to revisit</span><b>${A.filter(p=>ps(p.id).star).length}</b></div></div></div></div></div>
  <details data-k="pat" ${OPEN.has('pat')?'open':''}><summary>Pattern cheat sheet: what to reach for</summary><div class="in tw"><table><tr><th>Pattern</th><th>Use when</th><th>Practice</th></tr>${PAT.map(r=>`<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('')}</table></div></details>
  <div class="card"><div class="f"><input type="search" id="f_dq" data-f="dq" placeholder="Search problems" value="${e(F.dq||'')}"><select data-f="ds"><option value="">All statuses</option>${opts(PS,F.ds)}</select><select data-f="dc"><option value="">All categories</option>${opts(cs,F.dc)}</select><select data-f="dd"><option value="">All difficulties</option>${opts(['Easy','Medium','Hard'],F.dd)}</select></div>
  <div class="row" style="margin-top:10px"><input id="an" class="grow" placeholder="Add your own problem"><input id="au" class="grow" placeholder="Link (optional)"><select id="ac">${opts(cs)}</select><select id="ad">${opts(['Easy','Medium','Hard'],'Medium')}</select><button data-a="dsaAdd">Add</button></div></div>`;
  cs.forEach(c=>{if(F.dc&&F.dc!=c)return;const all=A.filter(p=>p.c==c),l=all.filter(p=>(!F.ds||ps(p.id).st==F.ds)&&(!F.dd||p.d==F.dd)&&p.n.toLowerCase().includes(q));if(!l.length)return;
-  h+=`<div class="card"><div class="row"><h3 class="grow">${e(c)}</h3><span class="mu sm">${all.filter(p=>ps(p.id).st=='Solved').length} / ${all.length} solved</span></div>`+l.map(p=>{const s=ps(p.id);return `<div class="pr"><a class="pn" target="_blank" rel="noopener" href="${e(lc(p))}">${e(p.n)}</a>${p.day?`<span class="mu sm">Day ${p.day}</span>`:''}<a class="tag cat" style="text-decoration:none" target="_blank" rel="noopener" href="${yt('NeetCode '+p.n+' leetcode')}" title="Watch a video explanation">▶ video</a><span class="tag ${p.d}">${p.d}</span><select data-a="pst" data-i="${p.id}" aria-label="Status">${opts(PS,s.st)}</select><button class="star ${s.star?'on':''}" data-a="star" data-i="${p.id}" title="Star to revisit" aria-label="Star">★</button><input type="text" data-s="p:${p.id}:note" placeholder="Notes" value="${e(s.note||'')}">${p.id[0]=='c'&&/^c\d+$/.test(p.id)?`<button class="sbtn" data-a="dsaDel" data-i="${p.id}">Delete</button>`:''}</div>`}).join('')+'</div>'});
+  h+=`<div class="card lcl"><div class="row"><h3 class="grow">${e(c)}</h3><span class="mu sm">${all.filter(p=>ps(p.id).st=='Solved').length} / ${all.length} solved</span></div>`+l.map(p=>{const s=ps(p.id);return `<div class="pr"><span class="si ${s.st=='Solved'?'on':''}" aria-hidden="true">${s.st=='Solved'?'✓':s.st=='Skipped'?'↷':s.st=='Attempted'?'◐':''}</span><a class="pn" target="_blank" rel="noopener" href="${e(lc(p))}">${e(p.n)}</a>${p.day?`<span class="mu sm">Day ${p.day}</span>`:''}<a class="tag cat" style="text-decoration:none" target="_blank" rel="noopener" href="${yt('NeetCode '+p.n+' leetcode')}" title="Watch a video explanation">▶ video</a><span class="tag ${p.d}">${p.d}</span><select data-a="pst" data-i="${p.id}" aria-label="Status">${opts(PS,s.st)}</select><button class="star ${s.star?'on':''}" data-a="star" data-i="${p.id}" title="Star to revisit" aria-label="Star">★</button><input type="text" data-s="p:${p.id}:note" placeholder="Notes" value="${e(s.note||'')}">${/^c\d+$/.test(p.id)?`<button class="sbtn" data-a="dsaDel" data-i="${p.id}">Delete</button>`:''}</div>`}).join('')+'</div>'});
  return h}
 
-function vQa(){const A=allQ(),qq=(F.qq||'').toLowerCase(),cats=[...new Set(A.map(x=>x.c))];
- const due=dueQ(F.dcat);let dq=due.find(x=>x.id==DR.id)||due.find(x=>!DR.skip.includes(x.id))||due[0];if(dq)DR.id=dq.id;
- const drill=dq?`<div class="card"><div class="row"><h3 class="grow">Quick drill</h3><span class="mu sm">${due.length} due</span><select data-f="dcat" aria-label="Drill category"><option value="">All categories</option>${opts(cats,F.dcat)}</select></div><div class="dq disp">${e(dq.q)}</div>`+(DR.show?`<div class="ans">${e(dq.a||'No model answer. Write your own below.')}</div><div class="row"><button data-a="dr" data-i="miss">Missed it</button><button data-a="dr" data-i="part">Almost</button><button class="pri" data-a="dr" data-i="got">Nailed it</button></div>`:`<div class="row"><button class="pri" data-a="drshow">Show answer</button><button data-a="drskip">Skip</button></div><p class="mu sm">Say your answer out loud first, then reveal. Confident questions come back after 7 days.</p>`)+'</div>':`<div class="card"><h3>All caught up</h3><p class="mu">Nothing is due right now. Questions unlock as you progress through the plan.</p></div>`;
- const l=A.filter(x=>(!F.qc||x.c==F.qc)&&(!F.qs||qs(x.id).st==F.qs)&&(x.q+' '+x.a).toLowerCase().includes(qq));
- return drill+`<div class="card"><div class="f"><input type="search" id="f_qq" data-f="qq" placeholder="Search questions" value="${e(F.qq||'')}"><select data-f="qc"><option value="">All categories</option>${opts(cats,F.qc)}</select><select data-f="qs"><option value="">All statuses</option>${opts(QST,F.qs)}</select></div>
- <div class="row" style="margin-top:10px"><input id="nq" class="grow" placeholder="Add your own question"><select id="nc">${opts(cats)}</select></div><textarea id="na" style="min-height:56px;margin-top:8px" placeholder="Model answer (optional)"></textarea><div style="margin-top:8px"><button data-a="qAdd">Add question</button></div></div>
- <div class="mu sm" style="margin:8px 2px">${l.length} questions, ${A.filter(x=>qs(x.id).st=='Confident').length} confident</div>`+
- l.map(x=>{const s=qs(x.id);return `<div class="card"><div class="row"><b class="grow">${e(x.q)}</b><span class="tag cat">${e(x.c)}</span>${x.day?`<span class="mu sm">Day ${x.day}</span>`:''}<select data-a="qst" data-i="${x.id}" aria-label="Confidence">${opts(QST,s.st)}</select></div><details data-k="a${x.id}" ${OPEN.has('a'+x.id)?'open':''}><summary>Model answer</summary><div class="in"><div class="ans">${e(x.a||'No model answer yet.')}</div></div></details><textarea data-s="q:${x.id}:a" style="min-height:56px" placeholder="Your own answer or notes">${e(s.a||'')}</textarea><div class="row" style="margin-top:6px"><span class="mu sm grow">Last reviewed: ${s.rv||'never'}</span>${x.id[0]=='c'?`<button class="sbtn" data-a="qDel" data-i="${x.id}">Delete</button>`:''}</div></div>`}).join('')}
+function vQa(){const A=allQ(),qq=(F.qq||'').toLowerCase(),cats=[...new Set(A.map(x=>x.c))],due=dueQ(F.dcat);
+ let dq=due.find(x=>x.id==DR.id)||due.find(x=>!DR.skip.includes(x.id))||due[0];if(dq)DR.id=dq.id;const ds=dq?qs(dq.id):null;
+ const drill=dq?`<div class="card"><div class="row"><h3 class="grow">Quick drill</h3><span class="mu sm">${due.length} due</span><select data-f="dcat" aria-label="Drill category"><option value="">All categories</option>${opts(cats,F.dcat)}</select></div>${qcard(dq)}<div class="row" style="margin-top:8px">${ds&&ds.n&&ds.rv==today()?'<button class="pri" data-a="drnext">Next question</button>':'<button data-a="drskip">Skip for now</button>'}</div></div>`:`<div class="card"><h3>All caught up</h3><p class="mu">Nothing is due right now. Questions unlock as you progress through the plan, and solved ones return after 7 days.</p></div>`;
+ const qo=[['New','Todo'],['Learning','Attempted'],['Confident','Solved'],['Skipped','Skipped']];
+ const l=A.filter(x=>{const s=qs(x.id);return(!F.qc||x.c==F.qc)&&(!F.qs||(F.qs=='Skipped'?s.sk:s.st==F.qs))&&(x.q+' '+x.a).toLowerCase().includes(qq)});
+ return drill+`<div class="card"><div class="f"><input type="search" id="f_qq" data-f="qq" placeholder="Search questions" value="${e(F.qq||'')}"><select data-f="qc"><option value="">All categories</option>${opts(cats,F.qc)}</select><select data-f="qs"><option value="">All statuses</option>${qo.map(o=>`<option value="${o[0]}"${F.qs==o[0]?' selected':''}>${o[1]}</option>`).join('')}</select></div>
+ <p class="mu sm" style="margin:10px 0 0">Answers are graded by checking your sentences for the key ideas of the model answer. XP depends on difficulty and drops with each extra attempt: 100%, 75%, then 50%. Giving up first cuts later XP to a quarter.</p>
+ <div class="row" style="margin-top:10px"><input id="nq" class="grow" placeholder="Add your own question"><select id="nc">${opts(cats)}</select></div><textarea id="na" style="min-height:56px;margin-top:8px" placeholder="Model answer (optional, used for grading)"></textarea><div style="margin-top:8px"><button data-a="qAdd">Add question</button></div></div>
+ <div class="mu sm" style="margin:8px 2px">${l.length} questions, ${A.filter(x=>qs(x.id).st=='Confident').length} solved</div>`+
+ l.map(x=>`<div class="card">${qcard(x)}<div class="row" style="margin-top:6px"><span class="mu sm grow">${x.day?'Day '+x.day+'. ':''}Last attempt: ${qs(x.id).rv||'never'}</span>${x.id[0]=='c'?`<button class="sbtn" data-a="qDel" data-i="${x.id}">Delete</button>`:''}</div></div>`).join('')}
 
-function vBuild(){return `<div class="card"><h2>Projects that get you hired</h2><p class="mu">Interviewers ask about what is on your resume. Finish three of these properly (code, tests, README) rather than starting ten. Each milestone earns 8 XP, finishing a project earns 40 more.</p></div>`+PJ.map((p,i)=>{const s=S.pj[i]||{},m=s.ms||[],c=m.filter(Boolean).length,t=p.m.length;
+function vProjects(){return `<div class="card"><h2>Milestone projects</h2><p class="mu">Interviewers ask about what is on your resume. Finish three of these properly (code, tests, README) rather than starting ten. Each milestone earns 8 XP, finishing a project earns 40 more.</p></div>`+PJ.map((p,i)=>{const s=S.pj[i]||{},m=s.ms||[],c=m.filter(Boolean).length,t=p.m.length;
  return `<div class="card"><div class="row"><h3 class="grow">${e(p.n)}</h3><span class="xp">${c==t?'Shipped':c+' / '+t+' milestones'}</span></div><p class="mu">${e(p.d)}</p><div class="bar"><i style="width:${c/t*100}%"></i></div>${p.m.map((x,j)=>`<label class="chk"><input type="checkbox" data-a="ms" data-i="${i}:${j}" ${m[j]?'checked':''}>${e(x)}</label>`).join('')}<textarea data-s="pj:${i}:note" placeholder="Repo link, notes, what is left">${e(s.note||'')}</textarea><div class="mu sm">Planned on days: ${p.days.join(', ')}</div></div>`}).join('')}
 
+function vWeekend(){const cw=wk(cur());
+ return `<div class="card"><h2>Weekend labs</h2><p class="mu">One hands-on lab per week, about 4 to 6 hours across the weekend (Day 6 and 7 of each week). Each one applies that week's topics to something you build, test and can explain in interviews. Tick each step as you go: 6 XP per step and 60 XP for finishing the lab. Put every lab on GitHub with a README.</p></div>`+
+ WL.map(L=>{const s=(S.wl&&S.wl[L.w])||{},m=s.s||[],c=m.filter(Boolean).length,t=L.steps.length,k='wl'+L.w;
+ return `<details data-k="${k}" ${OPEN.has(k)?'open':''}><summary class="${c==t?'dn':''}">Week ${L.w} lab: ${e(L.n)} <span class="mu sm">(${e(L.t)}, ${c}/${t} steps)</span>${L.w==cw?' <span class="pill" style="color:var(--cu)">This week</span>':''}</summary><div class="in">
+ <div class="bar"><i style="width:${c/t*100}%"></i></div>
+ <p><b>Goal.</b> ${e(L.goal)}</p><p><b>Why it matters this week.</b> ${e(L.why)}</p>
+ <h3 style="margin-top:12px">Steps</h3>${L.steps.map((x,j)=>`<label class="chk wlstep"><input type="checkbox" data-a="ws" data-i="${L.w}:${j}" ${m[j]?'checked':''}><span><b>${j+1}. ${e(x[0])}</b><br><span class="mu">${e(x[1])}</span></span></label>`).join('')}
+ <h3 style="margin-top:12px">You are done when</h3><ul class="tl">${L.ok.split(';').map(x=>`<li>${e(x)}</li>`).join('')}</ul>
+ <h3>Stretch goals</h3><ul class="tl">${L.more.split(';').map(x=>`<li>${e(x)}</li>`).join('')}</ul>
+ <h3>What to say in interviews</h3><p class="ans">${e(L.say)}</p>
+ <div class="rs">${L.res.map(r=>`<a target="_blank" rel="noopener" href="${e(r[1])}">${e(r[0])}</a>`).join('')}</div>
+ <textarea data-s="wl:${L.w}:note" style="margin-top:10px" placeholder="Repo link, what broke, what you learned">${e(s.note||'')}</textarea></div></details>`}).join('')}
+function vBuild(){const bt=F.bt||'weekend';return `<div class="row" style="margin-bottom:12px"><button class="${bt=='weekend'?'pri':''}" data-a="bt" data-i="weekend">Weekend labs (13)</button><button class="${bt=='proj'?'pri':''}" data-a="bt" data-i="proj">Milestone projects (10)</button></div>`+(bt=='weekend'?vWeekend():vProjects())}
 function vProg(){const A=allP(),cats=[...new Set(A.map(p=>p.c))],qc=[...new Set(allQ().map(x=>x.c))],w=+F.rw||wk(cur()),r=S.rv[w]||{};
- const tiles=[['Total XP',K.xp.toLocaleString()],['Level',K.lv+', '+title(K.lv)],['Current streak',K.streak+' days'],['Best streak',K.best+' days'],['Days complete',K.dd+' / '+N],['Problems solved',K.solved+' / '+A.length],['Questions confident',K.qc+' / '+allQ().length],['Focus sessions',K.fs],['Boss days beaten',K.boss]];
+ const tiles=[['Total XP',K.xp.toLocaleString()],['Level',K.lv+', '+title(K.lv)],['Current streak',K.streak+' days'],['Best streak',K.best+' days'],['Days complete',K.dd+' / '+N],['Problems solved',K.solved+' / '+A.length],['Questions solved',K.qc+' / '+allQ().length],['Focus sessions',K.fs],['Boss days beaten',K.boss],['Missed-day penalty','-'+K.pen+' XP ('+K.miss+' days)']];
  const bars=(l,fn)=>l.map(c=>{const [a,b]=fn(c);return `<div><div class="row"><span class="grow">${e(c)}</span><span class="mu sm">${a} / ${b}</span></div><div class="bar"><i style="width:${b?a/b*100:0}%"></i></div></div>`}).join('');
  const ta=(k,l)=>`<h3 style="margin-top:12px">${l}</h3><textarea data-s="rv:${w}:${k}">${e(r[k]||'')}</textarea>`;
- const hm=Array.from({length:N},(_,i)=>{const n=i+1,c=nq(n),d=g(n);return `<button class="hc l${d.c?5:c}" data-a="go" data-i="${n}" title="Day ${n}: ${c}/4 quests${d.c?', complete':''}" aria-label="Day ${n}"></button>`}).join('');
+ const hm=Array.from({length:N},(_,i)=>{const n=i+1,p=dprog(n).p,st=dstat(n);return `<button class="hc ${st=='new'?(p>0?'l2':''):'s-'+st}" data-a="go" data-i="${n}" title="Day ${n}: ${Math.round(p*100)}%" aria-label="Day ${n}"></button>`}).join('');
  return `<div class="stats">${tiles.map(t=>`<div class="st"><span>${t[0]}</span><b>${t[1]}</b></div>`).join('')}</div>
- <div class="card"><h3>90-day heatmap</h3><p class="mu sm">Each column is a week. Brighter means more quests done, green means day complete.</p><div class="hm" style="margin-top:8px">${hm}</div></div>
+ <div class="card"><h3>Problems solved</h3>${ring()}</div>
+ <div class="card"><h3>90-day heatmap</h3><p class="mu sm">Each column is a week.</p>${legend()}<div class="hm" style="margin-top:8px">${hm}</div></div>
  <div class="card"><h3>Badges (${Object.keys(S.bd).length} / ${BG.length})</h3><div class="bgs" style="margin-top:10px">${BG.map(b=>`<div class="bg ${S.bd[b[0]]?'':'lock'}"><div class="em">${b[1]}</div><b>${b[2]}</b><span class="mu sm">${b[3]}</span></div>`).join('')}</div></div>
  <div class="two"><div class="card"><h3>DSA by category</h3>${bars(cats,c=>[A.filter(p=>p.c==c&&ps(p.id).st=='Solved').length,A.filter(p=>p.c==c).length])}</div><div class="card"><h3>Questions by topic</h3>${bars(qc,c=>[allQ().filter(x=>x.c==c&&qs(x.id).st=='Confident').length,allQ().filter(x=>x.c==c).length])}</div></div>
  <div class="card"><div class="row"><h3 class="grow">Weekly review</h3><select data-f="rw">${Array.from({length:13},(_,i)=>`<option value="${i+1}"${i+1==w?' selected':''}>Week ${i+1}: ${e(WK[i][1])}</option>`).join('')}</select></div>${ta('learned','What I learned')}${ta('struggled','What I struggled with')}${ta('revisit','Topics to revisit')}${ta('next','Plan for next week')}</div>`}
@@ -777,7 +1032,7 @@ function vMk(){const l=S.mk.filter(m=>!F.mt||m.tp==F.mt),tp=[...new Set(S.mk.map
  <div class="row" style="margin:6px 2px"><b class="grow">${l.length} entries</b><select data-f="mt"><option value="">All topics</option>${opts(tp,F.mt)}</select></div>`+
  l.map(m=>`<div class="card"><div class="row"><b class="grow">${e(m.q)}</b><span class="tag cat">${e(m.tp)}</span><span class="mu sm">${m.dt}</span><button class="sbtn" data-a="mkDel" data-i="${m.id}">Delete</button></div><p><b>Wrong:</b> ${e(m.w)}</p><p><b>Correct:</b> ${e(m.c)}</p><p><b>Next time:</b> ${e(m.a)}</p></div>`).join('')}
 
-function vSet(){return `<div class="card"><h3>Start date (Day 1)</h3><div class="row"><input type="date" id="sd" value="${S.start}"><button data-a="sd">Save start date</button></div><p class="mu sm">Missing days never resets progress. If you fall behind, use "Make Day N today" on the Today tab.</p>
+function vSet(){return `<div class="card"><h3>Start date (Day 1)</h3><div class="row"><input type="date" id="sd" value="${S.start}"><button data-a="sd">Save start date</button></div><p class="mu sm">Missing days never resets progress. If you fall behind, unfinished days roll over automatically and each missed day costs 20 XP.</p>
  <h3 style="margin-top:16px">Backup</h3><p class="mu sm">Progress is saved in this browser only. Download a backup regularly.</p><div class="row"><button data-a="exp">Download JSON</button><button data-a="copy">Copy JSON</button><input type="file" id="imf" accept=".json,application/json"><button data-a="impF">Import file</button></div>
  <textarea id="jb" style="margin-top:8px" placeholder="Or paste backup JSON here, then click Import pasted"></textarea><div class="row" style="margin-top:6px"><button data-a="impT">Import pasted</button><button data-a="show">Show current JSON</button></div>
  <h3 style="margin-top:16px">Reset</h3><button data-a="rst" style="color:var(--bd)">Reset all progress</button></div>`}
@@ -785,7 +1040,7 @@ function vSet(){return `<div class="card"><h3>Start date (Day 1)</h3><div class=
 const sec=(k,t,h)=>`<details data-k="${k}" ${OPEN.has(k)?'open':''}><summary>${t}</summary><div class="in">${h}</div></details>`;
 const lk=(t,u)=>`<a target="_blank" rel="noopener" href="${u}">${t}</a>`;
 function vGuide(){return `<div class="guide"><div class="card"><h2>The complete guide</h2><p class="mu">How to use this app, how the 90 days are built, and how to turn the preparation into an offer. Read sections 1 and 2 today, the rest when you need them.</p></div>
-${sec('g0','1. Your daily routine (about 3 hours)',`<ol><li><b>Open Today and start the focus timer.</b> Work in 25-minute blocks with your phone away.</li><li><b>Learn (60 min):</b> read the topic, watch one video, write notes in your own words. Do not binge-watch.</li><li><b>DSA (60 min):</b> solve the day's LeetCode problems. Stuck for 20 minutes? Read a hint, then re-solve from scratch tomorrow. Star anything that hurt.</li><li><b>Drill (20 min):</b> answer each question out loud before opening the model answer. Mark it Learning or Confident honestly.</li><li><b>Build (30 min):</b> type the code. Reading is not practice.</li><li><b>Close the day:</b> tick the quests, write two lines of notes, log any mistake, press Complete day.</li></ol><p><b>Short on time?</b> Do one DSA problem and the drill, then catch up at the weekend. A short day beats a skipped day.</p><div class="tw"><table><tr><th>Action</th><th>XP</th></tr><tr><td>Learn / Build quest</td><td>30 each</td></tr><tr><td>Drill / DSA quest</td><td>20 each</td></tr><tr><td>Complete a day / boss day</td><td>25 / 60</td></tr><tr><td>Problem solved (Easy, Medium, Hard)</td><td>10 / 25 / 50</td></tr><tr><td>Question marked Confident</td><td>5</td></tr><tr><td>Project milestone / project finished</td><td>8 / 40</td></tr><tr><td>Focus session (max 8 a day) / mistake logged</td><td>10 / 5</td></tr><tr><td>Streak bonus</td><td>up to 30 a day</td></tr></table></div>`)}
+${sec('g0','1. Your daily routine (about 3 hours)',`<ol><li><b>Open Today and start the focus timer.</b> Work in 25-minute blocks with your phone away.</li><li><b>Learn (60 min):</b> read the topic, watch one video, write notes in your own words. Do not binge-watch.</li><li><b>DSA (60 min):</b> solve the day's LeetCode problems. Stuck for 20 minutes? Read a hint, then re-solve from scratch tomorrow. Star anything that hurt.</li><li><b>Drill (20 min):</b> type each answer in your own words and press Submit. It is graded against the key ideas of the model answer, you see which ideas you missed, and XP drops with each extra attempt.</li><li><b>Build (30 min):</b> type the code. Reading is not practice.</li><li><b>Close the day:</b> write two lines of notes and log any mistake. The day turns green automatically when everything is done or skipped.</li></ol><p><b>Short on time?</b> Do one DSA problem and the drill, then catch up at the weekend. A short day beats a skipped day.</p><div class="tw"><table><tr><th>Action</th><th>XP</th></tr><tr><td>Learn quest / Build quest</td><td>20 / 30</td></tr><tr><td>Problem solved (Easy, Medium, Hard)</td><td>10 / 25 / 50 (skipped earns 0)</td></tr><tr><td>Interview question accepted (Easy, Medium, Hard)</td><td>8 / 12 / 20 on the first try, 75% on the second, 50% after; 35% for a partially correct answer; quarter XP if you gave up first</td></tr><tr><td>Day complete (all items done or skipped) / boss day</td><td>25 / 75</td></tr><tr><td>Project milestone / project finished</td><td>8 / 40</td></tr><tr><td>Weekend lab step / lab finished</td><td>6 / 60</td></tr><tr><td>Focus session (max 8 a day) / mistake logged / code run (max 10 a day)</td><td>10 / 5 / 2</td></tr><tr><td>Streak bonus</td><td>up to 30 a day</td></tr><tr><td><b>Missed day</b></td><td><b>-20 each. The unfinished day rolls over to today.</b></td></tr></table></div>`)}
 ${sec('g1','2. The 90-day plan at a glance',`<div class="tw"><table><tr><th>Phase</th><th>Days</th><th>Focus</th><th>You can do this at the end</th></tr><tr><td><b>Boot</b></td><td>1-21</td><td>C, C++, toolchain, GDB, DSA basics</td><td>Write and debug C/C++, solve easy and medium array, string, list and stack problems</td></tr><tr><td><b>Kernel</b></td><td>22-42</td><td>OS, Linux, memory, IPC, interrupts</td><td>Explain processes, virtual memory, scheduling; write Linux C programs</td></tr><tr><td><b>I/O</b></td><td>43-63</td><td>Networking, multithreading, UART/I2C/SPI/CAN, DMA</td><td>Build socket servers, write thread-safe code, reason about buses</td></tr><tr><td><b>Firmware</b></td><td>64-84</td><td>Embedded Linux, RTOS, design, capstone, behavioural</td><td>Write drivers, answer design questions, show a polished project</td></tr><tr><td><b>Ship</b></td><td>85-90</td><td>Resume, mocks, applications</td><td>Interview calmly</td></tr></table></div><p><b>Start applying around Day 60.</b> Real interviews teach more than any mock, and most hiring processes take weeks. Every 7th day is a boss day: a timed test plus a drill of that whole week's questions.</p>`)}
 ${sec('g2','3. How to practise LeetCode so it sticks',`<ol><li>Read the problem and restate it. Write two examples and one edge case before coding.</li><li>Give yourself <b>20 minutes</b>. Then read a hint or the approach, never the full code first.</li><li>Code it yourself in a plain editor, without autocomplete. State time and space complexity aloud.</li><li><b>Star it</b> if you needed help. Re-solve starred problems after 1, 3, 7 and 21 days. The Revisit queue on Today shows them.</li><li>Name the pattern in your notes (see the cheat sheet on the DSA tab). Patterns transfer; solutions do not.</li></ol><p>Targets that match a good-company bar: all Easy comfortable in 15 minutes, most Medium in 30, and 2 to 3 Hard problems understood. ${lk('NeetCode 150','https://neetcode.io/practice')} and ${lk('LeetCode study plans','https://leetcode.com/studyplan/')} are good places to extend beyond this list.</p>`)}
 ${sec('g3','4. What embedded and systems interviews look like',`<div class="tw"><table><tr><th>Round</th><th>What it tests</th><th>Where to prepare here</th></tr><tr><td>Online test or screening</td><td>DSA mediums, C/C++ output questions, aptitude</td><td>DSA tab, C and C++ questions</td></tr><tr><td>Coding (1 to 2 rounds)</td><td>1 to 2 problems in 45 minutes, clean code, complexity</td><td>Days 1 to 63, mock days 86 and 90</td></tr><tr><td>Fundamentals</td><td>C/C++, OS, Linux, networking, concurrency</td><td>Q&A tab and drill</td></tr><tr><td>Embedded</td><td>Buses, interrupts, drivers, RTOS, debugging stories</td><td>Days 57 to 70, projects</td></tr><tr><td>Design</td><td>Embedded system or low-level design, trade-offs</td><td>Days 71 to 78</td></tr><tr><td>Manager and HR</td><td>Projects, ownership, teamwork, motivation</td><td>Day 79, STAR stories</td></tr></table></div><ul><li>Ask clarifying questions first. State assumptions. Think aloud.</li><li>Be ready to write in C: pointers, bit ops, linked lists, ring buffers, string functions.</li><li>Anything on your resume is fair game. If you list a protocol or a project, know it deeply.</li><li>Say what you do not know, then reason toward an answer. Bluffing is the fastest way to lose an offer.</li></ul>`)}
@@ -793,15 +1048,16 @@ ${sec('g4','5. Where to apply',`<p>Hiring varies by year and team, so open the c
 ${sec('g5','6. Behavioural answers (STAR)',`<p>Prepare six stories and reuse them: a hard bug, a project you owned, a conflict, a failure, a deadline under pressure, and something you learned fast. For each: <b>Situation</b> (1 sentence), <b>Task</b> (your responsibility), <b>Action</b> (what you did, with specifics and tools), <b>Result</b> (a number if possible, plus what you learned).</p><p>Prepare a 90-second "tell me about yourself": present role and skills, past projects, and why this team. Practise it out loud until it sounds natural.</p>`)}
 ${sec('g6','7. Resume and projects',`<ul><li>One page. Lead with skills and projects if you have little experience.</li><li>Bullet formula: <i>Built X using Y, which achieved Z</i>. Example: Built a lock-free ring buffer in C++ that sustained 2M messages per second under TSan-clean tests.</li><li>List C, C++, Linux, RTOS, protocols and tools you can discuss for 10 minutes.</li><li>Put the capstone and two other projects on GitHub with a README: what it does, how to build, how to run, design notes.</li></ul>`)}
 ${sec('g7','8. Resource library',`<div class="tw"><table><tr><th>Topic</th><th>Free resources</th></tr><tr><td>C and C++</td><td>${lk("Beej's Guide to C",'https://beej.us/guide/bgc/')}, ${lk('learncpp.com','https://www.learncpp.com/')}, ${lk('cppreference','https://en.cppreference.com/')}, ${lk('Compiler Explorer','https://godbolt.org/')}</td></tr><tr><td>Operating systems</td><td>${lk('OSTEP','https://pages.cs.wisc.edu/~remzi/OSTEP/')}, ${lk('Linux man pages','https://man7.org/linux/man-pages/')}, ${lk('The Missing Semester','https://missing.csail.mit.edu/')}</td></tr><tr><td>Networking</td><td>${lk("Beej's Network Guide",'https://beej.us/guide/bgnet/')}, ${lk('Cloudflare Learning Center','https://www.cloudflare.com/learning/')}, ${lk('Wireshark docs','https://www.wireshark.org/docs/')}</td></tr><tr><td>Concurrency</td><td>${lk('POSIX threads (LLNL)','https://hpc-tutorials.llnl.gov/posix/')}, ${lk('Preshing','https://preshing.com/')}, ${lk('C++ threads','https://en.cppreference.com/w/cpp/thread')}</td></tr><tr><td>Embedded</td><td>${lk('Memfault Interrupt','https://interrupt.memfault.com/')}, ${lk('Embedded Artistry','https://embeddedartistry.com/')}, ${lk('Arm docs','https://developer.arm.com/documentation/')}, ${lk('Wokwi simulator','https://wokwi.com/')}, ${lk('Barr C standard','https://barrgroup.com/embedded-systems/books/embedded-c-coding-standard')}</td></tr><tr><td>Embedded Linux and RTOS</td><td>${lk('Bootlin training','https://bootlin.com/training/')}, ${lk('Linux Kernel Labs','https://linux-kernel-labs.github.io/refs/heads/master/')}, ${lk('Linux kernel docs','https://docs.kernel.org/')}, ${lk('FreeRTOS docs','https://www.freertos.org/Documentation/00-Overview')}</td></tr><tr><td>DSA and mocks</td><td>${lk('LeetCode','https://leetcode.com/problemset/')}, ${lk('NeetCode','https://neetcode.io/roadmap')}, ${lk('Pramp','https://www.pramp.com/')}, ${lk('interviewing.io','https://interviewing.io/')}, ${lk('System Design Primer','https://github.com/donnemartin/system-design-primer')}</td></tr></table></div>`)}
+${sec('gw','Weekend labs: how to get the most from them',`<ul><li>Each week ends with a hands-on lab (Projects tab, Weekend labs). Block 4 to 6 hours across Day 6 and 7. Day 7 is also a boss day, so do the lab on Day 6 and the first half of Day 7 if needed.</li><li>Do the steps in order. Each step says exactly what to type or build. If you get stuck for 30 minutes, read the linked man page or docs, then ask for help.</li><li>Treat "You are done when" as the acceptance test. If a check fails, the lab is not done.</li><li>Commit every lab to GitHub with a README. By Day 90 you will have 13 small projects, which is a real portfolio.</li><li>Skipping a lab? Do not skip weeks 4 to 11: they are the strongest interview material.</li></ul>`)}
 ${sec('gl','Code Lab: compile and run code in the app',`<ul><li>Open the <b>Code Lab</b> tab, pick C, C++, Python or JavaScript, load a template, edit, press <b>Run</b> (or Ctrl+Enter). Add input in the Standard input box.</li><li>C, C++ and Python are compiled on the free public Judge0 service, so they need internet, take a few seconds and can be rate-limited. Your code is sent to that service. Do not paste anything confidential.</li><li>JavaScript runs privately in your browser and supports <b>Live run</b>, which re-runs as you type.</li><li>It runs normal programs: algorithms, pointers, bit tricks, pthreads, fork. It cannot run hardware registers, kernel modules or drivers. For those use QEMU, ${lk('Wokwi','https://wokwi.com/')} or a Linux machine, and ${lk('Compiler Explorer','https://godbolt.org/')} to study generated assembly.</li><li>Each successful run earns 2 XP (up to 10 a day).</li></ul>`)}
 ${sec('gv','Best YouTube channels (by topic)',`<p>Every day on the Today tab has video chips that search the topic on the right channels. Subscribe to these:</p><div class="rs">${Object.values(CH).map(c=>lk('▶ '+c[0],c[1])).join('')}</div><ul><li><b>DSA:</b> NeetCode (every problem here has a video link), take U forward.</li><li><b>C, C++, systems:</b> Jacob Sorber, The Cherno, CppCon, Low Level Learning.</li><li><b>OS and networking:</b> Neso Academy, Gate Smashers, Practical Networking.</li><li><b>Embedded and Linux:</b> Phil's Lab, Bootlin.</li><li><b>Mocks:</b> interviewing.io.</li></ul>`)}
 ${sec('gb','Is this enough for big tech? Honest gaps',`<p>This plan targets Google, Amazon, Microsoft, Apple, NVIDIA and Qualcomm-level bars for embedded and systems roles. What it cannot do for you:</p><ul><li><b>DSA volume (now built in):</b> the plan has ${PL.length} problems, ${PL.filter(p=>p.d=='Hard').length} of them Hard. Days 71 to 90 are deliberately harder: Hard-heavy sets, then timed mock days.</li><li><b>Timed practice:</b> from Day 40, treat each boss day as a timed round: 2 problems in 60 minutes. On busy days, do the Medium and Hard of the day's topic first and star the rest.</li><li><b>Real mocks:</b> at least 6 with other people (Pramp, interviewing.io, friends). Solo practice hides communication gaps.</li><li><b>Depth over breadth:</b> big teams probe one topic for 20 minutes. Pick 3 strengths (for example Linux drivers, RTOS, networking) and go deep.</li><li><b>Experience signal:</b> one strong, public, well-documented project beats five half-finished ones.</li><li><b>Time:</b> 90 days is tight if you start from zero. Treat Day 90 as the start of applications, and keep 1 to 2 hours a day of DSA going afterwards.</li></ul><p>Nobody can guarantee an offer. Consistency, mocks and applying widely matter most.</p>`)}
-${sec('g8','9. If you fall behind, and interview-day checklist',`<ul><li>Never reset. Use <b>Make Day N today</b> on the Today tab to realign the calendar.</li><li>Cut Build before you cut DSA or Drill. Keep the capstone days (80 to 83) intact.</li><li>Merge two light days into one rather than rushing a hard topic.</li></ul><p><b>Before the interview:</b> sleep, test your audio and editor, have water, and review your cheat sheets and Mistake Log, not new topics. <b>During:</b> clarify, plan, code, test with an example, state complexity. <b>After:</b> write down every question you missed and add it to the Mistake Log.</p>`)}</div>`}
+${sec('g8','9. If you fall behind, and interview-day checklist',`<ul><li>Never reset. If you miss a day, it costs 20 XP and the unfinished day rolls over into today automatically, so you always continue from where you stopped.</li><li>Cut Build before you cut DSA or Drill. Keep the capstone days (80 to 83) intact.</li><li>Merge two light days into one rather than rushing a hard topic.</li></ul><p><b>Before the interview:</b> sleep, test your audio and editor, have water, and review your cheat sheets and Mistake Log, not new topics. <b>During:</b> clarify, plan, code, test with an example, state complexity. <b>After:</b> write down every question you missed and add it to the Mistake Log.</p>`)}</div>`}
 
 const VW={lab:vLab,today:vToday,road:vRoad,dsa:vDsa,qa:vQa,build:vBuild,guide:vGuide,prog:vProg,mk:vMk,set:vSet};
-function R(){const y=scrollY;document.documentElement.dataset.theme=S.theme||'';K=calc();gain();S.tab=V;$('#app').innerHTML=head()+VW[V]();scrollTo(0,TOP?0:y);TOP=false}
+function R(){const y=scrollY;document.documentElement.dataset.theme=S.theme||'';const nd=touchAll();K=calc();gain();if(nd.length)setTimeout(()=>{toast('<b>Day '+nd[0]+' complete</b><br>Bonus +'+(isBoss(nd[0])?75:25)+' XP',1);burst()},350);S.tab=V;$('#app').innerHTML=head()+VW[V]();scrollTo(0,TOP?0:y);TOP=false}
 function imp(t){try{const x=JSON.parse(t);if(!x||!x.done||!x.p)throw 0;if(!confirm('Replace current data with the imported backup?'))return;S=Object.assign(seed(),x);PX=null;save();R();alert('Imported.')}catch(_){alert('Import failed: not a valid backup file.')}}
-function setv(a,i,k,v){if(a=='done')dn(i)[k]=v;else if(a=='p')pw(i)[k]=v;else if(a=='q')qw(i)[k]=v;else if(a=='rv')(S.rv[i]||(S.rv[i]={}))[k]=v;else if(a=='pj')(S.pj[i]||(S.pj[i]={}))[k]=v}
+function setv(a,i,k,v){if(a=='done')dn(i)[k]=v;else if(a=='p')pw(i)[k]=v;else if(a=='q')qw(i)[k]=v;else if(a=='rv')(S.rv[i]||(S.rv[i]={}))[k]=v;else if(a=='wl')(S.wl[i]||(S.wl[i]={}))[k]=v;else if(a=='pj')(S.pj[i]||(S.pj[i]={}))[k]=v}
 
 document.addEventListener('input',ev=>{const t=ev.target;
  if(t.dataset.code){labInput(t);return}
@@ -813,9 +1069,9 @@ document.addEventListener('change',ev=>{const t=ev.target,a=t.dataset.a,n=SEL||c
  if(!a)return;
  if(a=='chk')dn(n)[i]=t.checked;
  else if(a=='pst'){const s=pw(i);s.st=t.value;s.dt=t.value=='Solved'?(s.dt||today()):''}
- else if(a=='qst'){const s=qw(i);s.st=t.value;s.rv=today()}
  else if(a=='ms'){const[p,j]=i.split(':'),o=S.pj[p]||(S.pj[p]={});o.ms=o.ms||[];o.ms[j]=t.checked}
  else if(a=='tmlen'){S.focus=+t.value}
+ else if(a=='ws'){const[w,j]=i.split(':');S.wl=S.wl||{};const o=S.wl[w]||(S.wl[w]={});o.s=o.s||[];o.s[j]=t.checked}
  else if(a=='labl'){LAB.lang=t.value;LAB.res=null}
  else if(a=='labt'){if(t.value==='')return;labTpl(+t.value)}
  else if(a=='live'){LAB.live=t.checked;if(t.checked&&LAB.lang=='js'){R();runJS(0);return}}
@@ -825,15 +1081,17 @@ document.addEventListener('click',ev=>{const t=ev.target.closest('[data-a]');if(
  else if(a=='go'){SEL=+i;V='today';TOP=true}
  else if(a=='nav'){SEL=Math.max(1,Math.min(N,n+ +i));TOP=true}
  else if(a=='now'){SEL=0;TOP=true}
- else if(a=='comp'){const o=dn(n);o.c=!o.c;o.cd=o.c?today():'';if(o.c){burst();if(n==N)toast('<b>You finished all 90 days. Go get that offer.</b>',1)}}
- else if(a=='shift'){S.start=addD(today(),-(firstOpen()-1));SEL=0}
  else if(a=='star'){const s=pw(i);s.star=s.star?0:1}
  else if(a=='tmgo'){if(TM){TM=null;document.title=T0}else TM={end:Date.now()+S.focus*60000}}
  else if(a=='theme'){const dark=S.theme?S.theme=='dark':matchMedia('(prefers-color-scheme:dark)').matches;S.theme=dark?'light':'dark'}
  else if(a=='run'){labRun();return}
- else if(a=='drshow')DR.show=true;
+ else if(a=='bt'){F.bt=i}
+ else if(a=='openlab'){F.bt='weekend';OPEN.add('wl'+i);V='build';TOP=true}
+ else if(a=='qsub'){qsub(i)}
+ else if(a=='qskip'){const z=qw(i);z.sk=z.sk?0:1}
+ else if(a=='qgive'){const z=qw(i);z.gave=1;if(z.st!='Confident')z.st='Learning';z.rv=today()}
+ else if(a=='drnext'){DR.id=null;DR.show=false}
  else if(a=='drskip'){DR.skip.push(DR.id);DR.id=null;DR.show=false}
- else if(a=='dr'){const s=qw(DR.id);s.st=i=='got'?'Confident':'Learning';s.rv=today();DR.id=null;DR.show=false}
  else if(a=='dsaAdd'){if(!v('an'))return;S.cp.push({id:'c'+S.nid++,n:v('an'),c:v('ac'),d:v('ad'),u:v('au'),day:0})}
  else if(a=='dsaDel'){if(confirm('Delete this problem?')){S.cp=S.cp.filter(p=>p.id!=i);delete S.p[i]}}
  else if(a=='qAdd'){if(!v('nq'))return;S.cq.push({id:'cq'+S.nid++,day:0,c:v('nc'),q:v('nq'),a:v('na')})}
