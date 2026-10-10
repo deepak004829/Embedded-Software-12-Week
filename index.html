@@ -949,7 +949,7 @@ function vToday(){
  const nb=[7,14,21,28,35,42,49,56,63,70,77,84,90].find(x=>x>=n);
  const todo=[];if(!d.core)todo.push('Learn');if(pr.D<1)todo.push(P.length?(P.length-sol)+' problem'+(P.length-sol>1?'s':''):'DSA practice');if(pr.I<1)todo.push(Q.length?(Q.length-qd)+' question'+(Q.length-qd>1?'s':''):'Drill');if(!d.pr)todo.push('Build');
  const lbl={ok:'Complete',part:'In progress',miss:'Missed',new:'Not started'}[st],ratio=S.fs[today()]||0,ro=n==cur()&&dayDate(n)!=today();
- return `${behind>0&&!SEL?`<div class="note bad"><b>You missed ${behind} day${behind>1?'s':''}: -${K.pen} XP so far.</b> Day ${cur()} is rolled over into today, so you pick up exactly where you stopped. Each missed day costs 20 XP and finishing the day turns it green.</div>`:''}
+ return `${behind>0&&!SEL?`<div class="note bad"><b>You missed ${behind} day${behind>1?'s':''}: -${K.pen} XP so far.</b> Day ${cur()} is rolled over into today.</div>`:''}
  ${behind<0&&!SEL?`<div class="note"><b>You are ${-behind} day${behind<-1?'s':''} ahead of schedule.</b> Nice. Keep the streak going.</div>`:''}
  ${SEL&&SEL!=cur()?`<div class="note">Viewing Day ${n}. <button class="sbtn" data-a="now">Back to today's work (Day ${cur()})</button></div>`:''}
  <div class="cols"><div>
