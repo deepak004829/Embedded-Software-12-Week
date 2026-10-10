@@ -98,6 +98,11 @@ details{border:1px solid var(--ln);border-radius:14px;background:var(--sf);margi
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}.two .card{margin:0 0 14px}
 @media(max-width:700px){.two{grid-template-columns:1fr}}
+:root{--mono:ui-monospace,SFMono-Regular,"JetBrains Mono",Menlo,Consolas,monospace}
+.edw{display:flex;border:1px solid var(--ln);border-radius:12px;overflow:hidden;background:var(--sf2)}
+.gut{margin:0;padding:12px 8px;text-align:right;color:var(--mu);font:13px/1.5 var(--mono);overflow:hidden;min-width:40px;user-select:none;border-right:1px solid var(--ln)}
+.ed{flex:1;min-width:0;border:0;border-radius:0;background:transparent;font:13px/1.5 var(--mono);height:380px;resize:vertical;white-space:pre;overflow:auto;tab-size:4;padding:12px}
+.out{background:var(--sf2);border-radius:10px;padding:10px 12px;font:13px/1.5 var(--mono);white-space:pre-wrap;overflow:auto;max-height:320px;margin:6px 0}.out.bad{color:var(--bd)}
 </style></head><body><div id="app"></div><div id="toasts" aria-live="polite"></div><canvas id="cf"></canvas><script>
 const PH=[["Boot","C, C++ and the build chain"],["Kernel","OS, Linux and memory"],["I/O","Networking, threads and hardware buses"],["Firmware","Embedded Linux, RTOS and design"],["Ship","Mocks, resume and offers"]];
 const WK=[
@@ -323,6 +328,270 @@ const PJ=[
 {n:"FreeRTOS sensor demo",d:"Tasks, a queue and a mutex simulating a sensor pipeline.",days:[69],m:["Two tasks","Queue between tasks","Mutex for shared data","Heartbeat and watchdog"]},
 {n:"Design docs (five systems)",d:"Temperature monitor, vehicle health monitor, crash-safe logger, OTA update and a failure-mode table.",days:[72,73,74,75,76],m:["Temperature monitor","Vehicle health monitor","Crash-safe logger","OTA update","Failure-mode tables"]}
 ];
+const LAB={lang:'c',res:null,busy:false,live:false,ids:{},w:null,tm:0,esc:false};
+const LN={c:'C',cpp:'C++',py:'Python',js:'JavaScript'};
+const TPL={
+c:[
+{n:'Hello and stdin',i:'5',c:String.raw`#include <stdio.h>
+
+int main(void) {
+    int n;
+    if (scanf("%d", &n) != 1) { printf("Hello, firmware!\n"); return 0; }
+    printf("You entered %d, squared is %d\n", n, n * n);
+    return 0;
+}
+`},
+{n:'Bit utilities',i:'',c:String.raw`#include <stdio.h>
+#include <stdint.h>
+
+#define SET_BIT(x, n)    ((x) |= (1u << (n)))
+#define CLEAR_BIT(x, n)  ((x) &= ~(1u << (n)))
+#define TOGGLE_BIT(x, n) ((x) ^= (1u << (n)))
+#define TEST_BIT(x, n)   (((x) >> (n)) & 1u)
+
+static int popcount(uint32_t v) {
+    int c = 0;
+    while (v) { v &= v - 1; c++; }
+    return c;
+}
+
+int main(void) {
+    uint32_t reg = 0;
+    SET_BIT(reg, 3);
+    SET_BIT(reg, 7);
+    TOGGLE_BIT(reg, 0);
+    CLEAR_BIT(reg, 3);
+    printf("reg = 0x%08X, bit7 = %u, popcount = %d\n", (unsigned)reg, (unsigned)TEST_BIT(reg, 7), popcount(reg));
+    return 0;
+}
+`},
+{n:'Ring buffer',i:'',c:String.raw`#include <stdio.h>
+#include <stdint.h>
+#include <stdbool.h>
+
+#define CAP 8 /* power of two */
+
+typedef struct { uint8_t buf[CAP]; volatile uint32_t head, tail; } ring_t;
+
+static bool ring_put(ring_t *r, uint8_t b) {
+    if (r->head - r->tail == CAP) return false;   /* full */
+    r->buf[r->head++ & (CAP - 1)] = b;
+    return true;
+}
+
+static bool ring_get(ring_t *r, uint8_t *b) {
+    if (r->head == r->tail) return false;         /* empty */
+    *b = r->buf[r->tail++ & (CAP - 1)];
+    return true;
+}
+
+int main(void) {
+    ring_t r = {0};
+    for (int i = 0; i < 10; i++)
+        if (!ring_put(&r, (uint8_t)i)) printf("full at %d\n", i);
+    uint8_t v;
+    while (ring_get(&r, &v)) printf("%u ", v);
+    printf("\n");
+    return 0;
+}
+`},
+{n:'pthread mutex counter',i:'',c:String.raw`#include <stdio.h>
+#include <pthread.h>
+
+static long counter = 0;
+static pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
+
+static void *worker(void *arg) {
+    (void)arg;
+    for (int i = 0; i < 100000; i++) {
+        pthread_mutex_lock(&lock);   /* remove the lock to see the race */
+        counter++;
+        pthread_mutex_unlock(&lock);
+    }
+    return NULL;
+}
+
+int main(void) {
+    pthread_t t[4];
+    for (int i = 0; i < 4; i++) pthread_create(&t[i], NULL, worker, NULL);
+    for (int i = 0; i < 4; i++) pthread_join(t[i], NULL);
+    printf("counter = %ld (expected 400000)\n", counter);
+    return 0;
+}
+`},
+{n:'fork and wait',i:'',c:String.raw`#include <stdio.h>
+#include <unistd.h>
+#include <sys/wait.h>
+
+int main(void) {
+    pid_t pid = fork();
+    if (pid == 0) { printf("child pid=%d\n", (int)getpid()); return 7; }
+    int status;
+    waitpid(pid, &status, 0);
+    printf("parent saw child exit code %d\n", WEXITSTATUS(status));
+    return 0;
+}
+`}],
+cpp:[
+{n:'Hello and stdin',i:'4\n9 3 7 1',c:String.raw`#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    int n;
+    if (!(cin >> n)) { cout << "Hello, firmware!\n"; return 0; }
+    vector<int> v(n);
+    for (auto &x : v) cin >> x;
+    sort(v.begin(), v.end());
+    for (int x : v) cout << x << ' ';
+    cout << '\n';
+}
+`},
+{n:'RAII lock guard',i:'',c:String.raw`#include <iostream>
+#include <mutex>
+
+class Guard {
+    std::mutex &m_;
+public:
+    explicit Guard(std::mutex &m) : m_(m) { m_.lock();   std::cout << "locked\n"; }
+    ~Guard()                              { m_.unlock(); std::cout << "unlocked\n"; }
+    Guard(const Guard &) = delete;
+    Guard &operator=(const Guard &) = delete;
+};
+
+int main() {
+    std::mutex m;
+    {
+        Guard g(m);
+        std::cout << "critical section\n";
+    }
+    std::cout << "done\n";
+}
+`},
+{n:'Smart pointers',i:'',c:String.raw`#include <iostream>
+#include <memory>
+
+struct Sensor {
+    int id;
+    explicit Sensor(int i) : id(i) { std::cout << "sensor " << id << " created\n"; }
+    ~Sensor() { std::cout << "sensor " << id << " destroyed\n"; }
+};
+
+int main() {
+    auto a = std::make_unique<Sensor>(1);
+    auto b = std::make_shared<Sensor>(2);
+    auto c = b;                                   // shared ownership
+    std::cout << "use_count = " << b.use_count() << "\n";
+    auto moved = std::move(a);                    // a is now empty
+    std::cout << (a ? "a alive" : "a empty") << "\n";
+}
+`}],
+py:[
+{n:'Two Sum with stdin',i:'9 2 7 11 15',c:String.raw`import sys
+
+def two_sum(nums, target):
+    seen = {}
+    for i, x in enumerate(nums):
+        if target - x in seen:
+            return [seen[target - x], i]
+        seen[x] = i
+
+data = sys.stdin.read().split()
+if data:
+    target, *nums = map(int, data)
+    print(two_sum(nums, target))
+else:
+    print(two_sum([2, 7, 11, 15], 9))
+`}],
+js:[
+{n:'Two Sum (live run)',i:'9 2 7 11 15',c:String.raw`// Live run re-executes as you type. "input" holds the stdin box text.
+function twoSum(nums, target) {
+  const seen = new Map();
+  for (let i = 0; i < nums.length; i++) {
+    const need = target - nums[i];
+    if (seen.has(need)) return [seen.get(need), i];
+    seen.set(nums[i], i);
+  }
+}
+const [target, ...nums] = input.trim().split(/\s+/).map(Number);
+console.log(twoSum(nums, target));
+`}]};
+
+const labCode=()=>{S.code=S.code||{};return S.code[LAB.lang]||(S.code[LAB.lang]={c:TPL[LAB.lang][0].c,i:TPL[LAB.lang][0].i})};
+const b64=s=>{let b='';new TextEncoder().encode(s).forEach(c=>b+=String.fromCharCode(c));return btoa(b)};
+const unb=s=>{if(!s)return'';try{return new TextDecoder().decode(Uint8Array.from(atob(s),c=>c.charCodeAt(0)))}catch(_){return s}};
+const gutter=()=>{const ed=$('#ed'),g=$('#gut');if(ed&&g)g.textContent=Array.from({length:ed.value.split('\n').length},(_,i)=>i+1).join('\n')};
+function labInput(t){const o=labCode();o[t.dataset.code]=t.value;save();if(t.id=='ed')gutter();if(LAB.live&&LAB.lang=='js'){clearTimeout(LAB.tm);LAB.tm=setTimeout(()=>runJS(0),450)}}
+function labTpl(i){const x=TPL[LAB.lang][i];if(!x)return;S.code[LAB.lang]={c:x.c,i:x.i};LAB.res=null}
+
+function outHtml(){const r=LAB.res;if(LAB.busy)return '<p class="mu">Running...</p>';if(!r)return '<p class="mu">Output appears here. Press Run or Ctrl+Enter.</p>';
+ return `<div class="row"><span class="tag ${r.ok?'Easy':'Hard'}">${e(r.status)}</span>${r.time?`<span class="mu sm">${e(r.time)} s</span>`:''}${r.mem?`<span class="mu sm">${Math.round(r.mem/102.4)/10} MB</span>`:''}</div>`
+ +(r.comp?`<h3>Compiler output</h3><pre class="out bad">${e(r.comp)}</pre>`:'')+(r.out?`<h3>Output</h3><pre class="out">${e(r.out)}</pre>`:'')+(r.err?`<h3>Errors</h3><pre class="out bad">${e(r.err)}</pre>`:'')
+ +(!r.out&&!r.err&&!r.comp?'<p class="mu">No output.</p>':'')+(r.note||'')}
+function paintOut(){const o=$('#outc');if(o)o.innerHTML=outHtml();const b=$('#runb');if(b)b.disabled=LAB.busy}
+function labDone(res,count){LAB.res=res;LAB.busy=false;
+ if(res.ok&&count){const ed=$('#ed'),had=document.activeElement===ed,st=ed?[ed.selectionStart,ed.selectionEnd,ed.scrollTop]:0;S.runs=S.runs||{};const t=today();S.runs[t]=(S.runs[t]||0)+1;save();R();
+  const n=$('#ed');if(n&&st){n.scrollTop=st[2];if(had){n.focus();n.setSelectionRange(st[0],st[1])}}}
+ else paintOut()}
+
+function jsRun(code,input){const out=[],f=a=>a.map(x=>typeof x==='string'?x:x===undefined?'undefined':(()=>{try{return JSON.stringify(x)}catch(_){return String(x)}})()).join(' '),
+ c={log:(...a)=>out.push(f(a)),info:(...a)=>out.push(f(a)),warn:(...a)=>out.push(f(a)),error:(...a)=>out.push(f(a))};
+ try{new Function('console','input',code)(c,input);return{out:out.join('\n')}}catch(err){return{out:out.join('\n'),err:String(err&&err.stack||err)}}}
+function runJS(count){const o=labCode(),t0=performance.now(),fin=d=>labDone({ok:!d.err,status:d.err?'Runtime error':'Finished',out:d.out,err:d.err,time:((performance.now()-t0)/1000).toFixed(3)},count);
+ if(LAB.w){LAB.w.terminate();LAB.w=null}
+ let w;try{w=LAB.w=new Worker(URL.createObjectURL(new Blob(['const run='+jsRun+';self.onmessage=e=>postMessage(run(e.data.code,e.data.input))'],{type:'text/javascript'})))}catch(_){fin(jsRun(o.c,o.i||''));return}
+ const kill=setTimeout(()=>{w.terminate();labDone({ok:false,status:'Time limit exceeded',err:'Stopped after 3 seconds. Check for an infinite loop.'},0)},3000);
+ w.onmessage=ev=>{clearTimeout(kill);w.terminate();fin(ev.data)};
+ w.onerror=ev=>{clearTimeout(kill);w.terminate();labDone({ok:false,status:'Error',err:ev.message},0)};
+ w.postMessage({code:o.c,input:o.i||''})}
+
+const BKN={ce:'Compiler Explorer',wb:'Wandbox',j0:'Judge0'},BKL={ce:['c','cpp'],wb:['c','cpp','py'],j0:['c','cpp','py']};
+const JH={'Content-Type':'application/json',Accept:'application/json'};
+const jf=async(u,o)=>{const r=await fetch(u,o);if(r.status==429)throw new Error('rate limited, wait a minute');if(!r.ok)throw new Error('HTTP '+r.status);return r.json()};
+const pth=o=>/pthread/.test(o.c);
+const BK={
+ async ce(l,o){const lang=l=='c'?'c':'c++',key='ce'+l;let id=LAB.ids[key];
+  if(!id){id=l=='c'?'cg142':'g142';try{const a=await jf(`https://godbolt.org/api/compilers/${lang}?fields=id,name`,{headers:{Accept:'application/json'}}),ver=x=>{const m=/^x86-64 gcc (\d+(?:\.\d+)*)$/.exec(x.name);return m?m[1].split('.').map(Number):null},c=a.filter(ver).sort((p,q)=>{const a=ver(p),b=ver(q);for(let i=0;i<3;i++)if((a[i]||0)!=(b[i]||0))return(a[i]||0)-(b[i]||0);return 0});if(c.length)id=c[c.length-1].id}catch(_){}LAB.ids[key]=id}
+  const j=await jf(`https://godbolt.org/api/compiler/${id}/compile`,{method:'POST',headers:JH,body:JSON.stringify({source:o.c,compiler:id,lang,options:{userArguments:pth(o)?'-pthread':'',executeParameters:{args:[],stdin:o.i||''},compilerOptions:{executorRequest:true},filters:{execute:true},tools:[],libraries:[]},allowStoreCodeDebug:false})}),
+  tx=a=>(a||[]).map(x=>x.text).join('\n'),b=j.buildResult;
+  if(b&&b.code!==0&&b.code!==undefined)return{ok:false,status:'Compilation error',comp:(tx(b.stderr)+'\n'+tx(b.stdout)).trim()};
+  const ok=j.code===0;return{ok,status:ok?'Finished':'Exited with code '+j.code,out:tx(j.stdout),err:tx(j.stderr),comp:b?tx(b.stderr).trim():'',time:j.execTime?(parseFloat(j.execTime)/1000).toFixed(3):''}},
+ async wb(l,o){const L={c:'C',cpp:'C++',py:'Python'}[l],P={c:'gcc-head-c',cpp:'gcc-head',py:'cpython-head'}[l];
+  if(!LAB.ids['wb'+l]){const a=await jf('https://wandbox.org/api/list.json'),f=a.filter(x=>x.language==L),m=f.find(x=>x.name==P)||f.find(x=>/^(gcc|cpython)/.test(x.name))||f[0];if(!m)throw new Error('no compiler found');LAB.ids['wb'+l]=m.name}
+  const body={compiler:LAB.ids['wb'+l],code:o.c,stdin:o.i||'',save:false};if(pth(o)&&l!='py')body['compiler-option-raw']='-pthread';
+  const j=await jf('https://wandbox.org/api/compile.json',{method:'POST',headers:JH,body:JSON.stringify(body)}),ok=String(j.status)=='0',comp=(j.compiler_error||'').trim();
+  return{ok,status:ok?'Finished':(comp&&!j.program_output?'Compilation error':'Exited with status '+j.status+(j.signal?' ('+j.signal+')':'')),out:j.program_output||'',err:j.program_error||'',comp}},
+ async j0(l,o){const J='https://ce.judge0.com',RE={c:/^C \(GCC/,cpp:/^C\+\+ \(GCC/,py:/^Python \(3/},DEF={c:50,cpp:54,py:71};
+  if(!LAB.ids['j0'+l]){try{const m=(await jf(J+'/languages')).filter(x=>RE[l].test(x.name));LAB.ids['j0'+l]=m.length?Math.max(...m.map(x=>x.id)):DEF[l]}catch(_){LAB.ids['j0'+l]=DEF[l]}}
+  const body={source_code:b64(o.c),language_id:LAB.ids['j0'+l],stdin:b64(o.i||'')};if(pth(o)&&l!='py')body.compiler_options='-pthread';
+  const post=()=>fetch(J+'/submissions?base64_encoded=true&wait=false',{method:'POST',headers:JH,body:JSON.stringify(body)});
+  let r=await post();if(!r.ok&&body.compiler_options){delete body.compiler_options;r=await post()}
+  if(r.status==429)throw new Error('rate limited, wait a minute');if(!r.ok)throw new Error('HTTP '+r.status);
+  const {token}=await r.json();let s=null;
+  for(let i=0;i<40;i++){await new Promise(z=>setTimeout(z,i<3?600:1200));s=await jf(`${J}/submissions/${token}?base64_encoded=true&fields=stdout,stderr,compile_output,message,status,time,memory`);if(s.status&&s.status.id>2)break}
+  if(!s||!s.status||s.status.id<=2)throw new Error('timed out');
+  return{ok:s.status.id==3,status:s.status.description,out:unb(s.stdout),err:[unb(s.stderr),unb(s.message)].filter(Boolean).join('\n'),comp:unb(s.compile_output),time:s.time,mem:s.memory}}};
+async function labRun(){if(LAB.busy)return;const l=LAB.lang,o=labCode();LAB.busy=true;LAB.res=null;paintOut();
+ if(l=='js'){runJS(1);return}
+ const ord=['ce','wb','j0'].filter(k=>BKL[k].includes(l)),errs=[];
+ if(LAB.pref&&ord.includes(LAB.pref)){ord.splice(ord.indexOf(LAB.pref),1);ord.unshift(LAB.pref)}
+ for(const k of ord){try{const r=await BK[k](l,o);LAB.pref=k;r.note=`<p class="mu sm">Ran on ${BKN[k]}.</p>`;labDone(r,1);return}catch(err){errs.push(BKN[k]+': '+err.message)}}
+ const A=(u,t)=>`<a target="_blank" rel="noopener" href="${u}">${t}</a>`;
+ labDone({ok:false,status:'Could not run',err:errs.join('\n')+'\n\n"Failed to fetch" usually means the service is blocked by your network, an ad blocker or privacy extension, or you are offline.',
+  note:`<p class="mu sm">Test whether your browser can reach each service: ${A('https://godbolt.org/api/compilers/c?fields=id','Compiler Explorer')}, ${A('https://wandbox.org/api/list.json','Wandbox')}, ${A('https://ce.judge0.com/languages','Judge0')}. If a link shows text, it is reachable; try another network (mobile data) or pause blockers for this page. If they all open but the app still fails, the service is refusing requests from this page. Meanwhile use ${A('https://www.onlinegdb.com/','OnlineGDB')}.</p>`},0)}
+
+function vLab(){const l=LAB.lang,o=labCode(),n=o.c.split('\n').length;
+ return `<div class="card"><div class="row"><h2 class="grow" style="margin:0">Code Lab</h2>
+ <select data-a="labl" aria-label="Language">${Object.keys(LN).map(k=>`<option value="${k}"${k==l?' selected':''}>${LN[k]}</option>`).join('')}</select>
+ <select data-a="labt" aria-label="Load a template"><option value="">Load template...</option>${TPL[l].map((x,i)=>`<option value="${i}">${e(x.n)}</option>`).join('')}</select>
+ ${l=='js'?`<label class="row sm"><input type="checkbox" data-a="live" ${LAB.live?'checked':''}> Live run</label>`:''}
+ <button class="cu" id="runb" data-a="run" ${LAB.busy?'disabled':''}>Run (Ctrl+Enter)</button></div>
+ <p class="mu sm" style="margin:8px 0">C, C++ and Python are compiled on free public services (Compiler Explorer, Wandbox, Judge0; the app tries each in turn), so they need internet and take a few seconds. Your code and input are sent to that service when you press Run. JavaScript runs privately in your browser, instantly, with optional Live run. Esc then Tab leaves the editor.</p>
+ <div class="edw"><pre class="gut" id="gut" aria-hidden="true">${Array.from({length:n},(_,i)=>i+1).join('\n')}</pre><textarea id="ed" class="ed" data-code="c" spellcheck="false" wrap="off" aria-label="Code editor">${e(o.c)}</textarea></div>
+ <h3 style="margin-top:12px">Standard input</h3><textarea id="stdin" data-code="i" style="min-height:64px;font-family:var(--mono)" spellcheck="false" aria-label="Standard input">${e(o.i||'')}</textarea></div>
+ <div class="card" id="outc">${outHtml()}</div>
+ <div class="rs"><a target="_blank" rel="noopener" href="https://godbolt.org/">Compiler Explorer (see the assembly)</a><a target="_blank" rel="noopener" href="https://www.onlinegdb.com/">OnlineGDB (debugger)</a><a target="_blank" rel="noopener" href="https://wokwi.com/">Wokwi (simulate boards)</a></div>`}
 const KEY='fq90v1',N=90,T0=document.title;
 const $=s=>document.querySelector(s);
 const e=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -363,10 +632,11 @@ const BG=[
 ['shp','📦','Shipper','Finish a project',k=>k.proj>=1],
 ['fo','⏱️','Deep Work','10 focus sessions',k=>k.fs>=10],
 ['mk','🪲','Learns From Bugs','Log 5 mistakes',k=>k.mk>=5],
+['run','💻','Compiler Hero','Run code successfully 25 times',k=>k.runs>=25],
 ['xp','💎','1K Club','Earn 1,000 XP',k=>k.xp>=1000],
 ['fin','👑','Offer Ready','Complete all 90 days',k=>k.dd>=90]];
 
-function seed(){return{start:today(),done:{},p:{},cp:[],q:{},cq:[],pj:{},mk:[],rv:{},bd:{},fs:{},lv:1,theme:'',nid:1,focus:25,tab:'today'}}
+function seed(){return{start:today(),done:{},p:{},cp:[],q:{},cq:[],pj:{},mk:[],rv:{},bd:{},fs:{},lv:1,theme:'',nid:1,focus:25,tab:'today',code:{},runs:{}}}
 function load(){try{const x=JSON.parse(localStorage.getItem(KEY));if(x&&x.done&&x.p)return Object.assign(seed(),x)}catch(_){}return seed()}
 let S=load(),V=S.tab||'today',SEL=0,F={},OPEN=new Set(['g0']),K,PX=null,TOP=false,DR={id:null,show:false,skip:[]},TM=null;
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(_){}};
@@ -381,7 +651,7 @@ const nq=n=>['core','dsa','iq','pr'].filter(k=>g(n)[k]).length;
 const opts=(l,v)=>l.map(x=>`<option${x==v?' selected':''}>${e(x)}</option>`).join('');
 
 function calc(){
- const k={xp:0,dd:0,boss:0,solved:0,hard:0,qc:0,fs:0,mk:S.mk.length,proj:0,perfect:0},act=new Set();
+ const k={xp:0,dd:0,boss:0,solved:0,hard:0,qc:0,fs:0,runs:0,mk:S.mk.length,proj:0,perfect:0},act=new Set();
  for(let n=1;n<=N;n++){const d=g(n);k.xp+=(d.core?30:0)+(d.pr?30:0)+(d.iq?20:0)+(d.dsa?20:0);if(d.c){k.dd++;const b=isBoss(n);k.xp+=b?60:25;if(b)k.boss++;if(d.cd)act.add(d.cd)}}
  for(let w=1;w<=13;w++)if(R7(w).every(n=>g(n).c))k.perfect++;
  allP().forEach(p=>{const s=S.p[p.id];if(s&&s.st=='Solved'){k.solved++;k.xp+=XPD[p.d]||15;if(p.d=='Hard')k.hard++;if(s.dt)act.add(s.dt)}});
@@ -389,6 +659,7 @@ function calc(){
  PJ.forEach((p,i)=>{const c=((S.pj[i]||{}).ms||[]).filter(Boolean).length;k.xp+=c*8;if(c==p.m.length){k.proj++;k.xp+=40}});
  S.mk.forEach(m=>{k.xp+=5;act.add(m.dt)});
  for(const dt in S.fs){const c=S.fs[dt]||0;k.fs+=c;k.xp+=Math.min(c,8)*10;if(c)act.add(dt)}
+ for(const dt in (S.runs||{})){const c=S.runs[dt]||0;k.runs+=c;k.xp+=Math.min(c,10)*2;if(c)act.add(dt)}
  let run=0,best=0,prev=null;[...act].sort().forEach(x=>{run=prev&&diffD(x,prev)==1?run+1:1;prev=x;best=Math.max(best,run);k.xp+=3*Math.min(run,10)});
  const t=today();let st=0,x=act.has(t)?t:addD(t,-1);while(act.has(x)){st++;x=addD(x,-1)}
  k.streak=st;k.best=best;k.act=act;k.lv=Math.floor(Math.sqrt(k.xp/60))+1;k.lo=60*(k.lv-1)**2;k.hi=60*k.lv**2;return k}
@@ -410,7 +681,7 @@ function gain(){
  if(PX!==null&&K.xp>PX)toast('+'+(K.xp-PX)+' XP');PX=K.xp;save()}
 
 function head(){const pc=Math.max(0,Math.min(100,Math.round((K.xp-K.lo)/(K.hi-K.lo)*100)));
- const tabs=[['today','Today'],['road','Roadmap'],['dsa','DSA'],['qa','Interview Q&A'],['build','Projects'],['guide','Guide'],['prog','Progress'],['mk','Mistakes'],['set','Settings']];
+ const tabs=[['today','Today'],['road','Roadmap'],['dsa','DSA'],['lab','Code Lab'],['qa','Interview Q&A'],['build','Projects'],['guide','Guide'],['prog','Progress'],['mk','Mistakes'],['set','Settings']];
  return `<header class="top"><div class="brand"><svg viewBox="0 0 32 32" width="38" height="38" aria-hidden="true"><rect x="8" y="8" width="16" height="16" rx="3" fill="var(--pri)"/><path d="M12 4v4M16 4v4M20 4v4M12 24v4M16 24v4M20 24v4M4 12h4M4 16h4M4 20h4M24 12h4M24 16h4M24 20h4" stroke="var(--cu)" stroke-width="2" stroke-linecap="round"/><circle cx="16" cy="16" r="3" fill="var(--onp)"/></svg><div><h1>Firmware Quest</h1><span class="mu">90 days to embedded interview ready</span></div></div>
  <div class="lvl"><div class="lvt"><b>Level ${K.lv}: ${title(K.lv)}</b><span class="mu sm">${K.xp-K.lo} / ${K.hi-K.lo} XP to next level</span></div><div class="xpb" role="progressbar" aria-valuenow="${pc}" aria-valuemin="0" aria-valuemax="100"><i style="width:${pc}%"></i></div></div>
  <div class="chips"><span class="chip" title="Current streak">🔥 ${K.streak}</span><span class="chip" title="Total XP">${K.xp.toLocaleString()} XP</span><button data-a="theme" aria-label="Toggle light and dark theme">Theme</button></div></header>
@@ -451,7 +722,7 @@ function vToday(){
  ${quest('core','Learn',30,`<ul class="tl">${t[1].split(';').map(x=>`<li>${e(x)}</li>`).join('')}</ul><div class="rs">${res.map(link).join('')}</div>`)}
  ${quest('dsa','DSA',20,dsaB)}
  ${quest('iq','Interview drill',20,qd.map(qrow).join('')||'<p class="mu">Nothing to drill today.</p>')}
- ${quest('pr','Build',30,`<p>${e(t[2])}</p>${pj.map(x=>`<button class="sbtn" data-a="tab" data-i="build">Project: ${e(x[0].n)}</button> `).join('')}`)}
+ ${quest('pr','Build',30,`<p>${e(t[2])}</p><button class="sbtn" data-a="tab" data-i="lab">Open Code Lab</button> ${pj.map(x=>`<button class="sbtn" data-a="tab" data-i="build">Project: ${e(x[0].n)}</button> `).join('')}`)}
  <div class="card"><h3>Notes for day ${n}</h3><textarea data-s="done:${n}:notes" placeholder="What clicked? What confused you?">${e(d.notes||'')}</textarea></div>
  <div class="card finish"><button class="big ${d.c?'':'cu'}" data-a="comp">${d.c?'Day complete. Undo':'Complete day (+'+(boss?60:25)+' XP)'}</button><span class="mu">${done4}/4 quests done${done4==4&&!d.c?'. Nice, lock it in.':''}</span></div>
  </div><aside class="aside">
@@ -522,16 +793,18 @@ ${sec('g4','5. Where to apply',`<p>Hiring varies by year and team, so open the c
 ${sec('g5','6. Behavioural answers (STAR)',`<p>Prepare six stories and reuse them: a hard bug, a project you owned, a conflict, a failure, a deadline under pressure, and something you learned fast. For each: <b>Situation</b> (1 sentence), <b>Task</b> (your responsibility), <b>Action</b> (what you did, with specifics and tools), <b>Result</b> (a number if possible, plus what you learned).</p><p>Prepare a 90-second "tell me about yourself": present role and skills, past projects, and why this team. Practise it out loud until it sounds natural.</p>`)}
 ${sec('g6','7. Resume and projects',`<ul><li>One page. Lead with skills and projects if you have little experience.</li><li>Bullet formula: <i>Built X using Y, which achieved Z</i>. Example: Built a lock-free ring buffer in C++ that sustained 2M messages per second under TSan-clean tests.</li><li>List C, C++, Linux, RTOS, protocols and tools you can discuss for 10 minutes.</li><li>Put the capstone and two other projects on GitHub with a README: what it does, how to build, how to run, design notes.</li></ul>`)}
 ${sec('g7','8. Resource library',`<div class="tw"><table><tr><th>Topic</th><th>Free resources</th></tr><tr><td>C and C++</td><td>${lk("Beej's Guide to C",'https://beej.us/guide/bgc/')}, ${lk('learncpp.com','https://www.learncpp.com/')}, ${lk('cppreference','https://en.cppreference.com/')}, ${lk('Compiler Explorer','https://godbolt.org/')}</td></tr><tr><td>Operating systems</td><td>${lk('OSTEP','https://pages.cs.wisc.edu/~remzi/OSTEP/')}, ${lk('Linux man pages','https://man7.org/linux/man-pages/')}, ${lk('The Missing Semester','https://missing.csail.mit.edu/')}</td></tr><tr><td>Networking</td><td>${lk("Beej's Network Guide",'https://beej.us/guide/bgnet/')}, ${lk('Cloudflare Learning Center','https://www.cloudflare.com/learning/')}, ${lk('Wireshark docs','https://www.wireshark.org/docs/')}</td></tr><tr><td>Concurrency</td><td>${lk('POSIX threads (LLNL)','https://hpc-tutorials.llnl.gov/posix/')}, ${lk('Preshing','https://preshing.com/')}, ${lk('C++ threads','https://en.cppreference.com/w/cpp/thread')}</td></tr><tr><td>Embedded</td><td>${lk('Memfault Interrupt','https://interrupt.memfault.com/')}, ${lk('Embedded Artistry','https://embeddedartistry.com/')}, ${lk('Arm docs','https://developer.arm.com/documentation/')}, ${lk('Wokwi simulator','https://wokwi.com/')}, ${lk('Barr C standard','https://barrgroup.com/embedded-systems/books/embedded-c-coding-standard')}</td></tr><tr><td>Embedded Linux and RTOS</td><td>${lk('Bootlin training','https://bootlin.com/training/')}, ${lk('Linux Kernel Labs','https://linux-kernel-labs.github.io/refs/heads/master/')}, ${lk('Linux kernel docs','https://docs.kernel.org/')}, ${lk('FreeRTOS docs','https://www.freertos.org/Documentation/00-Overview')}</td></tr><tr><td>DSA and mocks</td><td>${lk('LeetCode','https://leetcode.com/problemset/')}, ${lk('NeetCode','https://neetcode.io/roadmap')}, ${lk('Pramp','https://www.pramp.com/')}, ${lk('interviewing.io','https://interviewing.io/')}, ${lk('System Design Primer','https://github.com/donnemartin/system-design-primer')}</td></tr></table></div>`)}
+${sec('gl','Code Lab: compile and run code in the app',`<ul><li>Open the <b>Code Lab</b> tab, pick C, C++, Python or JavaScript, load a template, edit, press <b>Run</b> (or Ctrl+Enter). Add input in the Standard input box.</li><li>C, C++ and Python are compiled on the free public Judge0 service, so they need internet, take a few seconds and can be rate-limited. Your code is sent to that service. Do not paste anything confidential.</li><li>JavaScript runs privately in your browser and supports <b>Live run</b>, which re-runs as you type.</li><li>It runs normal programs: algorithms, pointers, bit tricks, pthreads, fork. It cannot run hardware registers, kernel modules or drivers. For those use QEMU, ${lk('Wokwi','https://wokwi.com/')} or a Linux machine, and ${lk('Compiler Explorer','https://godbolt.org/')} to study generated assembly.</li><li>Each successful run earns 2 XP (up to 10 a day).</li></ul>`)}
 ${sec('gv','Best YouTube channels (by topic)',`<p>Every day on the Today tab has video chips that search the topic on the right channels. Subscribe to these:</p><div class="rs">${Object.values(CH).map(c=>lk('▶ '+c[0],c[1])).join('')}</div><ul><li><b>DSA:</b> NeetCode (every problem here has a video link), take U forward.</li><li><b>C, C++, systems:</b> Jacob Sorber, The Cherno, CppCon, Low Level Learning.</li><li><b>OS and networking:</b> Neso Academy, Gate Smashers, Practical Networking.</li><li><b>Embedded and Linux:</b> Phil's Lab, Bootlin.</li><li><b>Mocks:</b> interviewing.io.</li></ul>`)}
 ${sec('gb','Is this enough for big tech? Honest gaps',`<p>This plan targets Google, Amazon, Microsoft, Apple, NVIDIA and Qualcomm-level bars for embedded and systems roles. What it cannot do for you:</p><ul><li><b>DSA volume (now built in):</b> the plan has ${PL.length} problems, ${PL.filter(p=>p.d=='Hard').length} of them Hard. Days 71 to 90 are deliberately harder: Hard-heavy sets, then timed mock days.</li><li><b>Timed practice:</b> from Day 40, treat each boss day as a timed round: 2 problems in 60 minutes. On busy days, do the Medium and Hard of the day's topic first and star the rest.</li><li><b>Real mocks:</b> at least 6 with other people (Pramp, interviewing.io, friends). Solo practice hides communication gaps.</li><li><b>Depth over breadth:</b> big teams probe one topic for 20 minutes. Pick 3 strengths (for example Linux drivers, RTOS, networking) and go deep.</li><li><b>Experience signal:</b> one strong, public, well-documented project beats five half-finished ones.</li><li><b>Time:</b> 90 days is tight if you start from zero. Treat Day 90 as the start of applications, and keep 1 to 2 hours a day of DSA going afterwards.</li></ul><p>Nobody can guarantee an offer. Consistency, mocks and applying widely matter most.</p>`)}
 ${sec('g8','9. If you fall behind, and interview-day checklist',`<ul><li>Never reset. Use <b>Make Day N today</b> on the Today tab to realign the calendar.</li><li>Cut Build before you cut DSA or Drill. Keep the capstone days (80 to 83) intact.</li><li>Merge two light days into one rather than rushing a hard topic.</li></ul><p><b>Before the interview:</b> sleep, test your audio and editor, have water, and review your cheat sheets and Mistake Log, not new topics. <b>During:</b> clarify, plan, code, test with an example, state complexity. <b>After:</b> write down every question you missed and add it to the Mistake Log.</p>`)}</div>`}
 
-const VW={today:vToday,road:vRoad,dsa:vDsa,qa:vQa,build:vBuild,guide:vGuide,prog:vProg,mk:vMk,set:vSet};
+const VW={lab:vLab,today:vToday,road:vRoad,dsa:vDsa,qa:vQa,build:vBuild,guide:vGuide,prog:vProg,mk:vMk,set:vSet};
 function R(){const y=scrollY;document.documentElement.dataset.theme=S.theme||'';K=calc();gain();S.tab=V;$('#app').innerHTML=head()+VW[V]();scrollTo(0,TOP?0:y);TOP=false}
 function imp(t){try{const x=JSON.parse(t);if(!x||!x.done||!x.p)throw 0;if(!confirm('Replace current data with the imported backup?'))return;S=Object.assign(seed(),x);PX=null;save();R();alert('Imported.')}catch(_){alert('Import failed: not a valid backup file.')}}
 function setv(a,i,k,v){if(a=='done')dn(i)[k]=v;else if(a=='p')pw(i)[k]=v;else if(a=='q')qw(i)[k]=v;else if(a=='rv')(S.rv[i]||(S.rv[i]={}))[k]=v;else if(a=='pj')(S.pj[i]||(S.pj[i]={}))[k]=v}
 
 document.addEventListener('input',ev=>{const t=ev.target;
+ if(t.dataset.code){labInput(t);return}
  if(t.dataset.s){const[a,i,k]=t.dataset.s.split(':');setv(a,i,k,t.value);save();return}
  if(t.dataset.f&&t.tagName!='SELECT'){F[t.dataset.f]=t.value;R();const x=document.getElementById('f_'+t.dataset.f);if(x){x.focus();x.setSelectionRange(1e3,1e3)}}});
 document.addEventListener('toggle',ev=>{const k=ev.target.dataset&&ev.target.dataset.k;if(k){ev.target.open?OPEN.add(k):OPEN.delete(k)}},true);
@@ -543,6 +816,9 @@ document.addEventListener('change',ev=>{const t=ev.target,a=t.dataset.a,n=SEL||c
  else if(a=='qst'){const s=qw(i);s.st=t.value;s.rv=today()}
  else if(a=='ms'){const[p,j]=i.split(':'),o=S.pj[p]||(S.pj[p]={});o.ms=o.ms||[];o.ms[j]=t.checked}
  else if(a=='tmlen'){S.focus=+t.value}
+ else if(a=='labl'){LAB.lang=t.value;LAB.res=null}
+ else if(a=='labt'){if(t.value==='')return;labTpl(+t.value)}
+ else if(a=='live'){LAB.live=t.checked;if(t.checked&&LAB.lang=='js'){R();runJS(0);return}}
  R()});
 document.addEventListener('click',ev=>{const t=ev.target.closest('[data-a]');if(!t||t.tagName=='SELECT'||t.type=='checkbox')return;const a=t.dataset.a,i=t.dataset.i,n=SEL||cur(),v=id=>$('#'+id).value.trim();
  if(a=='tab'){V=i;TOP=true}
@@ -554,6 +830,7 @@ document.addEventListener('click',ev=>{const t=ev.target.closest('[data-a]');if(
  else if(a=='star'){const s=pw(i);s.star=s.star?0:1}
  else if(a=='tmgo'){if(TM){TM=null;document.title=T0}else TM={end:Date.now()+S.focus*60000}}
  else if(a=='theme'){const dark=S.theme?S.theme=='dark':matchMedia('(prefers-color-scheme:dark)').matches;S.theme=dark?'light':'dark'}
+ else if(a=='run'){labRun();return}
  else if(a=='drshow')DR.show=true;
  else if(a=='drskip'){DR.skip.push(DR.id);DR.id=null;DR.show=false}
  else if(a=='dr'){const s=qw(DR.id);s.st=i=='got'?'Confident':'Learning';s.rv=today();DR.id=null;DR.show=false}
@@ -571,5 +848,11 @@ document.addEventListener('click',ev=>{const t=ev.target.closest('[data-a]');if(
  else if(a=='impF'){const f=$('#imf').files[0];if(!f){alert('Choose a .json file first.');return}const r=new FileReader();r.onload=()=>imp(r.result);r.readAsText(f);return}
  else if(a=='rst'){if(confirm('Reset ALL progress, notes and custom items? This cannot be undone.')){S=seed();SEL=0;PX=null}else return}
  R()});
+document.addEventListener('keydown',ev=>{const t=ev.target;if(t.id!='ed')return;
+ if((ev.ctrlKey||ev.metaKey)&&ev.key=='Enter'){ev.preventDefault();labRun()}
+ else if(ev.key=='Escape')LAB.esc=true;
+ else if(ev.key=='Tab'&&!ev.shiftKey&&!LAB.esc){ev.preventDefault();t.setRangeText('    ',t.selectionStart,t.selectionEnd,'end');t.dispatchEvent(new Event('input',{bubbles:true}))}});
+document.addEventListener('focusin',ev=>{if(ev.target.id=='ed')LAB.esc=false});
+document.addEventListener('scroll',ev=>{if(ev.target.id=='ed'){const g=$('#gut');if(g)g.scrollTop=ev.target.scrollTop}},true);
 R();
 </script></body></html>
