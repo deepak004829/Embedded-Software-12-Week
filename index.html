@@ -74,6 +74,12 @@ summary.dn{color:var(--ok)}
 @media(max-width:700px){.top{grid-template-columns:1fr}.two2,.rg3{grid-template-columns:1fr}.dayn{font-size:40px}.hero h2{font-size:20px}}
 
 
+.pth{display:grid;gap:8px;margin:10px 0 0}.pstep{display:flex;gap:10px;align-items:center;padding:9px 12px;border:1px solid var(--ln);border-radius:12px}.pstep.ok{border-color:var(--ok)}.pstep .n{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-weight:700;background:var(--sf2);flex:none}.pstep.ok .n{background:var(--ok);color:#000}
+.quote{margin-top:10px;padding:8px 12px;border-left:3px solid var(--cu);background:var(--cu2);border-radius:0 10px 10px 0;font-weight:600;font-size:14px}
+.bt label{display:flex;gap:10px;align-items:flex-start;padding:4px 0}.bt h3{margin:14px 0 4px}.bt table{margin-top:6px}
+.sbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:10px 14px;margin-bottom:12px;border:1px solid var(--ln);border-radius:14px;background:var(--sf2)}.sbar.warn{border-color:var(--cu)}.sbar .grow{flex:1;min-width:200px}
+.jb{display:grid;gap:8px}.jg{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}.jg label{font-size:12px;color:var(--mu)}.jg input,.jg select{width:100%}.wk{color:var(--cu);font-weight:600}.core .moredsa{display:none}
+.pat{border-left:3px solid var(--cu);padding:4px 10px;margin-top:10px;color:var(--mu);font-size:14px}
 .sol{flex-basis:100%;margin-left:26px}
 .solb{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .solb .sbtn.has{border-color:var(--cu);color:var(--cu)}
@@ -85,6 +91,8 @@ summary.dn{color:var(--ok)}
 .solmeta input{width:100%}
 .codehead{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:4px}
 .codehead .grow{flex:1}
+.solfoot{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ok);color:#000;font-weight:600;padding:9px 18px;border-radius:99px;z-index:50;box-shadow:0 4px 16px rgba(0,0,0,.5)}
 .codebox{font:13px/1.55 var(--mono);white-space:pre;overflow:auto;tab-size:4;min-height:180px!important;background:#0a0a0a!important}
 @media(max-width:700px){.solmeta{grid-template-columns:1fr}.sol{margin-left:0}}
 .cochips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
@@ -1362,9 +1370,9 @@ function revision(){const r=QB.filter(x=>qs(x.id).st=='review');return(r.length?
 function dprog(n){const d=g(n),P=req(n),Q=ownQs(n),rq=PLAN[n-1].b[2].split(';'),parts=[];
  const L=d.learn?1:0;parts.push(L);
  let D=null,I=null;
- if(P.length){D=P.filter(p=>ps(p.id).st=='done').length/P.length;parts.push(D)}
+ if(P.length){D=(S.core?P.slice(0,2):P).filter(p=>ps(p.id).st=='done').length/Math.min(P.length,S.core?2:P.length);parts.push(D)}
  if(Q.length){I=Q.filter(x=>qs(x.id).st).length/Q.length;parts.push(I)}
- const B=rq.filter((_,j)=>(d.br||[])[j]).length/rq.length;parts.push(B);
+ const core=Math.min(3,rq.length),B=rq.slice(0,core).filter((_,j)=>(d.br||[])[j]).length/core;parts.push(B);
  return{L,D,I,B,p:parts.reduce((a,b)=>a+b,0)/parts.length}}
 function overall(){let t=0,dd=0;for(let n=1;n<=N;n++){const p=dprog(n).p;t+=p;if(p>=1)dd++}let wl=0;WPS.forEach((L,i)=>{wl+=((S.w[i+1]||{}).s||[]).filter(Boolean).length/L.steps.length});
  return{pc:Math.floor((t+wl)/(N+WPS.length)*100),dd,solved:PL.filter(p=>ps(p.id).st=='done').length,rev:QB.filter(x=>qs(x.id).st).length}}
@@ -1372,10 +1380,10 @@ const firstOpen=()=>{for(let n=1;n<=N;n++)if(dprog(n).p<1)return n;return N};
 const stat=n=>{const p=dprog(n).p;return p>=1?'ok':p>0?'part':'new'};
 
 // ---------- Shared UI ----------
-const TABS=[['study','Study'],['q','Questions'],['proj','Projects'],['dsa','DSA'],['road','Roadmap'],['guide','Guide'],['set','Settings']];
+const TABS=[['study','Study'],['q','Questions'],['proj','Projects'],['dsa','DSA'],['road','Roadmap'],['jobs','Jobs'],['bt','Big Tech'],['guide','Guide'],['set','Settings']];
 function head(){const o=overall();
  return `<header class="top"><div class="brand"><svg viewBox="0 0 32 32" width="34" height="34" aria-hidden="true"><rect x="7" y="7" width="18" height="18" rx="4" fill="none" stroke="var(--ink)" stroke-width="2"/><path d="M12 16l3 3 6-7" fill="none" stroke="var(--cu)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><div><h1>Interview Guide</h1><span class="mu">SDE first, embedded second. 90 days.</span></div></div>
- <div class="cprog"><div class="row"><b>Course progress</b><span class="grow"></span><b class="cpct">${o.pc}%</b></div><div class="bar big" role="progressbar" aria-valuenow="${o.pc}" aria-valuemin="0" aria-valuemax="100"><i style="width:${o.pc}%"></i></div><div class="mu sm">Day ${S.day} of ${N}. ${o.dd} days complete, ${o.solved} problems solved, ${o.rev} questions reviewed.</div></div></header>
+ <div class="cprog"><div class="row"><b>Course progress</b><span class="grow"></span><b class="cpct">${o.pc}%</b></div><div class="bar big" role="progressbar" aria-valuenow="${o.pc}" aria-valuemin="0" aria-valuemax="100"><i style="width:${o.pc}%"></i></div><div class="mu sm">Day ${S.day} of ${N}. ${o.dd} days complete, ${o.solved} problems solved, ${o.rev} questions reviewed.</div><div class="quote">Why are you here? You came to get into a top company with a top salary. Remember that. Do not waste this chance. It is time.</div></div></header>
  <nav>${TABS.map(t=>`<button class="${S.v==t[0]?'on':''}" data-a="tab" data-i="${t[0]}">${t[1]}</button>`).join('')}</nav>`}
 function dayBar(){const n=S.day,P=PLAN[n-1];
  return `<div class="daybar"><button data-a="dd" data-i="-1" aria-label="Previous day">&larr;</button><select data-a="dsel" aria-label="Choose a day">${PLAN.map(p=>`<option value="${p.n}"${p.n==n?' selected':''}>Day ${p.n}${isBoss(p.n)?' (Boss)':''}: ${e(p.t)}</option>`).join('')}</select><button data-a="dd" data-i="1" aria-label="Next day">&rarr;</button><button class="sbtn" data-a="nextopen">Next unfinished day</button></div>`}
@@ -1387,14 +1395,14 @@ function vStudy(){const n=S.day,P=PLAN[n-1],w=wk(n),W=WEEKS[w-1],d=g(n),pr=dprog
  const prow=p=>{const s=ps(p.id);return `<div class="pr"><input type="checkbox" class="ck" data-a="pdone" data-i="${p.id}" ${s.st=='done'?'checked':''} aria-label="Solved ${e(p.n)}"><a class="pn" target="_blank" rel="noopener" href="${e(lcu(p))}">${e(p.n)}</a><a class="tag cat" style="text-decoration:none" target="_blank" rel="noopener" href="${yt('NeetCode '+p.n+' leetcode')}">▶ video</a><span class="tag ${p.d}">${p.d}</span><button class="star ${s.star?'on':''}" data-a="star" data-i="${p.id}" title="Star to revisit" aria-label="Star to revisit">★</button>${cochips(p)}${solPanel(p)}</div>`};
  const kp=P.k[0].split(';');
  const nq=ownQs(n).length;
- return dayBar()+`<section class="hero"><div class="row"><span class="pill">Week ${w}: ${e(W[0])}</span>${isBoss(n)?'<span class="pill">Boss day</span>':''}<span class="pill sts-${stat(n)}">${{ok:'Complete',part:'In progress',new:'Not started'}[stat(n)]}</span></div><div class="dayn">Day ${n}</div><h2>${e(P.t)}</h2><p class="mu" style="margin:4px 0 0">Plan: study 45 min, DSA 75, questions 30, project 45 to 90.</p></section>
- <div class="card"><div class="row"><h3 class="grow">Learn</h3><label class="chk" style="margin:0"><input type="checkbox" data-a="learn" ${d.learn?'checked':''}> Learning done</label></div>
+ return dayBar()+`<section class="hero"><div class="row"><span class="pill">Week ${w}: ${e(W[0])}</span>${isBoss(n)?'<span class="pill">Boss day</span>':''}<span class="pill sts-${stat(n)}">${{ok:'Complete',part:'In progress',new:'Not started'}[stat(n)]}</span></div><div class="dayn">Day ${n}</div><h2>${e(P.t)}</h2><p class="mu" style="margin:4px 0 0">Minimum for today: 3 steps, about 90 minutes. Everything else is optional.</p></section>
+ ${pathCard(n,PR)}${reviseCard()}<div class="card"><div class="row"><h3 class="grow">Learn</h3><label class="chk" style="margin:0"><input type="checkbox" data-a="learn" ${d.learn?'checked':''}> Learning done</label></div>
  <div class="lm"><div class="lt"><b>Cover these topics</b><ol class="tl">${P.l.split(';').map(x=>`<li>${e(x)}</li>`).join('')}</ol></div>
  <div class="kp"><b>Key points to remember</b><ul>${kp.map(k=>`<li>${hl(k)}</li>`).join('')}</ul></div>
  <div class="two2"><div class="trap"><b>Common mistake</b><p>${hl(P.k[1])}</p></div><div class="ask"><b>How interviewers ask it</b><p>${hl(P.k[2])}</p></div></div>
  <div class="rg3"><div><span class="mu sm">Read</span><div class="rs">${rd.map(link).join('')}</div></div><div><span class="mu sm">Watch</span><div class="rs">${wt.map(link).join('')}</div></div><div><span class="mu sm">Search</span><div class="rs">${sr.map(link).join('')}</div></div></div>
  <div><b>Your notes</b><textarea data-s="done:${n}:notes" placeholder="What clicked? What confused you? (optional)">${e(d.notes||'')}</textarea></div></div></div>
- <div class="card"><div class="row"><h3 class="grow">DSA practice</h3><span class="mu sm">${PR.filter(p=>ps(p.id).st=='done').length} of ${PR.length} core done</span></div>
+ ${relCard(n,prow)}<div class="card moredsa"><div class="row"><h3 class="grow">More DSA practice</h3><span class="mu sm">${PR.filter(p=>ps(p.id).st=='done').length} of ${PR.length} core done</span></div>
  ${PR.length?PR.map(prow).join(''):'<p class="mu">No new problems today. Revisit starred problems on the DSA page.</p>'}
  ${ST.length?`<div class="stretch"><b>Stretch (optional Hard)</b>${ST.map(prow).join('')}</div>`:''}
  <div class="rs"><a target="_blank" rel="noopener" href="https://neetcode.io/practice">NeetCode 150</a><a target="_blank" rel="noopener" href="https://leetcode.com/problemset/">LeetCode problem set</a></div></div>
@@ -1409,19 +1417,19 @@ function qcard(x){const s=qs(x.id),d=qdiff(x),open=OPENQ.has(x.id);
 function vQ(){const n=S.day,bank=F.qt=='bank',cats=[...new Set(QB.map(x=>x.c))];
  const tabs=`<div class="row" style="margin-bottom:12px"><button class="${bank?'':'pri'}" data-a="qt" data-i="day">Day ${n} questions</button><button class="${bank?'pri':''}" data-a="qt" data-i="bank">Question bank (${QB.length})</button></div>`;
  if(!bank){const own=ownQs(n),list=own.length?own:revision();
-  return dayBar()+tabs+`<div class="card"><h3>${own.length?'Questions for Day '+n:'Revision set (no new questions today)'}</h3><p class="mu sm" style="margin:4px 0 0">Answer aloud first, then check the model answer. Mark Got it or Review later. ${isBoss(n)?'Boss day: this is the week in review.':''}</p></div>`+list.map(x=>`<div class="card">${qcard(x)}</div>`).join('')}
+  return dayBar()+tabs+`<div class="card"><h3>${own.length?'Questions for Day '+n:'Revision set (no new questions today)'}</h3><p class="mu sm" style="margin:4px 0 0">Top 3 first: answer aloud, then check the model answer. Mark Got it or Review later. ${isBoss(n)?'Boss day: this is the week in review.':''}</p></div>`+(F.qx==n?list:list.slice(0,3)).map(x=>`<div class="card">${qcard(x)}</div>`).join('')+(list.length>3?`<button data-a="qx" data-i="${n}">${F.qx==n?'Show only the top 3':'Show '+(list.length-3)+' more questions (bonus)'}</button>`:'')}
  const q=(F.qq||'').toLowerCase(),l=QB.filter(x=>(!F.qc||x.c==F.qc)&&(!F.qd||qdiff(x)==F.qd)&&(!F.qs||(F.qs=='new'?!qs(x.id).st:qs(x.id).st==F.qs))&&(x.q+' '+x.a).toLowerCase().includes(q)),shown=F.qall?l:l.slice(0,50);
  return tabs+`<div class="card"><div class="f"><input type="search" id="f_qq" data-f="qq" placeholder="Search questions" value="${e(F.qq||'')}"><select data-f="qc"><option value="">All categories</option>${opts(cats,F.qc)}</select><select data-f="qd"><option value="">All difficulties</option>${opts(['Easy','Medium','Hard'],F.qd)}</select><select data-f="qs"><option value="">All statuses</option><option value="new"${F.qs=='new'?' selected':''}>Not reviewed</option><option value="known"${F.qs=='known'?' selected':''}>Got it</option><option value="review"${F.qs=='review'?' selected':''}>Review later</option></select></div></div><p class="mu sm">${l.length} questions${l.length>shown.length?', showing '+shown.length:''}</p>`+shown.map(x=>`<div class="card">${qcard(x)}</div>`).join('')+(l.length>shown.length?'<button data-a="qall">Show all</button>':'')}
 
 // ---------- Projects ----------
 function vProj(){const n=S.day,wkn=F.pw||wk(n),weekend=F.pt=='weekend';
  const tabs=`<div class="row" style="margin-bottom:12px"><button class="${weekend?'':'pri'}" data-a="pt" data-i="daily">Day ${n} mini project</button><button class="${weekend?'pri':''}" data-a="pt" data-i="weekend">Weekend major project</button></div>`;
- if(!weekend){const P=PLAN[n-1],b=P.b,d=g(n),reqs=b[2].split(';');
-  return dayBar()+tabs+`<div class="card"><div class="row"><h3 class="grow">${e(b[0])}</h3>${envPill(b[4])}</div><p>${e(b[1])}</p><b>Requirements</b>${reqs.map((r,j)=>`<label class="chk"><input type="checkbox" data-a="br" data-i="${n}:${j}" ${(d.br||[])[j]?'checked':''}>${e(r)}</label>`).join('')}<p class="mu"><b>Done when:</b> ${e(b[3])}</p><b>Your notes and results</b><textarea class="ev" data-s="done:${n}:ev" placeholder="Paste output, test results, repo link or what you learned (optional)">${e(d.ev||'')}</textarea><div class="row" style="margin-top:8px"><button class="sbtn" data-a="openguide">Set up Visual Studio and WSL</button></div>${b[4]=='l'?'<p class="mu sm">This one needs Linux. Use WSL2 Ubuntu (free). Steps are in the Guide.</p>':''}${b[4]=='x'?'<p class="mu sm">No code needed: write it up or practise it out loud.</p>':''}</div>`}
+ if(!weekend){const P=PLAN[n-1],b=P.b,d=g(n),reqs=b[2].split(';'),rq=(r,j)=>`<label class="chk"><input type="checkbox" data-a="br" data-i="${n}:${j}" ${(d.br||[])[j]?'checked':''}>${e(r)}</label>`;
+  return dayBar()+tabs+`<div class="card"><div class="row"><h3 class="grow">${e(b[0])}</h3>${envPill(b[4])}</div><p>${e(b[1])}</p><b>Core requirements (these finish the day)</b>${reqs.slice(0,3).map(rq).join('')}${reqs.length>3?`<details data-k="rq${n}" ${OPEN.has('rq'+n)?'open':''}><summary>Bonus requirements (${reqs.length-3}), optional</summary><div class="in">${reqs.slice(3).map((r,j)=>rq(r,j+3)).join('')}</div></details>`:''}<p class="mu"><b>Done when:</b> ${e(b[3])}</p><b>Your notes and results</b><textarea class="ev" data-s="done:${n}:ev" placeholder="Paste output, test results, repo link or what you learned (optional)">${e(d.ev||'')}</textarea><div class="row" style="margin-top:8px"><button class="sbtn" data-a="openguide">Set up Visual Studio and WSL</button></div>${b[4]=='l'?'<p class="mu sm">This one needs Linux. Use WSL2 Ubuntu (free). Steps are in the Guide.</p>':''}${b[4]=='x'?'<p class="mu sm">No code needed: write it up or practise it out loud.</p>':''}</div>`}
  const L=WPS[wkn-1],s=S.w[wkn]||{},m=s.s||[],c=m.filter(Boolean).length;
  return tabs+`<div class="row" style="margin-bottom:8px"><button class="sbtn" data-a="pw" data-i="-1">&larr;</button><b class="grow" style="text-align:center">Week ${wkn} of 13: ${e(WEEKS[wkn-1][0])}</b><button class="sbtn" data-a="pw" data-i="1">&rarr;</button></div>
- <div class="card"><div class="row"><h3 class="grow">${e(L.n)}</h3>${envPill(L.env)}<span class="mu sm">${e(L.t)}</span></div><div class="bar"><i style="width:${c/L.steps.length*100}%"></i></div><p><b>Goal.</b> ${e(L.goal)}</p><p><b>Why it matters.</b> ${e(L.why)}</p><h3 style="margin-top:12px">Steps (${c}/${L.steps.length})</h3>${L.steps.map((x,j)=>`<label class="chk wlstep"><input type="checkbox" data-a="ws" data-i="${wkn}:${j}" ${m[j]?'checked':''}><span><b>${j+1}. ${e(x[0])}</b><br><span class="mu">${e(x[1])}</span></span></label>`).join('')}
- <h3 style="margin-top:12px">You are done when</h3><ul class="tl">${L.ok.split(';').map(x=>`<li>${e(x)}</li>`).join('')}</ul><h3>Stretch goals</h3><ul class="tl">${L.more.split(';').map(x=>`<li>${e(x)}</li>`).join('')}</ul><h3>What to say in interviews</h3><p class="ans">${e(L.say)}</p><div class="rs">${L.res.map(link).join('')}</div><textarea data-s="w:${wkn}:note" style="margin-top:10px" placeholder="Repo link, what broke, what you learned (optional)">${e(s.note||'')}</textarea></div>`}
+ <div class="card"><div class="row"><h3 class="grow">${e(L.n)}</h3>${envPill(L.env)}<span class="mu sm">${e(L.t)}</span></div><div class="bar"><i style="width:${c/L.steps.length*100}%"></i></div><p><b>Goal.</b> ${e(L.goal)}</p><p><b>Why it matters.</b> ${e(L.why)}</p><h3 style="margin-top:12px">Steps (${c}/${L.steps.length})</h3>${wsteps(L,m,wkn)}
+ <h3 style="margin-top:12px">You are done when</h3><ul class="tl">${L.ok.split(';').map(x=>`<li>${e(x)}</li>`).join('')}</ul><details data-k="wb${wkn}" ${OPEN.has('wb'+wkn)?'open':''}><summary>Bonus: stretch goals, interview talking points, resources</summary><div class="in"><h3>Stretch goals</h3><ul class="tl">${L.more.split(';').map(x=>`<li>${e(x)}</li>`).join('')}</ul><h3>What to say in interviews</h3><p class="ans">${e(L.say)}</p><div class="rs">${L.res.map(link).join('')}</div></div></details><textarea data-s="w:${wkn}:note" style="margin-top:10px" placeholder="Repo link, what broke, what you learned (optional)">${e(s.note||'')}</textarea></div>`}
 
 // ---------- DSA ----------
 function vDsa(){const cs=[...new Set(PL.map(p=>p.c))],q=(F.dq||'').toLowerCase(),sv=d=>PL.filter(p=>p.d==d&&ps(p.id).st=='done').length,tot=d=>PL.filter(p=>p.d==d).length;
@@ -1453,6 +1461,7 @@ ${sec('g4','Resources',`<div class="tw"><table><tr><th>Topic</th><th>Free resour
 
 // ---------- Settings ----------
 function vSet(){return `<div class="card"><h3>Go to a day</h3><div class="row"><select id="gd">${PLAN.map(p=>`<option value="${p.n}"${p.n==S.day?' selected':''}>Day ${p.n}: ${e(p.t)}</option>`).join('')}</select><button data-a="gdbtn">Go</button></div>
+ <h3 style="margin-top:16px">Plan dates</h3><div class="row"><label class="mu sm">Plan started <input type="date" data-g="start" value="${S.start||''}"></label><label class="mu sm">First interview <input type="date" data-g="iv" value="${S.iv||''}"></label></div><p class="mu sm">Used for your countdown and to tell you when you fall behind.</p>
  <h3 style="margin-top:16px">Extract everything</h3><p class="mu sm">Downloads one .zip: every solution as a real code file (<code>solution.cpp</code>, <code>solution.py</code> ...) plus a README with your explanation and complexity, an index, and a full <code>backup.json</code>. Unzip it anywhere.</p><div class="row"><button data-a="expsol" class="cu">Export solutions (.zip)</button></div>
  <h3 style="margin-top:16px">Backup</h3><p class="mu sm">Progress is saved inside this app on this computer. Download a backup now and then; the Import button restores everything, including solutions and code.</p><div class="row"><button data-a="exp">Download JSON</button><input type="file" id="imf" accept=".json,application/json"><button data-a="impF">Import file</button></div>
  <h3 style="margin-top:16px">Reset</h3><button data-a="rst" style="color:var(--bd)">Reset all progress</button></div>`}
@@ -1470,6 +1479,7 @@ function solPanel(p){const s=ps(p.id),open=SOL.has(p.id),has=!!(s.note||s.code||
   <div class="solmeta"><div><label class="l">Time complexity</label><input type="text" data-s="p:${p.id}:tc" placeholder="e.g. O(n)" value="${e(s.tc||'')}"></div><div><label class="l">Space complexity</label><input type="text" data-s="p:${p.id}:sc" placeholder="e.g. O(n)" value="${e(s.sc||'')}"></div></div>
   <div><div class="codehead"><label class="l grow" style="margin:0">Code</label><select data-s="p:${p.id}:lang" aria-label="Language">${Object.keys(LANGS).map(k=>`<option value="${k}"${k==lg?' selected':''}>${LANGS[k][0]}</option>`).join('')}</select><button class="sbtn" data-a="copycode" data-i="${p.id}">Copy</button></div>
   <textarea class="codebox" spellcheck="false" autocapitalize="off" autocomplete="off" wrap="off" data-s="p:${p.id}:code" placeholder="Paste or type your solution. Tab indents, Esc leaves the box.">${e(s.code||'')}</textarea></div>
+  <div class="solfoot"><button class="cu" data-a="solsave" data-i="${p.id}">Save solution</button><button class="sbtn" data-a="sol" data-i="${p.id}">Close</button><span class="mu sm">${s.at?'Last saved '+new Date(s.at).toLocaleString()+'. ':''}Ctrl+Enter saves. Also auto-saved as you type.</span></div>
  </div>`;
  return h+'</div>'}
 
@@ -1490,7 +1500,7 @@ function makeZip(files){const te=new TextEncoder(),d=new Date(),dt=((d.getFullYe
 const fslug=x=>x.replace(/[^\w\- ]+/g,'').trim().replace(/\s+/g,'-')||'untitled';
 function dl(blob,name){const l=document.createElement('a');l.href=URL.createObjectURL(blob);l.download=name;l.click();setTimeout(()=>URL.revokeObjectURL(l.href),2000)}
 function exportSolutions(){
- const list=PL.filter(p=>{const s=ps(p.id);return s.note||s.code||s.tc||s.sc});
+ const seen={},list=[...PL,...Object.values(REL).flat()].filter(p=>{if(seen[p.id])return false;seen[p.id]=1;const s=ps(p.id);return s.note||s.code||s.tc||s.sc});
  if(!list.length){alert('No solutions written yet. Open a problem, click Solution and add an explanation or code first.');return}
  const files=[],idx=['# My DSA solutions','',`Exported ${new Date().toLocaleString()}`,'',`${list.length} problems`,''];
  list.forEach(p=>{const s=ps(p.id),lg=LANGS[s.lang||'cpp'],dir=`solutions/${fslug(p.c)}/${fslug(p.n)}/`;
@@ -1504,6 +1514,8 @@ function exportSolutions(){
  files.push({name:'backup.json',data:JSON.stringify(S,null,1)});
  dl(makeZip(files),'dsa-solutions-'+new Date().toISOString().slice(0,10)+'.zip')}
 
+function toast(m){const t=document.createElement('div');t.className='toast';t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),1600)}
+document.addEventListener('keydown',ev=>{if(ev.key=='Enter'&&(ev.ctrlKey||ev.metaKey)){const b=ev.target.closest&&ev.target.closest('.sol')&&ev.target.closest('.sol').querySelector('[data-a="solsave"]');if(b){ev.preventDefault();b.click()}}});
 document.addEventListener('keydown',ev=>{const t=ev.target;if(!t.classList||!t.classList.contains('codebox'))return;
  const fire=()=>t.dispatchEvent(new Event('input',{bubbles:true}));
  if(ev.key=='Escape'){t.blur();return}
@@ -1513,8 +1525,164 @@ document.addEventListener('keydown',ev=>{const t=ev.target;if(!t.classList||!t.c
  if(ev.key=='Enter'&&!ev.ctrlKey&&!ev.metaKey){const a=t.selectionStart,ls=t.value.lastIndexOf('\n',a-1)+1,line=t.value.slice(ls,a),ind=(line.match(/^[ \t]*/)||[''])[0],extra=/[{:(\[]\s*$/.test(line)?'    ':'';
   ev.preventDefault();const ins='\n'+ind+extra;t.value=t.value.slice(0,a)+ins+t.value.slice(t.selectionEnd);t.selectionStart=t.selectionEnd=a+ins.length;fire()}});
 
-const VW={study:vStudy,q:vQ,proj:vProj,dsa:vDsa,road:vRoad,guide:vGuide,set:vSet};
-function R(){const y=scrollY;S.v=VW[S.v]?S.v:'study';$('#app').innerHTML=head()+VW[S.v]();save();scrollTo(0,TOP?0:y);TOP=false}
+// ---------- Smart path: topic-linked practice, pattern tips, streak ----------
+const RELS=`3|Min Stack;Implement Queue using Stacks
+1|Design HashSet:E;Design Linked List:M
+2|Design Parking System:E
+4|Design HashMap;Flatten Nested List Iterator;Peeking Iterator
+5|Largest Number;Top K Frequent Words
+6|Sum of Two Integers;Reverse Integer;String to Integer (atoi)
+8|Tenth Line:E;Valid Phone Numbers:E
+9|Word Frequency:M;Transpose File:M
+10|Print in Order:E
+11|Task Scheduler;Merge Intervals
+12|Print FooBar Alternately:M
+13|The Dining Philosophers:M
+16|LRU Cache;LFU Cache
+17|Design Memory Allocator:M
+18|Simplify Path
+19|Design Circular Queue
+20|Rotate Image;Set Matrix Zeroes
+22|Print Zero Even Odd:M
+23|Building H2O:M
+24|Fizz Buzz Multithreaded:M
+27|Task Scheduler
+29|Network Delay Time
+30|Restore IP Addresses;Validate IP Address:M
+32|Encode and Decode TinyURL:M
+34|Design Browser History
+37|LRU Cache
+38|Time Based Key-Value Store
+39|Design Circular Deque
+40|Snapshot Array
+41|Number of Recent Calls:E
+42|Encode and Decode TinyURL:M
+43|Number of Recent Calls:E
+44|LRU Cache;LFU Cache
+45|Time Based Key-Value Store;Design HashMap
+46|Design Twitter:M;Merge k Sorted Lists
+47|Design Underground System
+48|Task Scheduler;Course Schedule
+49|Simplify Path
+50|Design Parking System:E
+51|Design Browser History
+52|Design Parking System:E
+53|Design Circular Queue
+54|LRU Cache
+55|My Calendar I:M
+56|Design Bank System:M
+57|Combine Two Tables:E;Second Highest Salary:M;Duplicate Emails:E
+58|Rank Scores:M;Consecutive Numbers:M
+59|Department Top Three Salaries:H;Employees Earning More Than Their Managers:E
+64|Number of 1 Bits;Reverse Bits
+65|Bitwise AND of Numbers Range;Power of Four
+66|Design Circular Queue;UTF-8 Validation
+67|Hamming Distance;Maximum XOR of Two Numbers in an Array
+71|Task Scheduler;Design Circular Deque
+73|Design Circular Queue
+74|Implement Stack using Queues
+7|!Teach RAII, virtual functions and smart pointers aloud, 2 minutes each;LRU Cache
+14|!Explain fork and a context switch aloud from memory;Design Circular Queue
+15|!Translate one virtual address with a 2-level page table by hand
+21|!Re-implement the deadlock demo and its fix without notes;The Dining Philosophers:M
+25|Print Zero Even Odd:M;Building H2O:M
+26|Fizz Buzz Multithreaded:M;Print in Order:E
+28|!Write a thread-safe queue and a small thread pool from scratch;Print FooBar Alternately:M
+31|!Write a TCP echo server and client with sockets;Network Delay Time
+33|!Extend the echo server to many clients with poll or epoll;Number of Recent Calls:E
+35|!Explain the TCP handshake, congestion control and epoll aloud;Encode and Decode TinyURL:M
+36|!Practise the 5-step design framework on a URL shortener out loud for 30 minutes;Encode and Decode TinyURL:M
+40|!Explain CAP and eventual consistency with one real example;Snapshot Array
+60|!Add structured logs and a counter metric to any small project
+61|!Debug a crashing C program with gdb: breakpoint, backtrace and watchpoint
+62|!Compile by hand with gcc -E, -S and -c, then link and read nm output
+63|!Answer 10 earlier questions aloud without notes;LRU Cache
+65|!Write an ISR-safe ring buffer using a volatile flag
+68|!Simulate a DMA copy and count the CPU cycles it saves
+69|!Implement a software watchdog and a CRC-16 check
+70|!Finish and demo your UART driver with a command shell;Design Circular Queue
+72|!Boot QEMU Linux, read dmesg and explain each boot stage;Tenth Line:E
+75|!Sketch an OTA update flow with signature check and rollback
+76|!Design a ring-buffer logger with levels and timestamps;Design Browser History
+77|!Whiteboard a firmware update system for 100000 devices in 45 minutes
+78|!Write 3 STAR stories with numbers and rehearse each in 2 minutes
+79|!Rewrite your resume to one page with metrics and send it to 2 people
+80|!Explain your best project in 2 and in 5 minutes: problem, design, trade-offs, result
+81|!Pick 5 target companies and solve 3 of their most reported problems each
+82|!Timed mock: 2 unseen Medium problems in 60 minutes, speaking aloud
+83|!Timed system design mock: design a chat app in 45 minutes
+84|!Full mock: coding round, then design round, then behavioural
+85|!Timed DSA round: 3 unseen problems in 100 minutes
+86|!Mock: 40 questions on C/C++, OS and Linux, answered aloud
+87|!Back-to-back mock: 30 minutes high-level design then 45 minutes low-level design
+88|!Redo your 10 starred problems from memory
+89|!Mock embedded round: explain an ISR design, then design a sensor logger
+90|!Final mock: full interview loop, then write your plan for interview day`;
+const PLN={};PL.forEach(p=>PLN[p.n]=p);
+const REL={};RELS.split('\n').forEach(l=>{const[d,t]=l.split('|');REL[+d]=(REL[+d]||[]).concat(t.split(';').map(x=>{if(x[0]=='!'){const n=x.slice(1);return{id:'t-'+slug(n),n,c:'Task',d:'Task',task:1,co:[],day:+d}}if(PLN[x])return PLN[x];const k=x.lastIndexOf(':'),n=x.slice(0,k);return{id:'r-'+slug(n),n,c:'Hands-on',d:DIFF[x.slice(k+1)],co:[],day:+d}}).filter(p=>!(PBD[+d]||[]).includes(p)))});
+const PAT={'Arrays & Hashing':'Need fast lookup or counting? Put values in a hash map.','Bit Tricks':'XOR cancels pairs; n & (n-1) clears the lowest set bit.','Two Pointers':'Sorted input or a pair condition? Move two indexes inward.','Sliding Window':'Contiguous range with a condition? Grow right, shrink left.','Strings':'Think frequency counts, two pointers, or a stack.','Linked List':'Use a dummy head and slow/fast pointers.','Stack & Queue':'Nearest greater/smaller? Monotonic stack. Level by level? Queue.','Design':'Pair a hash map with a list so every operation is O(1).','Binary Search':'Anything monotonic: search the answer, not just the array.','Backtracking':'Choose, explore, un-choose. Draw the decision tree first.','Matrix & Math':'Work with row/col indexes and watch the boundaries.','Greedy & Intervals':'Sort first, then keep one running best choice.','Trees & Tries':'Solve for the node and trust recursion for the children.','Heap':'Top-K or repeated min/max? Use a heap.','Graphs':'Grid or network? BFS for shortest path, DFS for connectivity.','DP':'Define the state, write the recurrence, then add memo.','Hands-on':'Read the problem as a small version of today\'s topic.'};
+const todayKey=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+const mark=()=>{(S.act=S.act||{})[todayKey()]=1};
+function streak(){let n=0,d=new Date();const k=x=>x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0');if(!(S.act||{})[k(d)])d.setDate(d.getDate()-1);while((S.act||{})[k(d)]){n++;d.setDate(d.getDate()-1)}return n}
+function pathCard(n,PR){const r=REL[n]||[],must=PR.slice(0,2),rm=r.slice(0,2),dd=p=>ps(p.id).st=='done';
+ const s1=!!g(n).learn,s2=!rm.length||rm.every(dd),s3=!must.length||must.every(dd),c=[s1,s2,s3].filter(Boolean).length,st=streak();
+ const cats=[...new Set([...r,...must].map(p=>p.c))].filter(x=>PAT[x]).slice(0,2);
+ const step=(ok,i,t,sub)=>`<div class="pstep${ok?' ok':''}"><span class="n">${ok?'✓':i}</span><div><b>${t}</b><div class="mu sm">${sub}</div></div></div>`;
+ const msg=c==3?'Day complete. Anything more is a bonus.':c==0?'Start with step 1 only. Twenty minutes is a win.':`${3-c} step${c==2?'':'s'} left. You are close.`;
+ return `<div class="card"><div class="row"><h3 class="grow">Today's path</h3><span class="pill">${c} / 3</span>${st?`<span class="pill sts-part">🔥 ${st}-day streak</span>`:''}</div><div class="bar"><i style="width:${c/3*100}%"></i></div><p class="mu sm" style="margin:4px 0 0">${msg}</p>
+ <div class="pth">${step(s1,1,'Learn: '+e(PLAN[n-1].t),'Read the key points below, then tick Learning done.')}${step(s2,2,'Apply it: topic problems',rm.length?rm.map(p=>e(p.n)).join(', '):'No linked problem today, so this step is done.')}${step(s3,3,'Practice: must-do DSA',must.length?must.map(p=>e(p.n)).join(', '):'Nothing new today.')}</div>
+ ${cats.map(x=>`<div class="pat"><b>${e(x)}:</b> ${e(PAT[x])}</div>`).join('')}</div>`}
+function relCard(n,prow){const r=S.core?(REL[n]||[]).slice(0,2):(REL[n]||[]);if(!r.length)return'';return `<div class="card"><div class="row"><h3 class="grow">Apply today's topic</h3><span class="mu sm">${r.filter(p=>ps(p.id).st=='done').length} of ${r.length} done</span></div><p class="mu sm" style="margin:0 0 6px">These tasks and problems use the idea you just learned. Do the first two; the rest are bonus. Write your explanation and code in Solution.</p>${r.map(p=>p.task?`<div class="pr"><input type="checkbox" class="ck" data-a="pdone" data-i="${p.id}" ${ps(p.id).st=='done'?'checked':''} aria-label="Done ${e(p.n)}"><span class="pn">${e(p.n)}</span><span class="tag cat">Task</span>${solPanel(p)}</div>`:prow(p)).join('')}</div>`}
+
+
+// ---------- Big Tech tab ----------
+const BTC=[['Foundations (do before Day 1)',['Big-O: drop constants, keep the biggest term. Loop = O(n), nested loop = O(n²), halving = O(log n), sort = O(n log n).','Recursion: write the base case first, then trust the smaller call. Draw the call tree once.','Say complexity aloud for every solution, time and space, before the interviewer asks.']],
+['Algorithms the daily plan only touches (learn each in 30 min, then do the linked problems)',['Prefix sums: Subarray Sum Equals K, Contiguous Array','Monotonic stack: Daily Temperatures, Largest Rectangle in Histogram','Union-Find: Redundant Connection, Accounts Merge, Number of Provinces','Topological sort (Kahn BFS): Course Schedule, Course Schedule II','Dijkstra with a min-heap: Network Delay Time, Path With Minimum Effort','Binary search on the answer: Koko Eating Bananas, Split Array Largest Sum','Bitmask and 2D DP: Partition Equal Subset Sum, Edit Distance']],
+['Resume and referrals',['One page, 3 to 4 impact bullets per role with numbers (latency cut, bugs fixed, devices shipped).','Get 5 referrals before applying. A referral often beats a cold application.','Apply to 15 to 25 companies in the same 2 weeks so offers arrive together.']],
+['Behavioural (Amazon and most big companies)',['Write 8 STAR stories: conflict, failure, deadline, ownership, mentoring, ambiguity, disagreement with a manager, biggest technical win.','Each story: Situation 1 line, Task 1 line, Action 4 lines with I not we, Result with a number.','Map every story to Amazon Leadership Principles: Ownership, Dive Deep, Customer Obsession, Bias for Action.']],
+['Mocks (this is what separates offers from rejections)',['Do 6 timed mock coding rounds and 2 system design mocks with a person or a mock platform.','Speak aloud: clarify, brute force, optimise, code, test with your own cases.','After each mock, log the mistake and redo that problem 3 days later.']],
+['Offer and negotiation (high pay is decided here)',['Never give your expected number first. Say you would like to see the full offer.','Compare total compensation: base, RSUs per year, sign-on bonus, bonus. Check levels.fyi for the level and range.','Get competing offers and tell each recruiter politely. This is the strongest lever.','Negotiate the level first (SDE-2 vs SDE-1 changes everything), then the numbers. Ask for sign-on and RSUs, not just base.','Be warm and thankful, ask for 2 to 3 days, and get the final offer in writing.']]];
+function vBt(){S.bt=S.bt||{};let k=0;return `<div class="card bt"><h2>Big company checklist</h2><p class="mu">What the daily plan does not teach, but top companies and high pay depend on. Tick items as you finish them.</p>${BTC.map(([t,l])=>`<h3>${e(t)}</h3>`+l.map(x=>{const i=k++;return `<label><input type="checkbox" data-a="bt" data-i="${i}" ${S.bt[i]?'checked':''}> <span>${e(x)}</span></label>`}).join('')).join('')}<div class="quote">${e('You are here to get a top job. Finish this list.')}</div></div>`}
+
+function wsteps(L,m,wkn){const row=j=>{const x=L.steps[j];return `<label class="chk wlstep"><input type="checkbox" data-a="ws" data-i="${wkn}:${j}" ${m[j]?'checked':''}><span><b>${j+1}. ${e(x[0])}</b><br><span class="mu">${e(x[1])}</span></span></label>`},
+ idx=L.steps.map((_,j)=>j),done=idx.filter(j=>m[j]),next=idx.find(j=>!m[j]),up=idx.filter(j=>!m[j]&&j!=next),
+ box=(k,t,l)=>l.length?`<details data-k="${k}${wkn}" ${OPEN.has(k+wkn)?'open':''}><summary>${t} (${l.length})</summary><div class="in">${l.map(row).join('')}</div></details>`:'';
+ return box('wsd','Completed steps',done)+(next===undefined?'<p class="mu">All steps done. Great work.</p>':`<div class="pat"><b>Next step</b></div>`+row(next))+box('wsu','Upcoming steps',up)}
+
+// ---------- Revise, jobs, dates, catch-up, topics, backup ----------
+const diff=(a,b)=>Math.round((new Date(b)-new Date(a))/864e5),INT=[3,7,21];
+const ALLP=(()=>{const m={};[...PL,...Object.values(REL).flat().filter(p=>!p.task)].forEach(p=>m[p.id]=p);return Object.values(m)})();
+function dueList(){const t=todayKey();return ALLP.filter(p=>{const x=ps(p.id);if(x.st!='done')return false;if(!x.dt){pw(p.id).dt=t;return false}const rv=x.rv||0;return rv<3&&diff(x.rd||x.dt,t)>=INT[rv]})}
+function reviseCard(){const l=dueList();if(!l.length)return'';return `<div class="card"><div class="row"><h3 class="grow">Revise today</h3><span class="pill">${l.length} due</span></div><p class="mu sm" style="margin:0 0 6px">Re-solve from memory, then tick Revised. They come back after 3, 7 and 21 days.</p>${l.slice(0,3).map(p=>`<div class="row" style="padding:4px 0"><a class="pn grow" target="_blank" rel="noopener" href="${e(lcu(p))}">${e(p.n)}</a><span class="mu sm">review ${(ps(p.id).rv||0)+1} of 3</span><button class="sbtn" data-a="rev" data-i="${p.id}">Revised</button></div>`).join('')}${l.length>3?`<p class="mu sm">+${l.length-3} more after these</p>`:''}</div>`}
+
+const STAGES=['Applied','Online test','Phone screen','Onsite','Offer','Rejected'];
+const jtot=j=>['base','rsu','sign','bonus'].reduce((a,k)=>a+(+j[k]||0),0);
+function vJobs(){S.jobs=S.jobs||[];const J=S.jobs,off=J.map((j,i)=>({j,i,t:jtot(j)})).filter(x=>x.t>0).sort((a,b)=>b.t-a.t),mx=off.length?off[0].t:1,cnt=st=>J.filter(j=>j.stage==st).length;
+ const f=(i,k,l,t,ph)=>`<div><label>${l}<input type="${t||'text'}" data-j="${i}:${k}" value="${e(J[i][k]||'')}" placeholder="${ph||''}"></label></div>`;
+ return `<div class="card"><h3>Add an application</h3><div class="jg"><div><label>Company<input id="jco" placeholder="e.g. Google"></label></div><div><label>Role<input id="jrole" placeholder="e.g. SDE-2"></label></div></div><div class="row" style="margin-top:8px"><button class="pri" data-a="jadd">Add</button><span class="mu sm">${J.length} tracked${J.length?': '+STAGES.map(s=>cnt(s)?cnt(s)+' '+s.toLowerCase():'').filter(Boolean).join(', '):''}. Target 15 to 25 in the same 2 weeks.</span></div></div>
+ ${off.length>1?`<div class="card"><h3>Compare compensation (first year total)</h3>${off.map(x=>`<div style="margin:6px 0"><div class="row"><b class="grow">${e(x.j.co)} ${e(x.j.role||'')}</b><b>${x.t}</b></div><div class="bar"><i style="width:${x.t/mx*100}%"></i></div></div>`).join('')}<p class="mu sm">Total of base, RSU per year, sign-on and bonus. Use one unit, for example lakhs.</p></div>`:''}
+ ${J.map((j,i)=>`<div class="card jb"><div class="row"><b class="grow">${e(j.co)} <span class="mu">${e(j.role||'')}</span></b>${jtot(j)?`<span class="pill">${jtot(j)} total</span>`:''}<button class="sbtn" data-a="jdel" data-i="${i}">Remove</button></div>
+ <div class="jg"><div><label>Stage<select data-j="${i}:stage">${STAGES.map(s=>`<option${s==j.stage?' selected':''}>${s}</option>`).join('')}</select></label></div><div><label>Referral<select data-j="${i}:ref">${['No','Yes'].map(s=>`<option${s==j.ref?' selected':''}>${s}</option>`).join('')}</select></label></div>${f(i,'dt','Applied on','date')}${f(i,'next','Next step date','date')}</div>
+ <div class="jg">${f(i,'base','Base','number')}${f(i,'rsu','RSU per year','number')}${f(i,'sign','Sign-on','number')}${f(i,'bonus','Bonus','number')}</div>
+ <textarea data-j="${i}:note" placeholder="Recruiter, round feedback, what to prepare next">${e(j.note||'')}</textarea></div>`).join('')}`}
+
+function fopen(){for(let n=1;n<=N;n++)if(dprog(n).p<1)return n;return N+1}
+function statusBar(){const t=todayKey(),fo=fopen(),rem=N+1-fo,dl=S.iv?diff(t,S.iv):null,exp=S.start?Math.min(N,diff(S.start,t)+1):null,behind=exp?exp-fo:0,short=dl!==null&&dl>=0&&dl<rem,o=overall(),
+ bk=(o.solved||o.dd)&&(!S.lastBackup||diff(S.lastBackup,t)>=7);let h='';
+ if(S.iv||S.start||S.core){const warn=behind>=2||short;h+=`<div class="sbar${warn?' warn':''}">${dl!==null?`<span class="pill">🎯 ${dl>=0?dl+' days to interview':'interview date passed'}</span>`:''}<span class="pill">Day ${Math.min(fo,N)} of ${N}</span>${S.core?'<span class="pill">Core-only mode</span>':''}<span class="grow mu sm">${warn?`${behind>=2?`You are ${behind} days behind the plan. `:''}${short?`The plan needs ${rem} more days and you have ${dl}. `:''}`:'You are on track. '}</span>${S.core?'<button class="sbtn" data-a="coreoff">Turn off core-only</button>':warn?'<button class="pri" data-a="catchup">I am behind: core only</button>':''}</div>`}
+ else h+=`<div class="sbar"><span class="grow mu sm">Set your plan start and first interview date in Settings to see your countdown and pace.</span></div>`;
+ if(bk)h+=`<div class="sbar warn"><span class="grow">${S.lastBackup?'Last backup: '+diff(S.lastBackup,t)+' days ago.':'You have not downloaded a backup yet.'} Your data lives only on this computer.</span><button class="pri" data-a="exp">Download backup</button></div>`;
+ return h}
+function topicCard(){const m={};PL.forEach(p=>{const c=m[p.c]=m[p.c]||{t:0,d:0};c.t++;if(ps(p.id).st=='done')c.d++});const l=Object.entries(m).map(([k,v])=>({k,...v,pc:v.d/v.t})).sort((a,b)=>a.pc-b.pc);
+ return `<div class="card"><h3>Topic strength</h3><p class="mu sm" style="margin:0 0 6px">Weakest first. Fix topics under 25% before the mock days.</p>${l.map(x=>`<div style="margin:6px 0"><div class="row"><span class="grow${x.pc<.25?' wk':''}">${e(x.k)}${x.pc<.25?' (weak)':''}</span><span class="mu sm">${x.d} / ${x.t}</span></div><div class="bar"><i style="width:${x.pc*100}%"></i></div></div>`).join('')}</div>`}
+
+document.addEventListener('input',ev=>{const j=ev.target.dataset&&ev.target.dataset.j;if(j){const[i,k]=j.split(':');if(S.jobs&&S.jobs[i]){S.jobs[i][k]=ev.target.value;save()}}});
+document.addEventListener('change',ev=>{const t=ev.target,d=t.dataset||{};if(d.g){S[d.g]=t.value;R()}else if(d.j)R()});
+
+const VW={jobs:vJobs,bt:vBt,study:vStudy,q:vQ,proj:vProj,dsa:vDsa,road:vRoad,guide:vGuide,set:vSet};
+VW.dsa=(f=>()=>topicCard()+f())(VW.dsa);
+Object.keys(VW).forEach(k=>{const f=VW[k];VW[k]=()=>statusBar()+f()});
+function R(){const y=scrollY;S.v=VW[S.v]?S.v:'study';document.body.classList.toggle('core',!!S.core);$('#app').innerHTML=head()+VW[S.v]();save();scrollTo(0,TOP?0:y);TOP=false}
 function setv(a,i,k,v){if(a=='done')dn(i)[k]=v;else if(a=='p')pw(i)[k]=v;else if(a=='q')qw(i)[k]=v;else if(a=='w')(S.w[i]||(S.w[i]={}))[k]=v}
 
 document.addEventListener('input',ev=>{const t=ev.target;
@@ -1527,9 +1695,11 @@ document.addEventListener('change',ev=>{const t=ev.target,a=t.dataset.a,i=t.data
  if(a=='dsel'){S.day=+t.value;delete F.pw;TOP=true}
  else if(a=='learn')dn(S.day).learn=t.checked;
  else if(a=='br'){const[n,j]=i.split(':'),o=dn(n);o.br=o.br||[];o.br[j]=t.checked}
- else if(a=='pdone')pw(i).st=t.checked?'done':'';
+ else if(a=='bt'){S.bt=S.bt||{};S.bt[i]=t.checked}
+ else if(a=='pdone'){pw(i).st=t.checked?'done':'';if(t.checked&&!pw(i).dt){pw(i).dt=todayKey();pw(i).rv=0}}
  else if(a=='ws'){const[w,j]=i.split(':'),o=S.w[w]||(S.w[w]={});o.s=o.s||[];o.s[j]=t.checked}
  else return;
+ if(t.checked)mark();
  R()});
 document.addEventListener('click',ev=>{const t=ev.target.closest('[data-a]');if(!t||t.tagName=='SELECT'||t.type=='checkbox')return;const a=t.dataset.a,i=t.dataset.i;
  if(a=='tab'){S.v=i;TOP=true}
@@ -1537,20 +1707,27 @@ document.addEventListener('click',ev=>{const t=ev.target.closest('[data-a]');if(
  else if(a=='nextopen'){S.day=firstOpen();delete F.pw;TOP=true}
  else if(a=='goday'){S.day=+i;S.v='study';delete F.pw;TOP=true}
  else if(a=='goweek'){F.pw=+i;F.pt='weekend';S.v='proj';TOP=true}
+ else if(a=='rev'){const x=pw(i);x.rv=(x.rv||0)+1;x.rd=todayKey();mark();toast('Revision logged')}
+ else if(a=='catchup'){S.core=true;S.day=Math.min(fopen(),N);TOP=true;toast('Core-only mode on')}
+ else if(a=='coreoff'){S.core=false}
+ else if(a=='jadd'){const c=$('#jco').value.trim();if(!c){alert('Enter a company name');return}S.jobs=S.jobs||[];S.jobs.unshift({co:c,role:$('#jrole').value.trim(),stage:'Applied',ref:'No',dt:todayKey()})}
+ else if(a=='jdel'){if(confirm('Remove this application?'))S.jobs.splice(+i,1);else return}
  else if(a=='sol'){SOL.has(i)?SOL.delete(i):SOL.add(i)}
+ else if(a=='solsave'){pw(i).at=Date.now();mark();SOL.delete(i);R();toast('Solution saved');return}
  else if(a=='copycode'){const c=ps(i).code||'';(navigator.clipboard?navigator.clipboard.writeText(c):Promise.reject()).then(()=>{t.textContent='Copied';setTimeout(()=>{t.textContent='Copy'},1200)},()=>{const x=document.querySelector('.codebox[data-s="p:'+i+':code"]');if(x){x.select();document.execCommand('copy')}});return}
- else if(a=='expsol'){exportSolutions();return}
+ else if(a=='expsol'){S.lastBackup=todayKey();save();exportSolutions();return}
  else if(a=='star'){const s=pw(i);s.star=s.star?0:1}
  else if(a=='qshow'){OPENQ.has(i)?OPENQ.delete(i):OPENQ.add(i)}
  else if(a=='qrate'){const[id,st]=i.split(':'),s=qw(id);s.st=s.st==st?'':st}
  else if(a=='qt'){F.qt=i}
+ else if(a=='qx'){F.qx=F.qx==i?0:+i}
  else if(a=='qall'){F.qall=1}
  else if(a=='pt'){F.pt=i}
  else if(a=='pw'){F.pw=Math.max(1,Math.min(13,(F.pw||wk(S.day))+ +i))}
  else if(a=='co'){F.dco=(F.dco==i||!i)?'':i;if(S.v!='dsa'){S.v='dsa';TOP=true}}
  else if(a=='openguide'){OPEN.add('gs');S.v='guide';TOP=true}
  else if(a=='gdbtn'){S.day=+$('#gd').value;S.v='study';TOP=true}
- else if(a=='exp'){const b=new Blob([JSON.stringify(S,null,1)],{type:'application/json'}),l=document.createElement('a');l.href=URL.createObjectURL(b);l.download='interview-guide-backup.json';l.click();return}
+ else if(a=='exp'){S.lastBackup=todayKey();save();const b=new Blob([JSON.stringify(S,null,1)],{type:'application/json'}),l=document.createElement('a');l.href=URL.createObjectURL(b);l.download='interview-guide-backup.json';l.click();return}
  else if(a=='impF'){const f=$('#imf').files[0];if(!f){alert('Choose a .json file first.');return}const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);if(!x||!x.done||!x.p)throw 0;if(!confirm('Replace current progress with this backup?'))return;S=Object.assign(seed(),x);R()}catch(_){alert('Not a valid backup file.')}};r.readAsText(f);return}
  else if(a=='rst'){if(confirm('Reset all progress and notes? This cannot be undone.')){S=seed()}else return}
  R()});
