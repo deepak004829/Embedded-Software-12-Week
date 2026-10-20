@@ -72,6 +72,12 @@ summary.dn{color:var(--ok)}
 .tw{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:14px}td,th{border-bottom:1px solid var(--ln);padding:7px 10px;text-align:left;vertical-align:top}
 .guide ol,.guide ul{padding-left:22px}.guide li{margin:5px 0}
 @media(max-width:700px){.top{grid-template-columns:1fr}.two2,.rg3{grid-template-columns:1fr}.dayn{font-size:40px}.hero h2{font-size:20px}}
+
+.cochips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.cos{display:flex;flex-wrap:wrap;gap:4px;flex-basis:100%;margin-left:26px}
+.co{border-radius:99px;padding:1px 9px;font-size:12px;color:var(--mu);background:none}
+.cochips .co{font-size:13px;padding:3px 12px}
+.co:hover{border-color:var(--cu);color:var(--ink)}.co.on{background:var(--pri);color:var(--onp);border-color:var(--pri);font-weight:600}
 </style></head><body><div id="app"></div><script>
 // [title, learn (;-separated), build task, dsa ("@Category" switches category, "Name:E|M|H")]
 const DAYS=[
@@ -989,6 +995,307 @@ ok:"Queries return correct results for a test suite;Crash simulation never loses
 ];
 // weekend project per new week: [old WL week number] or "n0".."n3" for new
 const WPMAP=[2,4,5,8,7,"n0","n1","n2","n3",11,9,12,13];
+// Company labels: A Amazon, G Google, M Microsoft, F Meta, P Apple, D Adobe, B Bloomberg, U Uber.
+// Based on commonly reported interview experiences, not official data. Incomplete and may be out of date.
+const COMP={A:"Amazon",G:"Google",M:"Microsoft",F:"Meta",P:"Apple",D:"Adobe",B:"Bloomberg",U:"Uber"};
+const COSTR=`Two Sum=AGMFPDBU
+Contains Duplicate=AMPB
+Valid Anagram=AMBD
+Group Anagrams=AGMFBU
+Top K Frequent Elements=AGMFBU
+Product of Array Except Self=AGMFPD
+Valid Sudoku=AMP
+Longest Consecutive Sequence=AGMFB
+Move Zeroes=AMFPB
+Majority Element=AGMPBD
+Best Time to Buy and Sell Stock=AGMFPBDU
+Single Number=AMPBD
+Number of 1 Bits=AMP
+Counting Bits=AG
+Reverse Bits=AMP
+Missing Number=AMB
+Power of Two=AGM
+Sum of Two Integers=AM
+Maximum Subarray=AGMFPBD
+Valid Palindrome=AMFPB
+Two Sum II - Input Array Is Sorted=AMF
+3Sum=AGMFPBD
+Container With Most Water=AGMFPBD
+Trapping Rain Water=AGMFPBDU
+Longest Substring Without Repeating Characters=AGMFPBDU
+Longest Repeating Character Replacement=AGMF
+Permutation in String=AGM
+Minimum Window Substring=AGMFPBDU
+Reverse String=AMP
+Longest Common Prefix=AGMPB
+Longest Palindromic Substring=AGMFPBD
+Rotate Array=AMB
+Merge Sorted Array=AGMFPB
+Remove Duplicates from Sorted Array=AGMFB
+Sort Colors=AGMFB
+Subarray Sum Equals K=AGMFPBU
+Reverse Linked List=AGMFPBD
+Merge Two Sorted Lists=AGMFPBD
+Linked List Cycle=AMFB
+Middle of the Linked List=AMG
+Palindrome Linked List=AGMFP
+Remove Nth Node From End of List=AGMFPB
+Reorder List=AGM
+Add Two Numbers=AGMFPBD
+Copy List with Random Pointer=AGMFB
+Valid Parentheses=AGMFPBDU
+Min Stack=AGMFPB
+Evaluate Reverse Polish Notation=AMB
+Daily Temperatures=AGMF
+Car Fleet=AG
+Implement Queue using Stacks=AMB
+Largest Rectangle in Histogram=AGMFB
+Design Circular Queue=AM
+Reverse Nodes in k-Group=AGMF
+LRU Cache=AGMFPBDU
+Find the Duplicate Number=AGMB
+Binary Search=AGM
+Search Insert Position=AM
+Search a 2D Matrix=AMF
+Find First and Last Position of Element in Sorted Array=AGMFB
+Koko Eating Bananas=AGMF
+Find Minimum in Rotated Sorted Array=AGMFB
+Search in Rotated Sorted Array=AGMFPBD
+Search a 2D Matrix II=AGM
+Time Based Key-Value Store=AGMF
+Median of Two Sorted Arrays=AGMFPBDU
+Split Array Largest Sum=AGF
+Subsets=AGMFB
+Combination Sum=AGMFBP
+Permutations=AGMFB
+Combinations=AM
+Word Search=AGMFB
+Letter Combinations of a Phone Number=AGMFBP
+Generate Parentheses=AGMFB
+Restore IP Addresses=AMF
+Pow(x, n)=AGMFB
+Palindrome Partitioning=AG
+Combination Sum III=A
+Merge Intervals=AGMFPBDU
+Palindrome Number=AMBF
+Invert Binary Tree=AGMFPB
+Maximum Depth of Binary Tree=AGMFPB
+Same Tree=AGM
+Minimum Depth of Binary Tree=AMF
+Binary Tree Preorder Traversal=AMB
+Diameter of Binary Tree=AGMF
+Balanced Binary Tree=AMF
+Subtree of Another Tree=AGF
+Lowest Common Ancestor of a Binary Tree=AGMFPBU
+Binary Tree Level Order Traversal=AGMFPB
+Binary Tree Right Side View=AGMF
+Lowest Common Ancestor of a Binary Search Tree=AGMF
+Path Sum II=AM
+Validate Binary Search Tree=AGMFPB
+Kth Smallest Element in a BST=AGMF
+Construct Binary Tree from Preorder and Inorder Traversal=AGMF
+Flatten Binary Tree to Linked List=AMF
+Binary Tree Maximum Path Sum=AGMFB
+Serialize and Deserialize Binary Tree=AGMFB
+Binary Search Tree Iterator=AGMF
+Implement Trie (Prefix Tree)=AGMFB
+Design Add and Search Words Data Structure=AGF
+Word Search II=AGMF
+Delete Node in a BST=AM
+Binary Tree Zigzag Level Order Traversal=AMFB
+Count Good Nodes in Binary Tree=AMG
+Kth Largest Element in an Array=AGMFPB
+Last Stone Weight=AM
+K Closest Points to Origin=AGMFPB
+Reorganize String=AGMF
+Find Median from Data Stream=AGMFBP
+Merge k Sorted Lists=AGMFPB
+Task Scheduler=AGMF
+Ugly Number II=AG
+Insert Interval=AGMFB
+Non-overlapping Intervals=AGM
+Jump Game=AGMFB
+Minimum Number of Arrows to Burst Balloons=AGM
+Gas Station=AGMB
+Partition Labels=AG
+Maximum Product Subarray=AGMFB
+Hand of Straights=AG
+Rotate Image=AGMFPB
+Spiral Matrix=AGMFPB
+Set Matrix Zeroes=AMFPB
+Game of Life=AGM
+Insert Delete GetRandom O(1)=AGMFB
+Design Browser History=AGM
+LFU Cache=AGMB
+Snapshot Array=AGM
+Next Permutation=AGMFB
+Sort List=AMFB
+Number of Islands=AGMFPBDU
+Max Area of Island=AGMFB
+Clone Graph=AGMF
+Course Schedule II=AGMFB
+Pacific Atlantic Water Flow=AGM
+Rotting Oranges=AGMFB
+Flood Fill=AGM
+Keys and Rooms=AG
+Course Schedule=AGMFPBU
+Number of Provinces=AGM
+Find if Path Exists in Graph=AM
+Accounts Merge=AGMFB
+Word Ladder=AGMFB
+Redundant Connection=AGM
+Open the Lock=AG
+Network Delay Time=AGM
+Cheapest Flights Within K Stops=AGMF
+Min Cost to Connect All Points=AG
+Is Graph Bipartite?=AGM
+Evaluate Division=AGMF
+Minimum Height Trees=AGM
+Surrounded Regions=AGMF
+Climbing Stairs=AGMFPBD
+Min Cost Climbing Stairs=AG
+Fibonacci Number=AMB
+Perfect Squares=AGMF
+House Robber=AGMFB
+House Robber II=AG
+Jump Game II=AGMFB
+Unique Paths II=AGM
+Coin Change=AGMFPB
+Longest Increasing Subsequence=AGMFPB
+Coin Change II=AGM
+Unique Paths=AGMFPB
+Minimum Path Sum=AGM
+Triangle=AGM
+Best Time to Buy and Sell Stock II=AGMFB
+Longest Common Subsequence=AGMFB
+Word Break=AGMFB
+Longest Palindromic Subsequence=AGM
+Decode Ways=AGMFB
+Partition Equal Subset Sum=AGMF
+Maximal Square=AGMF
+Best Time to Buy and Sell Stock with Cooldown=AGM
+Target Sum=AGMF
+Longest Increasing Path in a Matrix=AGMF
+Edit Distance=AGMFPB
+Palindromic Substrings=AGMF
+Ones and Zeroes=AG
+Interleaving String=AGM
+Minimum Size Subarray Sum=AGMF
+Max Consecutive Ones III=AGM
+Find All Anagrams in a String=AGMF
+Next Greater Element II=AGM
+Capacity To Ship Packages Within D Days=AGMF
+Find Peak Element=AGMF
+First Bad Version=AGM
+Asteroid Collision=AGM
+Combination Sum II=AGMF
+Subsets II=AGMF
+Permutations II=AGMF
+Partition to K Equal Sum Subsets=AGMF
+N-Queens=AGMF
+String Compression=AGMF
+Minimum Remove to Make Valid Parentheses=AGMFB
+Isomorphic Strings=AGM
+First Unique Character in a String=AMB
+Backspace String Compare=AGM
+Multiply Strings=AGMFB
+Reverse Words in a String=AMFB
+Decode String=AGMFB
+String to Integer (atoi)=AGMFB
+Odd Even Linked List=AM
+Rotate List=AMG
+Swap Nodes in Pairs=AMG
+Linked List Cycle II=AGMFB
+Partition List=AM
+Single Number II=AGM
+Bitwise AND of Numbers Range=AGM
+Power of Four=AM
+Hamming Distance=AMF
+Maximum XOR of Two Numbers in an Array=AGMF
+UTF-8 Validation=AGM
+Happy Number=AGMB
+Plus One=AGMFB
+Sqrt(x)=AGMFB
+Count Primes=AMB
+Spiral Matrix II=AM
+Contiguous Array=AGMF
+Remove Element=AMB
+Is Subsequence=AGMB
+4Sum=AGMF
+Top K Frequent Words=AGMFB
+Path Sum=AGMB
+Symmetric Tree=AGMFB
+Binary Tree Inorder Traversal=AGMFB
+House Robber III=AGM
+Path Sum III=AGMF
+Add Binary=AMFB
+Reverse Integer=AGMFB
+Valid Palindrome II=AMFB
+Basic Calculator II=AGMFB
+Simplify Path=AGMFB
+Design Circular Deque=AMB
+Implement Stack using Queues=AMB
+Design Underground System=AGM
+Subarray Product Less Than K=AGMF
+Fruit Into Baskets=AGMF
+Find K Pairs with Smallest Sums=AGM
+Kth Smallest Element in a Sorted Matrix=AGMFB
+Remove Duplicates from Sorted List=AMB
+Reverse Linked List II=AGMFB
+First Missing Positive=AGMFPB
+Shortest Path in Binary Matrix=AGMF
+Path With Minimum Effort=AGMF
+Find Eventual Safe States=AG
+Burst Balloons=AGMF
+Longest String Chain=AGM
+Palindrome Partitioning II=AGM
+Binary Tree Cameras=AG
+Vertical Order Traversal of a Binary Tree=AGMFB
+Maximum Width of Binary Tree=AGM
+Valid Parenthesis String=AGMF
+Longest Valid Parentheses=AGMFB
+Word Break II=AGMF
+Sliding Window Maximum=AGMFBP
+Maximal Rectangle=AGMF
+Basic Calculator=AGMFB
+Stock Price Fluctuation=AGM
+Random Pick with Weight=AGMFB
+Flatten Nested List Iterator=AGMFB
+Largest Number=AGMFB
+Car Pooling=AGM
+Interval List Intersections=AGMF
+Swim in Rising Water=AG
+Reconstruct Itinerary=AGMFU
+Find K Closest Elements=AGMF
+Minimum Number of Days to Make m Bouquets=AGM
+Smallest Range Covering Elements from K Lists=AGMF
+Seat Reservation Manager=AG
+Matchsticks to Square=AG
+Beautiful Arrangement=AG
+Shortest Bridge=AGMF
+Making A Large Island=AGM
+Critical Connections in a Network=AGMF
+Subarray Sums Divisible by K=AGMF
+Find All Duplicates in an Array=AGMF
+Majority Element II=AGM
+Cherry Pickup=AG
+Minimum Number of Refueling Stops=AG
+Maximum Length of Repeated Subarray=AG
+Remove Duplicates from Sorted List II=AMF
+Maximum Twin Sum of a Linked List=AM
+Flatten a Multilevel Doubly Linked List=AGMFB
+Recover Binary Search Tree=AGM
+All Nodes Distance K in Binary Tree=AGMFB
+Trim a Binary Search Tree=AGM
+Design HashMap=AGMFB
+Peeking Iterator=AGMF
+Implement Rand10() Using Rand7()=AGMFB
+Maximum Frequency Stack=AGM
+Design Skiplist=AG
+Remove K Digits=AGMFB`;
+const COM={};COSTR.split('\n').forEach(l=>{const i=l.lastIndexOf('=');if(i>0)COM[l.slice(0,i)]=l.slice(i+1)});
+// keep only problems with several independent reports (4 or more companies): fewer, more reliable labels
+Object.keys(COM).forEach(k=>{if(COM[k].length<4)delete COM[k]});
 'use strict';
 const KEY='iq90v1',N=90;
 const $=s=>document.querySelector(s);
@@ -1007,7 +1314,8 @@ const opts=(l,v)=>l.map(x=>`<option${x==v?' selected':''}>${e(x)}</option>`).joi
 // ---------- DSA problems (Easy and Medium are the core, Hard is optional stretch) ----------
 const PL=[];
 DAYS.forEach(d=>{let c='Arrays & Hashing';(d[3]||'').split('|').forEach(t=>{if(!t)return;if(t[0]=='@'){c=t.slice(1);return}const k=t.lastIndexOf(':'),n=t.slice(0,k);PL.push({id:slug(n),n,c,d:DIFF[t.slice(k+1)]})})});
-PL.forEach((p,i)=>p.day=Math.floor(i*N/PL.length)+1);
+PL.forEach((p,i)=>{p.day=Math.floor(i*N/PL.length)+1;p.co=(COM[p.n]||'').split('').filter(c=>COMP[c])});
+const cochips=p=>p.co.length?`<span class="cos">${p.co.map(c=>`<button class="co${F.dco==c?' on':''}" data-a="co" data-i="${c}" title="Show all ${COMP[c]} problems">${COMP[c]}</button>`).join('')}</span>`:'';
 const PBD=Array.from({length:N+1},()=>[]);PL.forEach(p=>PBD[p.day].push(p));
 const req=n=>{const P=PBD[n]||[],r=P.filter(p=>p.d!='Hard');return r.length?r:P};
 
@@ -1062,7 +1370,7 @@ const envPill2=k=>envPill(k);
 // ---------- Study ----------
 function vStudy(){const n=S.day,P=PLAN[n-1],w=wk(n),W=WEEKS[w-1],d=g(n),pr=dprog(n),PR=req(n),ST=(PBD[n]||[]).filter(p=>!PR.includes(p));
  const rd=W[2].slice(0,3),wt=[...WVC[w-1].map(c=>['▶ '+c[0],yt(P.t+' '+c[0])]),['▶ Any channel',yt(P.t+' explained')]],sr=[['GeeksforGeeks',gg('site:geeksforgeeks.org '+P.t)],['Interview questions',gg(P.t+' interview questions')]];
- const prow=p=>{const s=ps(p.id);return `<div class="pr"><input type="checkbox" class="ck" data-a="pdone" data-i="${p.id}" ${s.st=='done'?'checked':''} aria-label="Solved ${e(p.n)}"><a class="pn" target="_blank" rel="noopener" href="${e(lcu(p))}">${e(p.n)}</a><a class="tag cat" style="text-decoration:none" target="_blank" rel="noopener" href="${yt('NeetCode '+p.n+' leetcode')}">▶ video</a><span class="tag ${p.d}">${p.d}</span><button class="star ${s.star?'on':''}" data-a="star" data-i="${p.id}" title="Star to revisit" aria-label="Star to revisit">★</button><input type="text" class="pnote" data-s="p:${p.id}:note" placeholder="Approach and complexity (optional)" value="${e(s.note||'')}"></div>`};
+ const prow=p=>{const s=ps(p.id);return `<div class="pr"><input type="checkbox" class="ck" data-a="pdone" data-i="${p.id}" ${s.st=='done'?'checked':''} aria-label="Solved ${e(p.n)}"><a class="pn" target="_blank" rel="noopener" href="${e(lcu(p))}">${e(p.n)}</a><a class="tag cat" style="text-decoration:none" target="_blank" rel="noopener" href="${yt('NeetCode '+p.n+' leetcode')}">▶ video</a><span class="tag ${p.d}">${p.d}</span><button class="star ${s.star?'on':''}" data-a="star" data-i="${p.id}" title="Star to revisit" aria-label="Star to revisit">★</button>${cochips(p)}<input type="text" class="pnote" data-s="p:${p.id}:note" placeholder="Approach and complexity (optional)" value="${e(s.note||'')}"></div>`};
  const kp=P.k[0].split(';');
  const nq=ownQs(n).length;
  return dayBar()+`<section class="hero"><div class="row"><span class="pill">Week ${w}: ${e(W[0])}</span>${isBoss(n)?'<span class="pill">Boss day</span>':''}<span class="pill sts-${stat(n)}">${{ok:'Complete',part:'In progress',new:'Not started'}[stat(n)]}</span></div><div class="dayn">Day ${n}</div><h2>${e(P.t)}</h2><p class="mu" style="margin:4px 0 0">Plan: study 45 min, DSA 75, questions 30, project 45 to 90.</p></section>
@@ -1104,9 +1412,11 @@ function vProj(){const n=S.day,wkn=F.pw||wk(n),weekend=F.pt=='weekend';
 // ---------- DSA ----------
 function vDsa(){const cs=[...new Set(PL.map(p=>p.c))],q=(F.dq||'').toLowerCase(),sv=d=>PL.filter(p=>p.d==d&&ps(p.id).st=='done').length,tot=d=>PL.filter(p=>p.d==d).length;
  let h=`<div class="card"><div class="stats">${['Easy','Medium','Hard'].map(d=>`<div class="st"><span class="${d}">${d}${d=='Hard'?' (optional)':''}</span><b>${sv(d)}<small> / ${tot(d)}</small></b><div class="bar"><i class="${d}b" style="width:${tot(d)?sv(d)/tot(d)*100:0}%"></i></div></div>`).join('')}<div class="st"><span>Starred</span><b>${PL.filter(p=>ps(p.id).star).length}</b></div></div><p class="mu sm" style="margin:10px 0 0">Easy and Medium problems are the core. Hard problems are optional stretch. The plan places about three problems on each day.</p></div>
+ <div class="card"><b>Filter by company</b><div class="cochips"><button class="co${F.dco?'':' on'}" data-a="co" data-i="">All</button>${Object.keys(COMP).map(c=>`<button class="co${F.dco==c?' on':''}" data-a="co" data-i="${c}">${COMP[c]} (${PL.filter(p=>p.co.includes(c)).length})</button>`).join('')}</div><p class="mu sm" style="margin:8px 0 0">Click a company label (here or on any problem) to see every problem reported for it. Labels come from commonly reported interview experiences, not official data, so treat them as a guide. Only well-known problems that many people report are labelled; an unlabelled problem does not mean nobody asks it. LeetCode's own company tags are a paid feature.</p></div>
+ ${F.dco?`<p class="mu">Showing problems commonly reported for <b>${COMP[F.dco]}</b>. <button class="sbtn" data-a="co" data-i="">Clear</button></p>`:''}
  <div class="card"><div class="f"><input type="search" id="f_dq" data-f="dq" placeholder="Search problems" value="${e(F.dq||'')}"><select data-f="dc"><option value="">All topics</option>${opts(cs,F.dc)}</select><select data-f="dd"><option value="">All difficulties</option>${opts(['Easy','Medium','Hard'],F.dd)}</select><select data-f="ds"><option value="">All</option><option value="done"${F.ds=='done'?' selected':''}>Solved</option><option value="todo"${F.ds=='todo'?' selected':''}>Not solved</option><option value="star"${F.ds=='star'?' selected':''}>Starred</option></select></div></div>`;
- cs.forEach(c=>{if(F.dc&&F.dc!=c)return;const all=PL.filter(p=>p.c==c),l=all.filter(p=>(!F.dd||p.d==F.dd)&&p.n.toLowerCase().includes(q)&&(!F.ds||(F.ds=='done'?ps(p.id).st=='done':F.ds=='todo'?ps(p.id).st!='done':ps(p.id).star)));if(!l.length)return;
-  h+=`<div class="card lcl"><div class="row"><h3 class="grow">${e(c)}</h3><span class="mu sm">${all.filter(p=>ps(p.id).st=='done').length} / ${all.length} solved</span></div>`+l.map(p=>{const s=ps(p.id);return `<div class="pr"><input type="checkbox" class="ck" data-a="pdone" data-i="${p.id}" ${s.st=='done'?'checked':''} aria-label="Solved ${e(p.n)}"><a class="pn" target="_blank" rel="noopener" href="${e(lcu(p))}">${e(p.n)}</a><span class="mu sm">Day ${p.day}</span><a class="tag cat" style="text-decoration:none" target="_blank" rel="noopener" href="${yt('NeetCode '+p.n+' leetcode')}">▶ video</a><span class="tag ${p.d}">${p.d}</span><button class="star ${s.star?'on':''}" data-a="star" data-i="${p.id}" aria-label="Star">★</button><input type="text" class="pnote" data-s="p:${p.id}:note" placeholder="Notes (optional)" value="${e(s.note||'')}"></div>`}).join('')+'</div>'});
+ cs.forEach(c=>{if(F.dc&&F.dc!=c)return;const all=PL.filter(p=>p.c==c),l=all.filter(p=>(!F.dd||p.d==F.dd)&&(!F.dco||p.co.includes(F.dco))&&p.n.toLowerCase().includes(q)&&(!F.ds||(F.ds=='done'?ps(p.id).st=='done':F.ds=='todo'?ps(p.id).st!='done':ps(p.id).star)));if(!l.length)return;
+  h+=`<div class="card lcl"><div class="row"><h3 class="grow">${e(c)}</h3><span class="mu sm">${all.filter(p=>ps(p.id).st=='done').length} / ${all.length} solved</span></div>`+l.map(p=>{const s=ps(p.id);return `<div class="pr"><input type="checkbox" class="ck" data-a="pdone" data-i="${p.id}" ${s.st=='done'?'checked':''} aria-label="Solved ${e(p.n)}"><a class="pn" target="_blank" rel="noopener" href="${e(lcu(p))}">${e(p.n)}</a><span class="mu sm">Day ${p.day}</span><a class="tag cat" style="text-decoration:none" target="_blank" rel="noopener" href="${yt('NeetCode '+p.n+' leetcode')}">▶ video</a><span class="tag ${p.d}">${p.d}</span><button class="star ${s.star?'on':''}" data-a="star" data-i="${p.id}" aria-label="Star">★</button>${cochips(p)}<input type="text" class="pnote" data-s="p:${p.id}:note" placeholder="Notes (optional)" value="${e(s.note||'')}"></div>`}).join('')+'</div>'});
  return h}
 
 // ---------- Roadmap ----------
@@ -1163,6 +1473,7 @@ document.addEventListener('click',ev=>{const t=ev.target.closest('[data-a]');if(
  else if(a=='qall'){F.qall=1}
  else if(a=='pt'){F.pt=i}
  else if(a=='pw'){F.pw=Math.max(1,Math.min(13,(F.pw||wk(S.day))+ +i))}
+ else if(a=='co'){F.dco=(F.dco==i||!i)?'':i;if(S.v!='dsa'){S.v='dsa';TOP=true}}
  else if(a=='openguide'){OPEN.add('gs');S.v='guide';TOP=true}
  else if(a=='gdbtn'){S.day=+$('#gd').value;S.v='study';TOP=true}
  else if(a=='exp'){const b=new Blob([JSON.stringify(S,null,1)],{type:'application/json'}),l=document.createElement('a');l.href=URL.createObjectURL(b);l.download='interview-guide-backup.json';l.click();return}
